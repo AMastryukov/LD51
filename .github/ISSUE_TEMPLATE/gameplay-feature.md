@@ -2,7 +2,7 @@
 name: Gameplay Feature
 about: A gameplay feature, system, or another code deliverable
 title: ''
-labels: Code
+labels: Code, Medium Priority
 assignees: ''
 
 ---
