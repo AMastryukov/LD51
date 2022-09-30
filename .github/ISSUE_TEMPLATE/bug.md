@@ -2,7 +2,7 @@
 name: Bug
 about: A bug in the code
 title: "[BUG] Bug Title"
-labels: Bug, Code
+labels: Bug, Code, Medium Priority
 assignees: ''
 
 ---

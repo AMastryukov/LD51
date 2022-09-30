@@ -2,7 +2,7 @@
 name: Art Deliverable
 about: An art deliverable (2D, 3D, Music, etc)
 title: Art Deliverable
-labels: Art
+labels: Art, Medium Priority
 assignees: ''
 
 ---
