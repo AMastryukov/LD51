@@ -32,7 +32,7 @@ public class AudioManager : MonoBehaviour
 
         var audioSources = FindObjectsOfType<AudioSource>().ToList();
 
-        foreach(var source in audioSources)
+        foreach (var source in audioSources)
         {
             if (source.CompareTag("MusicSource"))
             {
