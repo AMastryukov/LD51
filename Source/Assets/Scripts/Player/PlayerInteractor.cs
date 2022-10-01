@@ -32,7 +32,6 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (inputHandler.GetInteractInput())
         {
-            Debug.Log("Pressed e");
             lookingAtInteractable?.Interact();
 
             Debug.DrawRay(cameraTransform.position, cameraTransform.forward, Color.blue, 2f);
