@@ -77,18 +77,20 @@ public class PlayerController : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent(PlayerCamera, this);
     }
 
-    // Update is called once per frame
-    void Update()
+    // Physics updated
+    private void FixedUpdate()
     {
         // The one thing we do everytime
         CheckGrounded();
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
         if (playerManager.CurrentState == PlayerStates.Move)
         {
             HandleCharacterMovement();
         }
-
-
     }
 
     /// <summary>
@@ -189,9 +191,6 @@ public class PlayerController : MonoBehaviour
             debugRayColor = Color.red;
         }
 
-        //if (inputHandler.GetJumpInputDown())
-        //{
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * rayLength, debugRayColor, 0.1f);
-        //}
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * rayLength, debugRayColor, Time.deltaTime);
     }
 }
