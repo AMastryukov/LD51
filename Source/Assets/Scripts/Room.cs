@@ -39,7 +39,7 @@ public class Room : MonoBehaviour
             Debug.Log(nameof(Start), this);
         }
 
-        Debug.LogWarning($"{nameof(Room)} needs to hook up {nameof(OnEnemyDespawned)} to {nameof(EnemyPool)}'s on enemy despawned event!", this);
+        EnemyPool.OnPoolDestroy += OnEnemyDespawned;
     }
 
     private void OnTriggerEnter(Collider collider)
