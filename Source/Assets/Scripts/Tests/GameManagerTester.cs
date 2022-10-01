@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +7,10 @@ public class GameManagerTester : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI secondText = null;
     [SerializeField] private GameObject tenSecondsPassedText = null;
+
+    [SerializeField] private TextMeshProUGUI weaponText = null;
+    [SerializeField] private TextMeshProUGUI trapText = null;
+    [SerializeField] private TextMeshProUGUI bonusText = null;
 
     [SerializeField] private GameObject startGameButton = null;
     [SerializeField] private GameObject endGameButton = null;
@@ -21,6 +24,10 @@ public class GameManagerTester : MonoBehaviour
         GameManager.Instance.OnSecondPassed += OnSecond;
         GameManager.Instance.OnTenSecondsPassed += OnTenSecondsPassed;
         GameManager.Instance.OnTimerStopped += OnTimerStopped;
+
+        GameManager.Instance.OnNewWeapon += OnNewWeapon;
+        GameManager.Instance.OnNewTrap += OnNewTrap;
+        GameManager.Instance.OnNewBonus += OnNewBonus;
     }
 
     private void OnGameStateChanged(GameStates gameState)
@@ -32,8 +39,17 @@ public class GameManagerTester : MonoBehaviour
 
         gameStateText.text = "Game State: " + gameState.ToString();
 
+        weaponText.gameObject.SetActive(gameState == GameStates.Play);
+        trapText.gameObject.SetActive(gameState == GameStates.Play);
+        bonusText.gameObject.SetActive(gameState == GameStates.Play);
+
         startGameButton.SetActive(gameState != GameStates.Play);
         endGameButton.SetActive(gameState == GameStates.Play);
+
+        if (gameState != GameStates.Play)
+        {
+            tenSecondsPassedText.SetActive(false);
+        }
     }
 
     private void OnSecond(int second)
@@ -69,5 +85,35 @@ public class GameManagerTester : MonoBehaviour
         }
 
         secondText.text = string.Empty;
+    }
+
+    private void OnNewWeapon(string weapon)
+    {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(OnNewWeapon) + " ( " + nameof(weapon) + ": " + weapon + " )", this);
+        }
+
+        weaponText.text = "Weapon: " + weapon;
+    }
+
+    private void OnNewTrap(string trap)
+    {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(OnNewTrap) + " ( " + nameof(trap) + ": " + trap + " )", this);
+        }
+
+        trapText.text = "Trap: " + trap;
+    }
+
+    private void OnNewBonus(Bonuses bonus)
+    {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(OnNewBonus) + " ( " + nameof(bonus) + ": " + bonus + " )", this);
+        }
+
+        bonusText.text = "Bonus: " + bonus;
     }
 }
