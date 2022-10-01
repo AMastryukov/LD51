@@ -27,11 +27,11 @@ public class RoomBonusHandlingLogicTester : MonoBehaviour
 
         if (room.IsControlledByPlayer)
         {
-            OnRoomCaptured();
+            OnRoomCaptured(room.Bonus);
         }
         else
         {
-            OnRoomLost();
+            OnRoomLost(room.Bonus);
         }
     }
 
@@ -60,21 +60,21 @@ public class RoomBonusHandlingLogicTester : MonoBehaviour
         countDownText.text = secondsLeft.ToString();
     }
 
-    private void OnRoomLost()
+    private void OnRoomLost(Bonuses bonus)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnRoomLost), this);
+            Debug.Log(nameof(OnRoomLost) + " ( " + nameof(bonus) + ": " + bonus + " )", this);
         }
 
         roomControlText.text = "Under Enemy Control!";
     }
 
-    private void OnRoomCaptured()
+    private void OnRoomCaptured(Bonuses bonus)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnRoomCaptured), this);
+            Debug.Log(nameof(OnRoomCaptured) + " ( " + nameof(bonus) + ": " + bonus + " )", this);
         }
 
         roomControlText.text = "Tis yours!";

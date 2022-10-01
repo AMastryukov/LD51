@@ -14,8 +14,8 @@ public class Room : MonoBehaviour
 
     public Action<States> OnStateChange;
     public Action<int> OnCountDown;
-    public Action OnRoomLost;
-    public Action OnRoomCaptured;
+    public Action<Bonuses> OnRoomLost;
+    public Action<Bonuses> OnRoomCaptured;
 
     [SerializeField] private Bonuses bonus = Bonuses.None;
     [SerializeField] private int enemySecondsToCaptureRoom = 10;
@@ -28,6 +28,7 @@ public class Room : MonoBehaviour
     private bool isControlledByPlayer = true;
     private IEnumerator countToRoomCapture = null;
 
+    public Bonuses Bonus => bonus;
     public States State => state;
     public bool IsControlledByPlayer => isControlledByPlayer;
 
@@ -230,7 +231,7 @@ public class Room : MonoBehaviour
         }
 
         isControlledByPlayer = false;
-        OnRoomLost?.Invoke();
+        OnRoomLost?.Invoke(bonus);
     }
 
     private void Capture()
@@ -241,7 +242,7 @@ public class Room : MonoBehaviour
         }
 
         isControlledByPlayer = true;
-        OnRoomCaptured?.Invoke();
+        OnRoomCaptured?.Invoke(bonus);
     }
 
     private void CancelCountToRoomCapture()
