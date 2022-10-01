@@ -92,7 +92,16 @@ public class GameManager : MonoBehaviour
             Debug.Log(nameof(Awake), this);
         }
 
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void StartGame()
