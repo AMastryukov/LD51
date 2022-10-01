@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBonuses : MonoBehaviour
 {
-    public Action<Bonuses, bool> OnBonusChange;
+    public static Action<Bonuses, bool> OnBonusChange;
 
     [SerializeField] private Room[] rooms = new Room[0];
     [SerializeField] private bool verboseLogging = false;
