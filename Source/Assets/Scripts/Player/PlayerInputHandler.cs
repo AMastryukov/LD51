@@ -11,6 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
     public const string AXIS_MOUSE_X = "Mouse X";
     public const string AXIS_JUMP = "Jump";
     public const string AXIS_FIRE1 = "Fire1";
+    public const string AXIS_INTERACT = "Interact";
 
     public Vector3 GetMoveInput()
     {
@@ -39,5 +40,10 @@ public class PlayerInputHandler : MonoBehaviour
     public float GetLookInputsVertical()
     {
         return Input.GetAxisRaw(AXIS_MOUSE_Y);
+    }
+
+    public bool GetInteractInput()
+    {
+        return Input.GetButtonDown(AXIS_INTERACT);
     }
 }
