@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float enemyHealth = 10f;
+    [SerializeField] private int enemyHealth = 10;
 }
