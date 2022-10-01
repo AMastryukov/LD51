@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     public static Action OnTimerStarted;
     public static Action OnTimerStopped;
 
-    public static Action<string, string> OnNewWeapon;
-    public static Action<string, string> OnNewTrap;
+    public static Action<ItemData, ItemData> OnNewWeapon;
+    public static Action<ItemData, ItemData> OnNewTrap;
     public static Action<Bonuses, Bonuses> OnNewBonus;
 
     [Tooltip("The max count of each queue when populating; inclusive.")]
@@ -39,12 +39,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool verboseLogging = false;
     [SerializeField] private bool superVerboseLogging = false;
 
-    private Queue<string> weaponQueue = new Queue<string>();
-    private Queue<string> trapQueue = new Queue<string>();
+    private Queue<ItemData> weaponQueue = new Queue<ItemData>();
+    private Queue<ItemData> trapQueue = new Queue<ItemData>();
     private Queue<Bonuses> bonusQueue = new Queue<Bonuses>();
 
-    private string lastQueuedWeapon = null;
-    private string lastQueuedTrap = null;
+    private ItemData lastQueuedWeapon = null;
+    private ItemData lastQueuedTrap = null;
     private Bonuses lastQueuedBonus = Bonuses.None;
 
     private GameStates gameState = GameStates.Menu;
@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour
     private int bonusesLength = 0;
 
     public GameStates GameState => gameState;
-    public Queue<string> WeaponQueue => weaponQueue;//todo make readonly
-    public Queue<string> TrapQueue => trapQueue;//todo make readonly
+    public Queue<ItemData> WeaponQueue => weaponQueue;//todo make readonly
+    public Queue<ItemData> TrapQueue => trapQueue;//todo make readonly
     public Queue<Bonuses> BonusQueue => bonusQueue;//todo make readonly
 
     //todo replace these
@@ -197,12 +197,12 @@ public class GameManager : MonoBehaviour
             Debug.Log(nameof(ShiftQueues), this);
         }
 
-        string newWeapon = weaponQueue.Dequeue();
-        string nextWeapon = weaponQueue.Peek();
+        var newWeapon = weaponQueue.Dequeue();
+        var nextWeapon = weaponQueue.Peek();
         OnNewWeapon?.Invoke(newWeapon, nextWeapon);
 
-        string newTrap = trapQueue.Dequeue();
-        string nextTrap = trapQueue.Peek();
+        var newTrap = trapQueue.Dequeue();
+        var nextTrap = trapQueue.Peek();
         OnNewTrap?.Invoke(newTrap, nextTrap);
 
         Bonuses newBonus = bonusQueue.Dequeue();
@@ -234,15 +234,9 @@ public class GameManager : MonoBehaviour
 
         while (weaponQueue.Count < queueMax)
         {
-            int newWeaponIndex = UnityEngine.Random.Range(0, tempWeapons.Length);
-            string newWeapon = tempWeapons[newWeaponIndex];
+            // TODO: Fetch a random ItemData that corresponds to a Weapon
 
-            while (newWeapon == lastQueuedWeapon)
-            {
-                newWeaponIndex = UnityEngine.Random.Range(0, tempWeapons.Length);
-                newWeapon = tempWeapons[newWeaponIndex];
-            }
-
+            var newWeapon = new ItemData();
             weaponQueue.Enqueue(newWeapon);
             lastQueuedWeapon = newWeapon;
         }
@@ -257,15 +251,9 @@ public class GameManager : MonoBehaviour
 
         while (trapQueue.Count < queueMax)
         {
-            int newTrapIndex = UnityEngine.Random.Range(0, tempTraps.Length);
-            string newTrap = tempTraps[newTrapIndex];
+            // TODO: Fetch a random ItemData that corresponds to a Trap
 
-            while (newTrap == lastQueuedTrap)
-            {
-                newTrapIndex = UnityEngine.Random.Range(0, tempTraps.Length);
-                newTrap = tempTraps[newTrapIndex];
-            }
-
+            var newTrap = new ItemData();
             trapQueue.Enqueue(newTrap);
             lastQueuedTrap = newTrap;
         }

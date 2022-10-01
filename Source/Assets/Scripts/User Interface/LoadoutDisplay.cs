@@ -26,19 +26,16 @@ public class LoadoutDisplay : MonoBehaviour
         GameManager.OnNewBonus -= UpdateBonuses;
     }
 
-
-    // TODO: Replace strings with ItemData when that has been implemented
-    private void UpdateWeapons(string newWeapon, string nextWeapon)
+    private void UpdateWeapons(ItemData newWeapon, ItemData nextWeapon)
     {
-        // activeWeaponSlot.SetItem(newWeapon);
-        // nextWeaponSlot.SetItem(nextWeapon);
+        activeWeaponSlot.SetItem(newWeapon);
+        nextWeaponSlot.SetItem(nextWeapon);
     }
 
-    // TODO: Replace strings with ItemData when that has been implemented
-    private void UpdateTraps(string newTrap, string nextTrap)
+    private void UpdateTraps(ItemData newTrap, ItemData nextTrap)
     {
-        // activeTrapSlot.SetItem(newTrap);
-        // nextTrapSlot.SetItem(nextTrap);
+        activeTrapSlot.SetItem(newTrap);
+        nextTrapSlot.SetItem(nextTrap);
     }
 
     private void UpdateBonuses(Bonuses newBonus, Bonuses nextBonus)

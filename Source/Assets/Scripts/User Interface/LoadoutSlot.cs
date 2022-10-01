@@ -8,7 +8,9 @@ public class LoadoutSlot : MonoBehaviour
     [SerializeField] private Image image;
 
     private Outline _outline;
-    // private ItemData _itemData;
+
+    // The slot can either have an ItemData or a Bonus
+    private ItemData _itemData;
     private Bonuses _bonus;
 
     private void Awake()
@@ -16,18 +18,15 @@ public class LoadoutSlot : MonoBehaviour
         _outline = GetComponent<Outline>();
     }
 
-    /** Uncomment this when ItemData has been implemented
-    public void SetItem(string data)
+    public void SetItem(ItemData data)
     {
         _itemData = data;
-        itemImage.sprite = _itemData.Sprite;
+        image.sprite = _itemData.Sprite;
     }
-    **/
 
     public void SetBonus(Bonuses bonus)
     {
         _bonus = bonus;
-
         // TODO: find sprite associated with the bonus
     }
 
