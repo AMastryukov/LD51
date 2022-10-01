@@ -18,28 +18,28 @@ public class RoomBonusHandlingLogicTester : MonoBehaviour
             Debug.Log(nameof(Start), this);
         }
 
-        room.OnStateChange += OnStateChange;
-        room.OnCountDown += OnCountDown;
-        room.OnRoomLost += OnRoomLost;
-        room.OnRoomCaptured += OnRoomCaptured;
+        Room.OnStateChange += OnStateChange;
+        Room.OnCountDown += OnCountDown;
+        Room.OnRoomLost += OnRoomLost;
+        Room.OnRoomCaptured += OnRoomCaptured;
 
-        OnStateChange(room.State);
+        OnStateChange(room, room.State);
 
         if (room.IsControlledByPlayer)
         {
-            OnRoomCaptured(room.Bonus);
+            OnRoomCaptured(room, room.Bonus);
         }
         else
         {
-            OnRoomLost(room.Bonus);
+            OnRoomLost(room, room.Bonus);
         }
     }
 
-    private void OnStateChange(Room.States state)
+    private void OnStateChange(Room room, Room.States state)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnStateChange) + " ( " + nameof(state) + ": " + state + " )", this);
+            Debug.Log(nameof(OnStateChange) + " ( " + nameof(room) + ": " + room.gameObject.name + " , " + nameof(state) + ": " + state + " )", this);
         }
 
         roomStateText.text = state.ToString();
@@ -50,31 +50,31 @@ public class RoomBonusHandlingLogicTester : MonoBehaviour
         }
     }
 
-    private void OnCountDown(int secondsLeft)
+    private void OnCountDown(Room room, int secondsLeft)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnCountDown) + " ( " + nameof(secondsLeft) + ": " + secondsLeft + " )", this);
+            Debug.Log(nameof(OnCountDown) + " ( " + nameof(room) + ": " + room.gameObject.name + " , " + nameof(secondsLeft) + ": " + secondsLeft + " )", this);
         }
 
         countDownText.text = secondsLeft.ToString();
     }
 
-    private void OnRoomLost(Bonuses bonus)
+    private void OnRoomLost(Room room, Bonuses bonus)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnRoomLost) + " ( " + nameof(bonus) + ": " + bonus + " )", this);
+            Debug.Log(nameof(OnRoomLost) + " ( " + nameof(room) + ": " + room.gameObject.name + " , " + nameof(bonus) + ": " + bonus + " )", this);
         }
 
         roomControlText.text = "Under Enemy Control!";
     }
 
-    private void OnRoomCaptured(Bonuses bonus)
+    private void OnRoomCaptured(Room room, Bonuses bonus)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnRoomCaptured) + " ( " + nameof(bonus) + ": " + bonus + " )", this);
+            Debug.Log(nameof(OnRoomCaptured) + " ( " + nameof(room) + ": " + room.gameObject.name + " , " + nameof(bonus) + ": " + bonus + " )", this);
         }
 
         roomControlText.text = "Tis yours!";

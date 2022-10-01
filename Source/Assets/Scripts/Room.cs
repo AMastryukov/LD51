@@ -12,10 +12,10 @@ public class Room : MonoBehaviour
         CountingToPlayerControl,
     }
 
-    public Action<States> OnStateChange;
-    public Action<int> OnCountDown;
-    public Action<Bonuses> OnRoomLost;
-    public Action<Bonuses> OnRoomCaptured;
+    public static Action<Room, States> OnStateChange;
+    public static Action<Room, int> OnCountDown;
+    public static Action<Room, Bonuses> OnRoomLost;
+    public static Action<Room, Bonuses> OnRoomCaptured;
 
     [SerializeField] private Bonuses bonus = Bonuses.None;
     [SerializeField] private int enemySecondsToCaptureRoom = 10;
@@ -191,7 +191,7 @@ public class Room : MonoBehaviour
 
         while (secondsToCaptureRoom > 0)
         {
-            OnCountDown?.Invoke(secondsToCaptureRoom);
+            OnCountDown?.Invoke(this, secondsToCaptureRoom);
             yield return new WaitForSeconds(1);
             secondsToCaptureRoom--;
         }
@@ -220,7 +220,7 @@ public class Room : MonoBehaviour
         }
 
         this.state = state;
-        OnStateChange?.Invoke(state);
+        OnStateChange?.Invoke(this, state);
     }
 
     private void LoseControl()
@@ -231,7 +231,7 @@ public class Room : MonoBehaviour
         }
 
         isControlledByPlayer = false;
-        OnRoomLost?.Invoke(bonus);
+        OnRoomLost?.Invoke(this, bonus);
     }
 
     private void Capture()
@@ -242,7 +242,7 @@ public class Room : MonoBehaviour
         }
 
         isControlledByPlayer = true;
-        OnRoomCaptured?.Invoke(bonus);
+        OnRoomCaptured?.Invoke(this, bonus);
     }
 
     private void CancelCountToRoomCapture()

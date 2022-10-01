@@ -6,7 +6,6 @@ public class PlayerBonuses : MonoBehaviour
 {
     public static Action<Bonuses, bool> OnBonusChange;
 
-    [SerializeField] private Room[] rooms = new Room[0];
     [SerializeField] private bool verboseLogging = false;
 
     private Dictionary<Bonuses, bool> bonuses = new Dictionary<Bonuses, bool>();
@@ -25,19 +24,13 @@ public class PlayerBonuses : MonoBehaviour
         {
             bonuses.Add(bonusValue, true);
         }
-
-        foreach (Room room in rooms)
-        {
-            room.OnRoomLost += OnRoomLost;
-            room.OnRoomCaptured += OnRoomCaptured;
-        }
     }
 
-    private void OnRoomLost(Bonuses bonus)
+    private void OnRoomLost(Room room, Bonuses bonus)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnRoomLost) + " ( " + nameof(bonus) + ": " + bonus + " )", this);
+            Debug.Log(nameof(OnRoomLost) + " ( " + nameof(room) + ": " + room.gameObject.name + " , " + nameof(bonus) + ": " + bonus + " )", this);
         }
 
         if (bonuses[bonus])
@@ -47,11 +40,11 @@ public class PlayerBonuses : MonoBehaviour
         }
     }
 
-    private void OnRoomCaptured(Bonuses bonus)
+    private void OnRoomCaptured(Room room, Bonuses bonus)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnRoomCaptured) + " ( " + nameof(bonus) + ": " + bonus + " )", this);
+            Debug.Log(nameof(OnRoomCaptured) + " ( " + nameof(room) + ": " + room.gameObject.name + " , " + nameof(bonus) + ": " + bonus + " )", this);
         }
 
         if (!bonuses[bonus])
