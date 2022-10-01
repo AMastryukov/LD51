@@ -26,34 +26,44 @@ public class EnemyAi : MonoBehaviour
     private Enemy _enemy;
     private EnemyAiState _currentState = EnemyAiState.OutsideHouse;
     private bool _isAttackOnCooldown;
+    private bool _isTargetTurret = false;
 
 
     #endregion
 
-    private void Update()
+
+    private IEnumerator EnemyAiUpdateLoop()
     {
-        switch (_currentState)
+        bool running = true;
+        while (running)
         {
-            case EnemyAiState.OutsideHouse:
-                MoveToNearestBarricade();
-                break;
-            case EnemyAiState.SearchForTarget:
-                FindTarget();
-                if (_target != null)
-                {
-                    _currentState = EnemyAiState.HuntingTarget;
-                }
-                else
-                {
-                    Debug.Log("No targets");
-                }
-                break;
-            case EnemyAiState.HuntingTarget:
-                HuntTarget();
-                break;
+            switch (_currentState)
+            {
+                case EnemyAiState.OutsideHouse:
+                    AttackBarricadeIfInRange();
+                    yield return new WaitForSeconds(_enemy.attacksPerSecond);
+                    break;
+                case EnemyAiState.SearchForTarget:
+                    FindTarget();
+                    if (_target != null)
+                    {
+                        _currentState = EnemyAiState.HuntingTarget;
+                    }
+                    else
+                    {
+                        //No turrets or players could be found in the scene so the loop can stop
+                        Debug.Log("No targets");
+                        running = false;
+                    }
+                    break;
+                case EnemyAiState.HuntingTarget:
+                    HuntTarget();
+                    yield return new WaitForSeconds(_isTargetTurret? _enemy.attacksPerSecond : 0.25f);
+                    break;
+            }
         }
     }
-    
+
     #region Initialization
 
     private void Awake()
@@ -70,7 +80,10 @@ public class EnemyAi : MonoBehaviour
         if (_nearestBarricade == null)
         {
             Debug.LogError("No objects with tag barricade found!");
+            return;
         }
+        MoveToNearestBarricade();
+        StartCoroutine(EnemyAiUpdateLoop());
     }
     private void PopulateTargetLists()
     {
@@ -127,13 +140,17 @@ public class EnemyAi : MonoBehaviour
 
     #region Traversal
 
-    private void MoveToNearestBarricade()
+    private void AttackBarricadeIfInRange()
     {
-        _agent.SetDestination(_nearestBarricade.position);
         if (_enemy.CheckIfObjectIsInRange(_nearestBarricade))
         {
             AttackBarricade();
         }
+    }
+
+    private void MoveToNearestBarricade()
+    {
+        _agent.SetDestination(_nearestBarricade.position);
     }
 
     private void HuntTarget()
@@ -143,7 +160,7 @@ public class EnemyAi : MonoBehaviour
             AttackTarget();
             return;
         }
-
+        
         _agent.SetDestination(_target.position);
     }
 
@@ -167,6 +184,8 @@ public class EnemyAi : MonoBehaviour
                 ? _nearestTurret
                 : _player;
         }
+
+        _isTargetTurret = _target == _nearestTurret;
     }
 
     private void FindNearestTurret()
