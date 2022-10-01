@@ -9,9 +9,9 @@ public class PlayerInputHandler : MonoBehaviour
     public const string AXIS_HORIZONTAL = "Horizontal";
     public const string AXIS_MOUSE_Y = "Mouse Y";
     public const string AXIS_MOUSE_X = "Mouse X";
-    public const string AXIS_JUMP = "Jump";
-    public const string AXIS_FIRE1 = "Fire1";
-    public const string AXIS_INTERACT = "Interact";
+    public const string BUTTON_JUMP = "Jump";
+    public const string BUTTON_FIRE1 = "Fire1";
+    public const string BUTTON_INTERACT = "Interact";
 
     public Vector3 GetMoveInput()
     {
@@ -29,7 +29,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool GetJumpInputDown()
     {
-        return Input.GetButtonDown(AXIS_JUMP);
+        return Input.GetButtonDown(BUTTON_JUMP);
     }
 
     public float GetLookInputsHorizontal()
@@ -44,6 +44,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool GetInteractInput()
     {
-        return Input.GetButtonDown(AXIS_INTERACT);
+        return Input.GetButtonDown(BUTTON_INTERACT);
     }
 }
