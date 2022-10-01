@@ -169,23 +169,25 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Count(int secondsRemaining)
     {
-        while (secondsRemaining > 0)
+        while (true)
         {
-            if (superVerboseLogging)
+            while (secondsRemaining > 0)
             {
-                Debug.Log(nameof(Count) + " ( " + nameof(secondsRemaining) + ": " + secondsRemaining + " )", this);
+                if (superVerboseLogging)
+                {
+                    Debug.Log(nameof(Count) + " ( " + nameof(secondsRemaining) + ": " + secondsRemaining + " )", this);
+                }
+
+                OnSecondPassed?.Invoke(secondsRemaining);
+                yield return new WaitForSeconds(1);
+                secondsRemaining--;
             }
 
-            OnSecondPassed?.Invoke(secondsRemaining);
-            yield return new WaitForSeconds(1);
-            secondsRemaining--;
+            OnTenSecondsPassed?.Invoke();
+            ShiftQueues();
+
+            secondsRemaining = SECONDS_TO_COUNT_TO;
         }
-
-        OnTenSecondsPassed?.Invoke();
-        ShiftQueues();
-
-        gameTimer = Count(SECONDS_TO_COUNT_TO);
-        StartCoroutine(gameTimer);
     }
 
     private void ShiftQueues()
