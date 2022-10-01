@@ -16,19 +16,19 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    public Action<GameStates> OnGameStateChanged;
+    public static Action<GameStates> OnGameStateChanged;
 
     /// <summary>
     /// Sends seconds remaining out of 10
     /// </summary>
-    public Action<int> OnSecondPassed;
-    public Action OnTenSecondsPassed;
-    public Action OnTimerStarted;
-    public Action OnTimerStopped;
+    public static Action<int> OnSecondPassed;
+    public static Action OnTenSecondsPassed;
+    public static Action OnTimerStarted;
+    public static Action OnTimerStopped;
 
-    public Action<string> OnNewWeapon;
-    public Action<string> OnNewTrap;
-    public Action<Bonuses> OnNewBonus;
+    public static Action<string, string> OnNewWeapon;
+    public static Action<string, string> OnNewTrap;
+    public static Action<Bonuses, Bonuses> OnNewBonus;
 
     [Tooltip("The max count of each queue when populating; inclusive.")]
     [SerializeField] private int queueMax = 5;
@@ -189,13 +189,16 @@ public class GameManager : MonoBehaviour
         }
 
         string newWeapon = weaponQueue.Dequeue();
-        OnNewWeapon?.Invoke(newWeapon);
+        string nextWeapon = weaponQueue.Peek();
+        OnNewWeapon?.Invoke(newWeapon, nextWeapon);
 
         string newTrap = trapQueue.Dequeue();
-        OnNewTrap?.Invoke(newTrap);
+        string nextTrap = trapQueue.Peek();
+        OnNewTrap?.Invoke(newTrap, nextTrap);
 
-        Bonuses bonus = bonusQueue.Dequeue();
-        OnNewBonus?.Invoke(bonus);
+        Bonuses newBonus = bonusQueue.Dequeue();
+        Bonuses nextBonus = bonusQueue.Peek();
+        OnNewBonus?.Invoke(newBonus, nextBonus);
 
         if (weaponQueue.Count <= repopulateQueueAtCount)
         {
