@@ -149,17 +149,6 @@ public class GameManager : MonoBehaviour
         OnTimerStopped?.Invoke();
     }
 
-    public void Pause()
-    {
-        if (verboseLogging)
-        {
-            Debug.Log(nameof(Pause), this);
-        }
-
-        StopCoroutine(gameTimer);
-        gameTimer = null;
-    }
-
     public void SetGameState(GameStates gameState)
     {
         if (verboseLogging)
