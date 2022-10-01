@@ -87,12 +87,19 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (verboseLogging)
         {
             Debug.Log(nameof(Awake), this);
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void StartGame()
