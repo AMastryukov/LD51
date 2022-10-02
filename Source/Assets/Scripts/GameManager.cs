@@ -95,13 +95,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+
         DontDestroyOnLoad(gameObject);
-    
+
         if (verboseLogging)
         {
             Debug.Log(nameof(Awake), this);
         }
+
+        StartGame();
     }
 
     public void StartGame()

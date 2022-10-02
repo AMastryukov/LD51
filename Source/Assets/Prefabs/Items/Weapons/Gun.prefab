@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spread: 0
-  damage: 0
+  damage: 5
   range: 10
   damageFallOff:
     serializedVersion: 2
@@ -155,7 +155,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   hitLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 264
   muzzleSocket: {fileID: 1016136567183107659}
   projectile: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
 --- !u!1 &2849286541386129132

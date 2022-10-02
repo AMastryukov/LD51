@@ -15,7 +15,8 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("I Took Damage");
+        Debug.Log("I Took" + damage + " Damage");
+        Debug.Log("I Have" + enemyHealth + " Health");
         enemyHealth -= damage;
         if (enemyHealth <= 0)
         {
