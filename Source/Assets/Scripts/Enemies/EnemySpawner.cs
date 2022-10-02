@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyPool enemyPool;
     [SerializeField] private List<Transform> enemySpawnPoints;
     [SerializeField] private int enemyIncrementPerWave = 1;
-    private int _enemiesToSpawn = 0;
+    private int _enemiesToSpawn = 5;
 
     #endregion
 
@@ -28,6 +28,11 @@ public class EnemySpawner : MonoBehaviour
     }
 
     #endregion
+
+    private void Start()
+    {
+        SpawnEnemyWave();
+    }
 
     #region SpawnerFunctions
 
