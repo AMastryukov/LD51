@@ -23,7 +23,9 @@ public class Player : MonoBehaviour
 
     private Weapon activeWeapon = null;
     private ItemData activeTrap = null;
-    private Item SelectedItem = null;
+    private Item selectedItem = null;
+
+    public RegenerativeValue StaminaRegenerativeValue => staminaRegenerativeValue;
 
     public void Start()
     {
