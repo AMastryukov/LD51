@@ -341,6 +341,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6736293295294741251, guid: 5f9f8aab4880758419e370d3cf017384, type: 3}
+      propertyPath: verboseLogging
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736293295294741251, guid: 5f9f8aab4880758419e370d3cf017384, type: 3}
+      propertyPath: regenerateFrequency
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f9f8aab4880758419e370d3cf017384, type: 3}
 --- !u!1 &133617340

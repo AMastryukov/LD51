@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerBuffs))]
 public class PlayerController : MonoBehaviour
 {
     #region References
@@ -13,9 +14,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Max movement speed of the character")]
     [Range(5f, 20f)]
     [SerializeField] private float maxSpeed = 10f;
+    [Range(5f, 20f)]
+    [SerializeField] private float maxSpeedWithBuff = 10f;
     [Tooltip("How snappy the character movement is")]
     [Range(5f, 20f)]
     [SerializeField] private float movementResponse = 8f;
+    [Range(5f, 20f)]
+    [SerializeField] private float movementResponseWithBuff = 16f;
     private Vector3 characterVelocity;
     #endregion
 
@@ -34,18 +39,32 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping")]
     [Tooltip("Uncheck to disable jumping")]
     [SerializeField] private bool enableJump = true;
+
     [Tooltip("Jump height")]
     [Range(5f, 20f)]
     [SerializeField] private float jumpForce = 8f;
+    [Range(5f, 20f)]
+    [SerializeField] private float jumpForceWithBuff = 8f;
+
     [Tooltip("Max movement speed of the character in the air")]
     [Range(0.1f, 2f)]
     [SerializeField] private float airMaxSpeedMultiplier = 0.5f;
+    [Range(0.1f, 2f)]
+    [SerializeField] private float airMaxSpeedMultiplierWithBuff = 0.5f;
+
     [Tooltip("How snappy the character movement is in the air")]
     [Range(0.1f, 2f)]
     [SerializeField] private float airMovementResponseMultiplier = 0.5f;
+    [Range(0.1f, 2f)]
+    [SerializeField] private float airMovementResponseMultiplierWithBuff = 0.5f;
+
     [SerializeField] private LayerMask jumpLayerMask;
+
     [Range(10f, 40f)]
     [SerializeField] private float gravityForce = 20f;
+    [Range(10f, 40f)]
+    [SerializeField] private float gravityForceWithBuff = 20f;
+
     /// Cooldown so we don't double jump
     private readonly float jumpCooldown = 0.1f;
     private float lastJumpedTime = 0f;
@@ -58,8 +77,16 @@ public class PlayerController : MonoBehaviour
     private PlayerManager playerManager;
     private CharacterController characterController;
     private PlayerItemManager itemManager;
+    private PlayerBuffs playerBuffs;
     #endregion
 
+    private float MaxSpeed => playerBuffs.IsActive(Buffs.FasterMoveSpeed) ? maxSpeedWithBuff : maxSpeed;
+    private float MovementResponse => playerBuffs.IsActive(Buffs.FasterMoveSpeed) ? movementResponseWithBuff : movementResponse;
+
+    private float JumpForce => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? jumpForceWithBuff : jumpForce;
+    private float AirMaxSpeedMultiplier => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? airMaxSpeedMultiplierWithBuff : airMaxSpeedMultiplier;
+    private float AirMovementResponseMultiplier => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? airMovementResponseMultiplier : airMovementResponseMultiplierWithBuff;
+    private float GravityForce => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? gravityForceWithBuff : gravityForce;
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +106,8 @@ public class PlayerController : MonoBehaviour
 
         // Components that are not attached to this gameobject
         DebugUtility.HandleErrorIfNullGetComponent(PlayerCamera, this);
+
+        playerBuffs = GetComponent<PlayerBuffs>();
     }
 
     // Physics updated
@@ -132,9 +161,9 @@ public class PlayerController : MonoBehaviour
 
             if (IsGrounded)
             {
-                Vector3 targetVelocity = worldspaceMoveInput * maxSpeed;
+                Vector3 targetVelocity = worldspaceMoveInput * MaxSpeed;
                 // smoothly interpolate between our current velocity and the target velocity based on acceleration speed
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementResponse * Time.deltaTime);
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementResponse * Time.deltaTime);
 
                 if (enableJump && inputHandler.GetJumpInputDown() && Time.time - lastJumpedTime > jumpCooldown)
                 {
@@ -143,7 +172,7 @@ public class PlayerController : MonoBehaviour
                     characterVelocity = new Vector3(characterVelocity.x, 0f, characterVelocity.z);
 
                     // then, add the jumpSpeed value upwards
-                    characterVelocity += Vector3.up * jumpForce;
+                    characterVelocity += Vector3.up * JumpForce;
 
                     // reset the lastJumpTime
                     lastJumpedTime = Time.time;
@@ -153,16 +182,16 @@ public class PlayerController : MonoBehaviour
             {
 
                 // add air acceleration
-                characterVelocity += worldspaceMoveInput * movementResponse * airMovementResponseMultiplier * Time.deltaTime;
+                characterVelocity += worldspaceMoveInput * MovementResponse * AirMovementResponseMultiplier * Time.deltaTime;
 
                 // limit air speed to a maximum, but only horizontally
                 float verticalVelocity = characterVelocity.y;
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed * airMaxSpeedMultiplier);
+                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeed * AirMaxSpeedMultiplier);
                 characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
                 // apply the gravity to the velocity
-                characterVelocity += Vector3.down * gravityForce * Time.deltaTime;
+                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
             }
             characterController.Move(characterVelocity * Time.deltaTime);
         }
