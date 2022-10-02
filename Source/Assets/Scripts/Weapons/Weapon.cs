@@ -7,13 +7,17 @@ public class Weapon : Item
     [SerializeField]
     private float spread;
     [SerializeField]
-    private float damage;
+    private int damage = 5;
     [SerializeField]
     private float range = 10f;
     [SerializeField]
     private AnimationCurve damageFallOff;
     [SerializeField]
     private LayerMask hitLayerMask;
+    [SerializeField]
+    private Transform muzzleSocket;
+    [SerializeField]
+    private Projectile projectile;
 
     void Start()
     {
@@ -29,7 +33,6 @@ public class Weapon : Item
         RaycastHit rayHit;
         Enemy hitEnemy = null;
         Transform cameraTransform = Camera.main.transform;
-        Debug.Log("FIRE");
 
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out rayHit, range, hitLayerMask))
         {
@@ -39,13 +42,15 @@ public class Weapon : Item
 
         if (hitEnemy != null)
         {
-            hitEnemy.TakeDamage();
+            hitEnemy.TakeDamage(damage);
             Debug.DrawLine(cameraTransform.position, cameraTransform.position + cameraTransform.forward * range, Color.green, 1f);
         }
         else
         {
             Debug.DrawLine(cameraTransform.position, cameraTransform.position + cameraTransform.forward * range, Color.red, 1f);
         }
+
+        Instantiate(projectile, muzzleSocket.position, transform.rotation);
 
     }
 

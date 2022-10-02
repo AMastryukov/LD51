@@ -24,11 +24,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: 102a8df0f2ca5d240bbc651c9c9e2d7b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SmoothnessMap:
+        m_Texture: {fileID: 2800000, guid: dd3b75287195bd74f98a61e6fc730b28, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Smoothness: 0.269
+    - _Smoothness: 0.91
+    - _SmoothnessScale: 0.84
     - _VertexColor_Strength: 0.2
     m_Colors: []
   m_BuildTextureStacks: []

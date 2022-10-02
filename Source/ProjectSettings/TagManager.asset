@@ -16,9 +16,8 @@ TagManager:
   - Player
   - Interactable
   - Enemy
-  - 
-  - 
-  - 
+  - Projectile
+  - PlayerBounds
   - 
   - 
   - 

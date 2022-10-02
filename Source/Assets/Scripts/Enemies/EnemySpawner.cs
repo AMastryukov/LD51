@@ -19,18 +19,19 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        //Subscribe
+        GameManager.OnTenSecondsPassed += SpawnEnemyWave;
     }
 
     private void OnDisable()
     {
-        //UnSubscribe
+        GameManager.OnTenSecondsPassed -= SpawnEnemyWave;
     }
 
     #endregion
 
     private void Start()
     {
+
         SpawnEnemyWave();
     }
 
