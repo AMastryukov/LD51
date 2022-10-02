@@ -34,7 +34,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Color:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c35261d99ccd89b448750534549ac712, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SmoothnessMap:
@@ -46,6 +46,7 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _Smoothness: 0
+    - _SmoothnessContrast: 1
     - _TextureScale: 1
     m_Colors: []
   m_BuildTextureStacks: []
