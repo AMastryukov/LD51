@@ -2,14 +2,28 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBuffs : MonoBehaviour
+public class PlayerBuffsManager : MonoBehaviour
 {
+    private static PlayerBuffsManager instance = null;
+
     public static Action<Buffs, bool> OnBuffChange;
 
     [SerializeField] private bool verboseLogging = false;
 
     private Dictionary<Buffs, bool> buffs = new Dictionary<Buffs, bool>();
     private Buffs activeBuff = Buffs.PassivelyRegenerateHP;
+
+    public static PlayerBuffsManager Instance {
+        get {
+            if (!instance)
+            {
+                GameObject newGameObject = new GameObject(nameof(PlayerBuffsManager));
+                instance = newGameObject.AddComponent<PlayerBuffsManager>();
+            }
+
+            return instance;
+        }
+    }
 
     public bool this[Buffs key] => buffs[key];
 
@@ -19,6 +33,8 @@ public class PlayerBuffs : MonoBehaviour
         {
             Debug.Log(nameof(Awake), this);
         }
+
+        DontDestroyOnLoad(gameObject);
 
         Array buffsValues = Enum.GetValues(typeof(Buffs));
         foreach (Buffs buffValue in buffsValues)
@@ -32,11 +48,11 @@ public class PlayerBuffs : MonoBehaviour
         GameManager.OnNewBuff += OnNewBuff;
     }
 
-    public bool IsActive(Buffs buff)
+    public bool IsBuffActive(Buffs buff)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(IsActive) + " ( " + nameof(buff) + ": " + buff + " )", this);
+            Debug.Log(nameof(IsBuffActive) + " ( " + nameof(buff) + ": " + buff + " )", this);
         }
 
         return activeBuff == buff && this[buff];
