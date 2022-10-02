@@ -11,7 +11,7 @@ public class LoadoutSlot : MonoBehaviour
 
     // The slot can either have an ItemData or a Bonus
     private ItemData _itemData;
-    private Bonuses _bonus;
+    private Buffs _bonus;
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class LoadoutSlot : MonoBehaviour
         image.sprite = _itemData.Sprite;
     }
 
-    public void SetBonus(Bonuses bonus)
+    public void SetBonus(Buffs bonus)
     {
         _bonus = bonus;
         // TODO: find sprite associated with the bonus

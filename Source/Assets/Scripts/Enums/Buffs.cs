@@ -1,10 +1,9 @@
-public enum Bonuses
+public enum Buffs
 {
-    None,
-    FasterMoveSpeed,
     PassivelyRegenerateHP,
+    FasterMoveSpeed,
     HigherJumpHeight,
-    MoreStamina,
+    SlowerStaminaDrain,
     RepairsAreFaster,
     ExtraDamage10Percent,
 }
