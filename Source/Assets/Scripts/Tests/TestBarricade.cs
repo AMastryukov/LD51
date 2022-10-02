@@ -6,13 +6,18 @@ using UnityEngine.AI;
 
 public class TestBarricade : MonoBehaviour, IInteractable
 {
+
     private NavMeshObstacle navMeshObstacle;
     private BoxCollider _collider;
     private MeshRenderer _mesh;
 
-    private int _health = 10;
+    [SerializeField] private List<Material> levelMaterials;
+
+    private int _health = 100;
     private bool _isDestroyed = false;
     private int _max_health;
+    private int _level;
+    private const int MaxLevel = 3;
 
     private void Awake()
     {
@@ -27,15 +32,17 @@ public class TestBarricade : MonoBehaviour, IInteractable
         _mesh = GetComponent<MeshRenderer>();
         DebugUtility.HandleErrorIfNullGetComponent(_mesh, this);
 
-        _max_health = _health;
+        if(levelMaterials.Count!=MaxLevel)
+            Debug.LogError("AssignMaterials PLEASE");
+        SetLevel(1);
     }
 
     public void GetHit()
     {
-        _health = Math.Min(_health - 1, 0);
-        if (_health == 0)
+        _health -= 25 ;
+        if (_health <= 0)
         {
-            SetDestroyed(true);
+            SetLevel(_level-1);
         }
     }
     public bool IsDestroyed()
@@ -46,8 +53,9 @@ public class TestBarricade : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log("Fixed");
-        _health = _max_health;
         SetDestroyed(false);
+        if(_level<MaxLevel)
+            SetLevel(_level+1);
     }
 
     private void SetDestroyed(bool destroyed)
@@ -61,5 +69,19 @@ public class TestBarricade : MonoBehaviour, IInteractable
     public string GetName()
     {
         throw new NotImplementedException();
+    }
+    
+
+    private void SetLevel(int level)
+    {
+        _level = level;
+        if (level == 0)
+        {
+            SetDestroyed(true);
+            return;
+        }
+        _mesh.material = levelMaterials[_level-1];
+        Debug.Log("Level: "+_level);
+        _health = _max_health;
     }
 }

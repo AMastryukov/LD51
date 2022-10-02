@@ -16,6 +16,8 @@ public class PlayerInteractor : MonoBehaviour
 
     private PlayerInputHandler inputHandler;
 
+    private float timeInteractButtonHeld = 0f;
+
     private void Start()
     {
         // Component that are on this gameobject
@@ -27,12 +29,20 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
+        //Only used for barricades
         if (inputHandler.GetInteractInput())
         {
-            lookingAtInteractable?.Interact();
-
+            timeInteractButtonHeld += Time.deltaTime;
             Debug.DrawRay(cameraTransform.position, cameraTransform.forward, Color.blue, 2f);
-
+            if (timeInteractButtonHeld >= 2f)
+            {
+                lookingAtInteractable?.Interact();
+                timeInteractButtonHeld = 0f;
+            }
+        }
+        else
+        {
+            timeInteractButtonHeld = 0f;
         }
     }
 
