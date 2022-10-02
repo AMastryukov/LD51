@@ -28,7 +28,7 @@ public class EnemyAi : MonoBehaviour
     private bool _isAttackOnCooldown;
     private bool _isTargetTurret = false;
 
-
+    public Transform Target { get { return _target; } }
     #endregion
 
 
