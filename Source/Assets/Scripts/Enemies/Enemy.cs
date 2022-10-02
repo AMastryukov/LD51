@@ -12,4 +12,9 @@ public class Enemy : MonoBehaviour
     {
         return Vector3.Magnitude(obj.position - transform.position) < attackRange;
     }
+    
+    public void TakeDamage()
+    {
+        Debug.Log("I Took Damage");
+    }
 }
