@@ -5,8 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int enemyHealth = 10;
-    public float attackRange = 3f;
-    public float attacksPerSecond = 4f;
+    public float attackRange = 2f;
+    public float attackDelay = 2f;
 
     public bool CheckIfObjectIsInRange(Transform obj)
     {
@@ -20,8 +20,8 @@ public class Enemy : MonoBehaviour
         enemyHealth -= damage;
         if (enemyHealth <= 0)
         {
+            EnemyPool.Instance.PoolDestroy(gameObject);
             // TODO: Implement actual death
-            Destroy(gameObject);
         }
     }
 }

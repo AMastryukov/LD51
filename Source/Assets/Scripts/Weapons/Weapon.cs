@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : Item
 {
+    [Header("Weapon")]
     [SerializeField]
     private float spread;
     [SerializeField]
@@ -12,16 +13,24 @@ public class Weapon : Item
     private float range = 10f;
     [SerializeField]
     private AnimationCurve damageFallOff;
+
+    [Header("Effects")]
     [SerializeField]
     private LayerMask hitLayerMask;
     [SerializeField]
     private Transform muzzleSocket;
     [SerializeField]
     private Projectile projectile;
+    [SerializeField]
+    private ParticleSystem muzzlePasticleSystem;
 
     void Start()
     {
         DebugUtility.HandleEmptyLayerMask(hitLayerMask, this, "Enemy/Floor/Walls");
+
+        DebugUtility.HandleErrorIfNullGetComponent(muzzlePasticleSystem, this);
+        DebugUtility.HandleErrorIfNullGetComponent(projectile, this);
+        DebugUtility.HandleErrorIfNullGetComponent(muzzleSocket, this);
     }
 
     /// <summary>
@@ -51,12 +60,21 @@ public class Weapon : Item
         }
 
         Instantiate(projectile, muzzleSocket.position, transform.rotation);
+        muzzlePasticleSystem.Play();
 
     }
 
     public override void Use()
     {
         TryFire();
+    }
+
+    /// <summary>
+    /// Get shot direction based on current
+    /// </summary>
+    private void GetShotDirection()
+    {
+
     }
 
 }
