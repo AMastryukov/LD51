@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public abstract class Item : MonoBehaviour
 {
-    public Action<string> StatusChanged;
+    public static Action<string> StatusChanged;
 
     /// <summary>
     /// HUD can use this to get description/status/ammo count etc.
