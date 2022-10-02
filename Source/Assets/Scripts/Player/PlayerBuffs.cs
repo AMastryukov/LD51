@@ -9,7 +9,7 @@ public class PlayerBuffs : MonoBehaviour
     [SerializeField] private bool verboseLogging = false;
 
     private Dictionary<Buffs, bool> buffs = new Dictionary<Buffs, bool>();
-    private Buffs activeBuff = Buffs.None;
+    private Buffs activeBuff = Buffs.PassivelyRegenerateHP;
 
     public bool this[Buffs key] => buffs[key];
 

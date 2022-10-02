@@ -17,7 +17,7 @@ public class Room : MonoBehaviour
     public static Action<Room, Buffs> OnRoomLost;
     public static Action<Room, Buffs> OnRoomCaptured;
 
-    [SerializeField] private Buffs buff = Buffs.None;
+    [SerializeField] private Buffs buff = Buffs.PassivelyRegenerateHP;
     [SerializeField] private int enemySecondsToCaptureRoom = 10;
     [SerializeField] private int playerSecondsToCaptureRoom = 5;
     [SerializeField] private bool verboseLogging = false;

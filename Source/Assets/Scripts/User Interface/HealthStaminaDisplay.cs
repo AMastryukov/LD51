@@ -24,9 +24,9 @@ public class HealthStaminaDisplay : MonoBehaviour
         healthText.text = health.ToString();
     }
 
-    private void UpdateStamina(int stamina)
+    private void UpdateStamina(int stamina, int maxStamina)
     {
-        var fillValue = ((float)stamina) / 100f;
+        var fillValue = ((float)stamina) / (float)maxStamina;
         staminaFill.fillAmount = fillValue;
     }
 }

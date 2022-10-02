@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private ItemData lastQueuedWeapon = null;
     private ItemData lastQueuedTrap = null;
-    private Buffs lastQueuedBuff = Buffs.None;
+    private Buffs lastQueuedBuff = Buffs.PassivelyRegenerateHP;
 
     private GameStates gameState = GameStates.Menu;
     private IEnumerator gameTimer = null;
@@ -84,6 +84,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(Awake), this);
+        }
+
         if (Instance == null)
         {
             Instance = this;
@@ -94,11 +99,16 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+    }
 
+    private IEnumerator Start()
+    {
         if (verboseLogging)
         {
-            Debug.Log(nameof(Awake), this);
+            Debug.Log(nameof(Start), this);
         }
+
+        yield return new WaitForEndOfFrame();
 
         StartGame();
     }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerBuffs))]
@@ -7,22 +6,22 @@ public class Player : MonoBehaviour
 {
     public static Action OnDie;
     public static Action<int> OnPlayerHealthChanged;
-    public static Action<int> OnPlayerStaminaChanged;
+    public static Action<int, int> OnPlayerStaminaChanged;
 
-    [Header("Health")]
     [SerializeField] private int health = 100;
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] [Tooltip("In Seconds")] private int regenerateFrequency = 10;
-    [SerializeField] private int regenerateAmount = 1;
+    [SerializeField] private RegenerativeValue healthRegenerativeValue = null;
 
     [SerializeField] private int stamina = 100;
     [SerializeField] private int maxStamina = 100;
+    [SerializeField] private int maxStaminaWithBuff = 200;
+    [SerializeField] private RegenerativeValue staminaRegenerativeValue = null;
 
     [SerializeField] private bool verboseLogging = false;
     [SerializeField] private bool superVerboseLogging = false;
 
     private PlayerBuffs playerBuffs = null;
-    private IEnumerator regenerateHealth = null;
+    private Buffs lastBuff = Buffs.PassivelyRegenerateHP;
 
     private Weapon activeWeapon = null;
     private ItemData activeTrap = null;
@@ -37,10 +36,18 @@ public class Player : MonoBehaviour
 
         TryGetComponent(out playerBuffs);
 
-        GameManager.OnTenSecondsPassed += () =>
-        {
-            //DecrementHealth(5);
-        };
+        healthRegenerativeValue.SetCurrentValue(health);
+        healthRegenerativeValue.SetMaxValue(maxHealth);
+        healthRegenerativeValue.OnChange += SetHealth;
+
+        staminaRegenerativeValue.SetCurrentValue(stamina);
+        staminaRegenerativeValue.SetMaxValue(maxStamina);
+        staminaRegenerativeValue.OnChange += SetStamina;
+
+        OnPlayerHealthChanged?.Invoke(health);
+        OnPlayerStaminaChanged?.Invoke(stamina, maxStamina);
+
+        GameManager.OnNewBuff += OnNewBuff;
     }
 
     #region Health
@@ -52,7 +59,7 @@ public class Player : MonoBehaviour
             Debug.Log(nameof(DecrementHealth) + " ( " + nameof(amount) + ": " + amount + " )", this);
         }
 
-        SetHealth(health - amount);
+        healthRegenerativeValue.Decrement(amount);
     }
 
     public void IncrementHealth(int amount)
@@ -62,7 +69,7 @@ public class Player : MonoBehaviour
             Debug.Log(nameof(IncrementHealth) + " ( " + nameof(amount) + ": " + amount + " )", this);
         }
 
-        SetHealth(health + amount);
+        healthRegenerativeValue.Increment(amount);
     }
 
     public void SetHealth(int amount)
@@ -72,69 +79,14 @@ public class Player : MonoBehaviour
             Debug.Log(nameof(SetHealth) + " ( " + nameof(amount) + ": " + amount + " )", this);
         }
 
-        health = Mathf.Clamp(amount, 0, maxHealth);
+        health = amount;
 
-        if (amount == 0)
+        if (health == 0)
         {
             OnDie?.Invoke();
         }
 
         OnPlayerHealthChanged?.Invoke(health);
-
-        if (health < maxHealth && regenerateHealth == null && playerBuffs.IsActive(Buffs.PassivelyRegenerateHP))
-        {
-            regenerateHealth = RegenerateHealth(regenerateFrequency);
-            StartCoroutine(regenerateHealth);
-        }
-        else if (health >= maxHealth && regenerateHealth != null)
-        {
-            StopRegeneratingHealth();
-        }
-    }
-
-    private IEnumerator RegenerateHealth(int secondsToIncrement)
-    {
-        while (true)
-        {
-            while (secondsToIncrement > 0)
-            {
-                if (superVerboseLogging)
-                {
-                    Debug.Log(nameof(RegenerateHealth) + " ( " + nameof(secondsToIncrement) + ": " + secondsToIncrement + " )", this);
-                }
-
-                yield return new WaitForSeconds(1);
-                secondsToIncrement--;
-            }
-
-            if (health >= maxHealth || !playerBuffs.IsActive(Buffs.PassivelyRegenerateHP))
-            {
-                StopRegeneratingHealth();
-            }
-            else
-            {
-                IncrementHealth(regenerateAmount);
-
-                if (health >= maxHealth)
-                {
-                    StopRegeneratingHealth();
-                }
-
-                secondsToIncrement = regenerateFrequency;
-
-            }
-        }
-    }
-
-    private void StopRegeneratingHealth()
-    {
-        if (verboseLogging)
-        {
-            Debug.Log(nameof(StopRegeneratingHealth), this);
-        }
-
-        StopCoroutine(regenerateHealth);
-        regenerateHealth = null;
     }
 
     #endregion
@@ -148,7 +100,17 @@ public class Player : MonoBehaviour
             Debug.Log(nameof(DecrementStamina) + " ( " + nameof(amount) + ": " + amount + " )", this);
         }
 
-        SetStamina(stamina - amount);
+        staminaRegenerativeValue.Decrement(amount);
+    }
+
+    public void IncrementStamina(int amount)
+    {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(IncrementStamina) + " ( " + nameof(amount) + ": " + amount + " )", this);
+        }
+
+        staminaRegenerativeValue.Increment(amount);
     }
 
     public void SetStamina(int amount)
@@ -158,10 +120,30 @@ public class Player : MonoBehaviour
             Debug.Log(nameof(SetStamina) + " ( " + nameof(amount) + ": " + amount + " )", this);
         }
 
-        stamina = Mathf.Clamp(amount, 0, maxStamina);
+        stamina = amount;
 
-        OnPlayerStaminaChanged?.Invoke(stamina);
+        OnPlayerStaminaChanged?.Invoke(stamina, staminaRegenerativeValue.MaxValue);
     }
 
     #endregion
+
+    private void OnNewBuff(Buffs newBuff, Buffs nextBuff)
+    {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(OnNewBuff) + " ( " + nameof(newBuff) + ": " + newBuff + " , " + nameof(nextBuff) + ": " + nextBuff + " )", this);
+        }
+
+        if (newBuff == Buffs.PassivelyRegenerateHP && healthRegenerativeValue.CanStartRegeneration)
+        {
+            healthRegenerativeValue.StartRegeneration();
+        }
+
+        if (lastBuff == Buffs.PassivelyRegenerateHP && healthRegenerativeValue.RegenerationIsActive)
+        {
+            healthRegenerativeValue.StopRegeneration();
+        }
+
+        lastBuff = newBuff;
+    }
 }
