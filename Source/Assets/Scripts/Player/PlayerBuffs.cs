@@ -32,11 +32,11 @@ public class PlayerBuffs : MonoBehaviour
         GameManager.OnNewBuff += OnNewBuff;
     }
 
-    public bool IsActive(Buffs buff)
+    public bool IsBuffActive(Buffs buff)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(IsActive) + " ( " + nameof(buff) + ": " + buff + " )", this);
+            Debug.Log(nameof(IsBuffActive) + " ( " + nameof(buff) + ": " + buff + " )", this);
         }
 
         return activeBuff == buff && this[buff];
