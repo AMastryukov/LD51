@@ -55,12 +55,6 @@ public class PlayerController : MonoBehaviour
     [Range(0.1f, 2f)]
     [SerializeField] private float airMaxSpeedMultiplierWithBuff = 1f;
 
-    [Tooltip("How snappy the character movement is in the air")]
-    [Range(0.1f, 2f)]
-    [SerializeField] private float airMovementResponseMultiplier = 0.5f;
-    [Range(0.1f, 2f)]
-    [SerializeField] private float airMovementResponseMultiplierWithBuff = 1f;
-
     [SerializeField] private LayerMask jumpLayerMask;
 
     [Range(10f, 40f)]
@@ -116,13 +110,15 @@ public class PlayerController : MonoBehaviour
     // Physics updated
     private void FixedUpdate()
     {
-        // The one thing we do everytime
-        CheckGrounded();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        // The one thing we do everytime
+        CheckGrounded();
+
         if (playerManager.CurrentState == PlayerStates.Move)
         {
             HandleCharacterMovement();
@@ -190,7 +186,7 @@ public class PlayerController : MonoBehaviour
                 // limit air speed to a maximum, but only horizontally
                 float verticalVelocity = CharacterVelocity.y;
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(CharacterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeed * AirMaxSpeedMultiplier);
+                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeed);
                 CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
                 // apply the gravity to the velocity
@@ -217,7 +213,7 @@ public class PlayerController : MonoBehaviour
     /// <returns>Position of ground relative to player</returns>
     private Vector3 GetCharacterButtcrack()
     {
-        return transform.position + Vector3.down * (characterController.height / 2 + 0.1f);
+        return transform.position + Vector3.down * (characterController.height / 2 + 0.1f) + Vector3.up * characterController.radius * groundCheckRadius;
     }
 
     /// <summary>
