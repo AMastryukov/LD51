@@ -12,6 +12,10 @@ public class TestBarricade : MonoBehaviour, IInteractable
     private MeshRenderer _mesh;
 
     [SerializeField] private List<Material> levelMaterials;
+    [SerializeField] private int fixIncrement = 1;
+    [SerializeField] private int fixIncrementWithBuff = 1;
+
+    public int FixIncrement => PlayerBuffsManager.Instance.IsBuffActive(Buffs.RepairsAreFaster) ? fixIncrementWithBuff : fixIncrement;
 
     private int _health = 100;
     private bool _isDestroyed = false;
@@ -40,7 +44,6 @@ public class TestBarricade : MonoBehaviour, IInteractable
     public void GetHit()
     {
         Debug.Log("Barricade got hit!");
-
         _health -= 25;
         if (_health <= 0)
         {
@@ -57,7 +60,7 @@ public class TestBarricade : MonoBehaviour, IInteractable
         Debug.Log("Fixed");
         SetDestroyed(false);
         if (_level < MaxLevel)
-            SetLevel(_level + 1);
+            SetLevel(_level + FixIncrement);
     }
 
     private void SetDestroyed(bool destroyed)
@@ -85,6 +88,7 @@ public class TestBarricade : MonoBehaviour, IInteractable
             return;
         }
         _mesh.material = levelMaterials[_level - 1];
+        Debug.Log("Level: " + _level);
         _health = _max_health;
     }
 }
