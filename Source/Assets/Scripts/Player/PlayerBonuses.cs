@@ -9,6 +9,7 @@ public class PlayerBonuses : MonoBehaviour
     [SerializeField] private bool verboseLogging = false;
 
     private Dictionary<Bonuses, bool> bonuses = new Dictionary<Bonuses, bool>();
+    private Bonuses activeBonus = Bonuses.None;
 
     public bool this[Bonuses key] => bonuses[key];
 
@@ -24,6 +25,31 @@ public class PlayerBonuses : MonoBehaviour
         {
             bonuses.Add(bonusValue, true);
         }
+
+        Room.OnRoomLost += OnRoomLost;
+        Room.OnRoomCaptured += OnRoomCaptured;
+
+        GameManager.OnNewBonus += OnNewBonus;
+    }
+
+    public bool IsActive(Bonuses bonus)
+    {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(IsActive) + " ( " + nameof(bonus) + ": " + bonus + " )", this);
+        }
+
+        return activeBonus == bonus && this[bonus];
+    }
+
+    private void OnNewBonus(Bonuses activeBonus, Bonuses nextBonus)
+    {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(OnNewBonus) + " ( " + nameof(activeBonus) + ": " + activeBonus + " , " + nameof(nextBonus) + ": " + nextBonus + " )", this);
+        }
+
+        this.activeBonus = activeBonus;
     }
 
     private void OnRoomLost(Room room, Bonuses bonus)
