@@ -35,12 +35,6 @@ public class EnemyAnimator : MonoBehaviour
         _animator?.SetBool("isAttacking", true);
     }
 
-    public void Run()
-    {
-        Stop();
-        _animator?.SetFloat("movementSpeed", 1f);
-    }
-
     public void Dance()
     {
         Stop();
@@ -54,10 +48,5 @@ public class EnemyAnimator : MonoBehaviour
         _animator?.SetBool("isDancing", false);
 
         _animator?.SetFloat("movementSpeed", 0f);
-    }
-
-    public void OnVaultFinished()
-    {
-        _animator?.SetBool("isVaulting", false);
     }
 }

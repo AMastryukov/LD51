@@ -66,6 +66,8 @@ public class TestBarricade : MonoBehaviour, IInteractable
         _collider.isTrigger = destroyed;
         _isDestroyed = destroyed;
         _mesh.enabled = !destroyed;
+
+        Debug.Log("Barricade was destroyed");
     }
 
     public string GetName()
