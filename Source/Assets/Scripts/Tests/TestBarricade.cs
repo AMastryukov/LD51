@@ -82,7 +82,7 @@ public class TestBarricade : MonoBehaviour, IInteractable
     private void SetLevel(int level)
     {
         _level = level;
-        if (level == 0)
+        if (level <= 0)
         {
             SetDestroyed(true);
             return;
