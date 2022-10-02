@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,6 +21,16 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Max movement speed of the character")]
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float maxSpeedWithBuff = 20f;
+
+    [SerializeField] private float sprintMultiplier = 1.25f;
+
+    [Min(1)]
+    [SerializeField] private int sprintStaminaDrainPerSecond = 10;
+    [Min(1)]
+    [SerializeField] private int sprintStaminaDrainPerSecondWithBuff = 10;
+
+    private bool isSprinting = false;
+    private DateTime nextStaminaDrain = DateTime.Now;
 
     public Vector3 CharacterVelocity { get; private set; }
     #endregion
@@ -74,15 +85,41 @@ public class PlayerController : MonoBehaviour
     private PlayerManager playerManager;
     public CharacterController characterController { get; private set; }
     private PlayerItemManager itemManager;
-    private PlayerBuffs playerBuffs;
+    private Player player;
     #endregion
 
-    public float MaxSpeed => playerBuffs.IsActive(Buffs.FasterMoveSpeed) ? maxSpeedWithBuff : maxSpeed;
-    private float MovementResponse => playerBuffs.IsActive(Buffs.FasterMoveSpeed) ? movementResponseWithBuff : movementResponse;
+    public float MaxSpeed {
+        get {
+            float valueToReturn = PlayerBuffsManager.Instance.IsBuffActive(Buffs.FasterMoveSpeed) ? maxSpeedWithBuff : maxSpeed;
 
-    private float JumpForce => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? jumpForceWithBuff : jumpForce;
-    private float AirMovementResponseMultiplier => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? airMovementResponseMultiplierWithBuff : airMovementResponseMultiplier;
-    private float GravityForce => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? gravityForceWithBuff : gravityForce;
+            if (isSprinting)
+            {
+                valueToReturn *= sprintMultiplier;
+                AttemptToDrainStamina();
+            }
+
+            return valueToReturn;
+        }
+    }
+    private float MovementResponse {
+        get {
+            float valueToReturn = PlayerBuffsManager.Instance.IsBuffActive(Buffs.FasterMoveSpeed) ? movementResponseWithBuff : movementResponse;
+
+            if (isSprinting)
+            {
+                valueToReturn *= sprintMultiplier;
+                AttemptToDrainStamina();
+            }
+
+            return valueToReturn;
+        }
+    }
+
+    private float JumpForce => PlayerBuffsManager.Instance.IsBuffActive(Buffs.HigherJumpHeight) ? jumpForceWithBuff : jumpForce;
+    private float AirMovementResponseMultiplier => PlayerBuffsManager.Instance.IsBuffActive(Buffs.HigherJumpHeight) ? airMovementResponseMultiplierWithBuff : airMovementResponseMultiplier;
+    private float GravityForce => PlayerBuffsManager.Instance.IsBuffActive(Buffs.HigherJumpHeight) ? gravityForceWithBuff : gravityForce;
+
+    private int SprintStaminaDrainPerSecond => PlayerBuffsManager.Instance.IsBuffActive(Buffs.SlowerStaminaDrain) ? sprintStaminaDrainPerSecond : sprintStaminaDrainPerSecondWithBuff;
 
     // Start is called before the first frame update
     void Start()
@@ -103,7 +140,8 @@ public class PlayerController : MonoBehaviour
         // Components that are not attached to this gameobject
         DebugUtility.HandleErrorIfNullGetComponent(PlayerCamera, this);
 
-        playerBuffs = GetComponent<PlayerBuffs>();
+        player = GetComponent<Player>();
+        DebugUtility.HandleErrorIfNullGetComponent(player, this);
     }
 
     // Physics updated
@@ -115,6 +153,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ProcessSprintingInput();
+
         // The one thing we do everytime
         CheckGrounded();
 
@@ -123,6 +163,25 @@ public class PlayerController : MonoBehaviour
             HandleCharacterMovement();
             UseItems();
         }
+    }
+
+    private void ProcessSprintingInput()
+    {
+        bool wasSprinting = isSprinting;
+        bool isSprintingInput = inputHandler.GetSprintInput() &&
+            player.StaminaRegenerativeValue.CurrentValue > 0 &&
+            inputHandler.GetMoveInput().magnitude > 0;
+
+        if (isSprintingInput && player.StaminaRegenerativeValue.RegenerationIsActive)
+        {
+            player.StaminaRegenerativeValue.StopRegeneration();
+        }
+        else if (!isSprintingInput && wasSprinting && player.StaminaRegenerativeValue.CanStartRegeneration)
+        {
+            player.StaminaRegenerativeValue.StartRegeneration();
+        }
+
+        isSprinting = isSprintingInput;
     }
 
     /// <summary>
@@ -234,5 +293,18 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.DrawLine(transform.position, GetCharacterButtcrack(), debugRayColor, Time.deltaTime);
+    }
+
+    private void AttemptToDrainStamina()
+    {
+        if (DateTime.Now < nextStaminaDrain)
+        {
+            return;
+        }
+
+        int staminaDrain = PlayerBuffsManager.Instance.IsBuffActive(Buffs.SlowerStaminaDrain) ? sprintStaminaDrainPerSecondWithBuff : sprintStaminaDrainPerSecond;
+        player.DecrementStamina(staminaDrain);
+
+        nextStaminaDrain = DateTime.Now.AddSeconds(1);
     }
 }

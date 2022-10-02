@@ -40,6 +40,8 @@ public class Weapon : Item
     [SerializeField]
     private ParticleSystem muzzlePasticleSystem;
 
+    private int Damage => PlayerBuffsManager.Instance.IsBuffActive(Buffs.ExtraDamage10Percent) ? Mathf.RoundToInt((damage + (damage * (10f / 100f)))) : damage;
+
     void Start()
     {
         DebugUtility.HandleEmptyLayerMask(hitLayerMask, this, "Enemy/Floor/Walls");
@@ -79,7 +81,7 @@ public class Weapon : Item
 
         if (hitEnemy != null)
         {
-            hitEnemy.TakeDamage(damage);
+            hitEnemy.TakeDamage(Damage);
             Debug.DrawLine(cameraTransform.position, cameraTransform.position + cameraTransform.forward * range, Color.green, 1f);
         }
         else
