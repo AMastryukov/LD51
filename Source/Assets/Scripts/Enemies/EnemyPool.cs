@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPool : MonoBehaviour
+public class EnemyPool : NonPersistentSingleton<EnemyPool>
 {
     public static Action<GameObject> OnPoolDestroy;
 
