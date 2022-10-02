@@ -9,14 +9,14 @@ public class HealthStaminaDisplay : MonoBehaviour
 
     private void Awake()
     {
-        // TODO: Subscribe to Player.OnHealthChanged to UpdateHealth
-        // TODO: Subscribe to Player.OnStaminaChanged to UpdateStamina
+        Player.OnPlayerHealthChanged += UpdateHealth;
+        Player.OnPlayerStaminaChanged += UpdateStamina;
     }
 
     private void OnDestroy()
     {
-        // TODO: Unsubscribe from Player.OnHealthChanged to UpdateHealth
-        // TODO: Unsubscribe from Player.OnStaminaChanged to UpdateStamina
+        Player.OnPlayerHealthChanged -= UpdateHealth;
+        Player.OnPlayerStaminaChanged -= UpdateStamina;
     }
 
     private void UpdateHealth(int health)
@@ -24,9 +24,9 @@ public class HealthStaminaDisplay : MonoBehaviour
         healthText.text = health.ToString();
     }
 
-    private void UpdateStamina(float stamina)
+    private void UpdateStamina(int stamina, int maxStamina)
     {
-        var fillValue = stamina / 100f;
+        var fillValue = ((float)stamina) / (float)maxStamina;
         staminaFill.fillAmount = fillValue;
     }
 }

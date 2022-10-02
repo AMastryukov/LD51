@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum FireType
+{
+    SINGLE,
+    AUTO
+}
 public class Weapon : Item
 {
     [Header("Weapon")]
@@ -10,9 +15,20 @@ public class Weapon : Item
     [SerializeField]
     private int damage = 5;
     [SerializeField]
+    [Tooltip("Damage will be 0 at the end of the range")]
     private float range = 10f;
+    [Tooltip("Damage will fall off linearly over the range")]
     [SerializeField]
-    private AnimationCurve damageFallOff;
+    private bool damageFallOff;
+
+    [Header("Recoil")]
+    [SerializeField] private Transform recoilPosition;
+    [Range(0f, 1f)]
+    [SerializeField] private float recoilAmount;
+    [Range(0.1f, 1f)]
+    [SerializeField] private float recoilRecoveryAmount;
+    private float currentRecoil;
+
 
     [Header("Effects")]
     [SerializeField]
@@ -31,6 +47,18 @@ public class Weapon : Item
         DebugUtility.HandleErrorIfNullGetComponent(muzzlePasticleSystem, this);
         DebugUtility.HandleErrorIfNullGetComponent(projectile, this);
         DebugUtility.HandleErrorIfNullGetComponent(muzzleSocket, this);
+    }
+
+    private void Update()
+    {
+        AccumulateRecoil(-recoilRecoveryAmount * Time.deltaTime * 10);
+
+        transform.localPosition = Vector3.Lerp(Vector3.zero, recoilPosition.localPosition, currentRecoil);
+    }
+
+    private void AccumulateRecoil(float delta)
+    {
+        currentRecoil = Mathf.Clamp01(currentRecoil + delta);
     }
 
     /// <summary>
@@ -59,8 +87,11 @@ public class Weapon : Item
             Debug.DrawLine(cameraTransform.position, cameraTransform.position + cameraTransform.forward * range, Color.red, 1f);
         }
 
+        // TODO: this could probably be cleaned up
         Instantiate(projectile, muzzleSocket.position, transform.rotation);
         muzzlePasticleSystem.Play();
+        AccumulateRecoil(recoilAmount);
+
 
     }
 
@@ -73,6 +104,11 @@ public class Weapon : Item
     /// Get shot direction based on current
     /// </summary>
     private void GetShotDirection()
+    {
+
+    }
+
+    private void ApplyRecoil()
     {
 
     }

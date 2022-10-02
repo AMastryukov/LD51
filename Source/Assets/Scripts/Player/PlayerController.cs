@@ -10,11 +10,17 @@ public class PlayerController : MonoBehaviour
 
     #region Movement
     [Header("Movement")]
+
     [Tooltip("How snappy the character movement is")]
     [Range(5f, 20f)]
     [SerializeField] private float movementResponse = 8f;
+    [Range(5f, 20f)]
+    [SerializeField] private float movementResponseWithBuff = 16f;
+
     [Tooltip("Max movement speed of the character")]
-    [SerializeField] public float MaxSpeed { get; private set; } = 10f;
+    [SerializeField] private float maxSpeed = 10f;
+    [SerializeField] private float maxSpeedWithBuff = 20f;
+
     public Vector3 CharacterVelocity { get; private set; }
     #endregion
 
@@ -36,18 +42,26 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Radius of Spehere used to check IsGrounded")]
     [Range(0.1f, 1f)]
     [SerializeField] private float groundCheckRadius = 0.5f;
+
     [Tooltip("Jump force")]
     [Range(5f, 20f)]
     [SerializeField] private float jumpForce = 8f;
-    [Tooltip("Max movement speed of the character in the air")]
-    [Range(0.1f, 2f)]
-    [SerializeField] private float airMaxSpeedMultiplier = 0.5f;
+    [Range(5f, 20f)]
+    [SerializeField] private float jumpForceWithBuff = 16f;
+
     [Tooltip("How snappy the character movement is in the air")]
     [Range(0.1f, 2f)]
     [SerializeField] private float airMovementResponseMultiplier = 0.5f;
+    [Range(0.1f, 2f)]
+    [SerializeField] private float airMovementResponseMultiplierWithBuff = 1f;
+
     [SerializeField] private LayerMask jumpLayerMask;
+
     [Range(10f, 40f)]
     [SerializeField] private float gravityForce = 20f;
+    [Range(10f, 40f)]
+    [SerializeField] private float gravityForceWithBuff = 30f;
+
     /// Cooldown so we don't double jump
     private readonly float jumpCooldown = 0.1f;
     private float lastJumpedTime = 0f;
@@ -60,8 +74,15 @@ public class PlayerController : MonoBehaviour
     private PlayerManager playerManager;
     public CharacterController characterController { get; private set; }
     private PlayerItemManager itemManager;
+    private PlayerBuffs playerBuffs;
     #endregion
 
+    public float MaxSpeed => playerBuffs.IsActive(Buffs.FasterMoveSpeed) ? maxSpeedWithBuff : maxSpeed;
+    private float MovementResponse => playerBuffs.IsActive(Buffs.FasterMoveSpeed) ? movementResponseWithBuff : movementResponse;
+
+    private float JumpForce => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? jumpForceWithBuff : jumpForce;
+    private float AirMovementResponseMultiplier => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? airMovementResponseMultiplierWithBuff : airMovementResponseMultiplier;
+    private float GravityForce => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? gravityForceWithBuff : gravityForce;
 
     // Start is called before the first frame update
     void Start()
@@ -81,18 +102,22 @@ public class PlayerController : MonoBehaviour
 
         // Components that are not attached to this gameobject
         DebugUtility.HandleErrorIfNullGetComponent(PlayerCamera, this);
+
+        playerBuffs = GetComponent<PlayerBuffs>();
     }
 
     // Physics updated
     private void FixedUpdate()
     {
-        // The one thing we do everytime
-        CheckGrounded();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        // The one thing we do everytime
+        CheckGrounded();
+
         if (playerManager.CurrentState == PlayerStates.Move)
         {
             HandleCharacterMovement();
@@ -136,7 +161,7 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 targetVelocity = worldspaceMoveInput * MaxSpeed;
                 // smoothly interpolate between our current velocity and the target velocity based on acceleration speed
-                CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity, movementResponse * Time.deltaTime);
+                CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity, MovementResponse * Time.deltaTime);
 
                 if (enableJump && inputHandler.GetJumpInputDown() && Time.time - lastJumpedTime > jumpCooldown)
                 {
@@ -145,7 +170,7 @@ public class PlayerController : MonoBehaviour
                     CharacterVelocity = new Vector3(CharacterVelocity.x, 0f, CharacterVelocity.z);
 
                     // then, add the jumpSpeed value upwards
-                    CharacterVelocity += Vector3.up * jumpForce;
+                    CharacterVelocity += Vector3.up * JumpForce;
 
                     // reset the lastJumpTime
                     lastJumpedTime = Time.time;
@@ -155,16 +180,16 @@ public class PlayerController : MonoBehaviour
             {
 
                 // add air acceleration
-                CharacterVelocity += worldspaceMoveInput * movementResponse * airMovementResponseMultiplier * Time.deltaTime;
+                CharacterVelocity += worldspaceMoveInput * MovementResponse * AirMovementResponseMultiplier * Time.deltaTime;
 
                 // limit air speed to a maximum, but only horizontally
                 float verticalVelocity = CharacterVelocity.y;
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(CharacterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeed * airMaxSpeedMultiplier);
+                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeed);
                 CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
                 // apply the gravity to the velocity
-                CharacterVelocity += Vector3.down * gravityForce * Time.deltaTime;
+                CharacterVelocity += Vector3.down * GravityForce * Time.deltaTime;
             }
             characterController.Move(CharacterVelocity * Time.deltaTime);
         }
@@ -187,7 +212,7 @@ public class PlayerController : MonoBehaviour
     /// <returns>Position of ground relative to player</returns>
     private Vector3 GetCharacterButtcrack()
     {
-        return transform.position + Vector3.down * (characterController.height / 2 + 0.1f);
+        return transform.position + Vector3.down * (characterController.height / 2 + 0.1f) + Vector3.up * characterController.radius * groundCheckRadius;
     }
 
     /// <summary>
