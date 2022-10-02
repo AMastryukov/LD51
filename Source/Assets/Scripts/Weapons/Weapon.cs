@@ -58,7 +58,10 @@ public class Weapon : Item
     [SerializeField]
     private ParticleSystem muzzlePasticleSystem;
 
+
     private Transform cameraTransform;
+    private int Damage => PlayerBuffsManager.Instance.IsBuffActive(Buffs.ExtraDamage10Percent) ? Mathf.RoundToInt((damage + (damage * (10f / 100f)))) : damage;
+
 
     void Start()
     {
