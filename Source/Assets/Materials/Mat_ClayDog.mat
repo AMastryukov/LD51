@@ -67,11 +67,11 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _EmissiveMultiplier: 0
     - _NormalStrength: 0.29
-    - _Normal_Strength: 0.189
+    - _Normal_Strength: 0.116
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0
-    - _SmoothnessContrast: 0.34
+    - _Smoothness: 5.09
+    - _SmoothnessContrast: 0.85
     - _TriplanarScale: 0.72
     - _VertexColorStrength: 0
     - _VertexColor_Strength: 0
