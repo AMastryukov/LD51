@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AI;
 
 public enum EnemyAiState
@@ -15,24 +13,20 @@ public enum EnemyAiState
 public class EnemyAi : MonoBehaviour
 {
     #region Fields
+    [SerializeField] private EnemyAiState _currentState = EnemyAiState.OutsideHouse;
 
     private NavMeshAgent _agent;
     private Transform _player;
     private List<Transform> _barricades = new List<Transform>();
     private List<Transform> _turrets = new List<Transform>();
-    private Transform _nearestBarricade;
     private Transform _nearestTurret;
     private Transform _target;
 
     private Enemy _enemy;
-    private EnemyAiState _currentState = EnemyAiState.OutsideHouse;
     private bool _isAttackOnCooldown;
     private bool _isTargetTurret = false;
     private bool _isInsideRoom = false;
-
-
     #endregion
-
 
     private IEnumerator EnemyAiUpdateLoop()
     {
@@ -43,10 +37,15 @@ public class EnemyAi : MonoBehaviour
             {
                 case EnemyAiState.OutsideHouse:
                     AttackBarricadeIfInRange();
-                    //Don't stand around waiting if barricade is already destroyed
-                    if(_currentState==EnemyAiState.OutsideHouse)
+
+                    // Don't stand around waiting if barricade is already destroyed
+                    if (_currentState == EnemyAiState.OutsideHouse)
+                    {
                         yield return new WaitForSeconds(_enemy.attackDelay);
+                    }
+
                     break;
+
                 case EnemyAiState.SearchForTarget:
                     FindTarget();
                     if (_target != null)
@@ -60,24 +59,40 @@ public class EnemyAi : MonoBehaviour
                         running = false;
                     }
                     break;
+
                 case EnemyAiState.HuntingTarget:
-                    if (!_isInsideRoom)
+                    if (!_isInsideRoom && _target != null)
                     {
-                        if (!_nearestBarricade.GetComponent<TestBarricade>().IsDestroyed())
+                        var barricade = _target.GetComponent<TestBarricade>();
+
+                        if (barricade && barricade.IsDestroyed())
                         {
                             _currentState = EnemyAiState.OutsideHouse;
                             MoveToNearestBarricade();
                         }
                     }
+
                     HuntTarget();
+
                     yield return new WaitForSeconds(_isTargetTurret ? _enemy.attackDelay : 0.25f);
                     break;
             }
         }
     }
 
-    #region Initialization
+    private void Update()
+    {
+        if (_enemy.CheckIfObjectIsInRange(_target))
+        {
+            var lookPos = _target.position - transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
 
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2f);
+        }
+    }
+
+    #region Initialization
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
@@ -88,10 +103,12 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
-        //stopping distance is slightly less so that we can ensure that the enemy is able to attack
-        _agent.stoppingDistance = _enemy.attackRange-0.1f; 
+        // stopping distance is slightly less so that we can ensure that the enemy is able to attack
+        _agent.stoppingDistance = _enemy.attackRange * 0.75f;
+
         FindNearestBarricade();
-        if (_nearestBarricade == null)
+
+        if (_target == null)
         {
             Debug.LogError("No objects with tag barricade found!");
             return;
@@ -113,17 +130,11 @@ public class EnemyAi : MonoBehaviour
             _turrets.Add(obj.transform);
         }
     }
-
-
     #endregion
 
     #region Attack
-
     private void AttackTarget()
     {
-        //Add functionality here
-        transform.LookAt(_nearestBarricade);
-
         //If target dies, change search for next target
         if (_target == null)
             _currentState = EnemyAiState.SearchForTarget;
@@ -131,17 +142,21 @@ public class EnemyAi : MonoBehaviour
 
     private void AttackBarricade()
     {
-        if (_nearestBarricade.gameObject.GetComponent<TestBarricade>().IsDestroyed())
+        if (_target.gameObject.GetComponent<TestBarricade>().IsDestroyed())
         {
             _currentState = EnemyAiState.SearchForTarget;
             FindNearestTurret();
+
             return;
         }
 
-        transform.LookAt(_nearestBarricade);
+        transform.LookAt(_target);
+
         if (_isAttackOnCooldown) return;
-        _nearestBarricade.gameObject.GetComponent<TestBarricade>().GetHit();
+
+        _target.gameObject.GetComponent<TestBarricade>().GetHit();
         _isAttackOnCooldown = true;
+
         Invoke(nameof(ResetAttack), _enemy.attackDelay);
     }
 
@@ -149,14 +164,12 @@ public class EnemyAi : MonoBehaviour
     {
         _isAttackOnCooldown = false;
     }
-
     #endregion
 
     #region Traversal
-
     private void AttackBarricadeIfInRange()
     {
-        if (_enemy.CheckIfObjectIsInRange(_nearestBarricade))
+        if (_enemy.CheckIfObjectIsInRange(_target))
         {
             AttackBarricade();
         }
@@ -168,7 +181,7 @@ public class EnemyAi : MonoBehaviour
 
     private void MoveToNearestBarricade()
     {
-        _agent.SetDestination(_nearestBarricade.position);
+        _agent.SetDestination(_target.position);
     }
 
     private void HuntTarget()
@@ -178,14 +191,13 @@ public class EnemyAi : MonoBehaviour
             AttackTarget();
             return;
         }
+
         Debug.LogWarning("This can throw an error when the character isn't ont the nav mesh");
         _agent.SetDestination(_target.position);
     }
-
     #endregion
 
     #region Search
-
     private void FindTarget()
     {
         if (_nearestTurret == null)
@@ -236,20 +248,17 @@ public class EnemyAi : MonoBehaviour
         {
             if (i == 0)
             {
-                _nearestBarricade = _barricades[i];
+                _target = _barricades[i];
             }
             else
             {
                 if (Vector3.Magnitude(_barricades[i].position - transform.position) <
-                    Vector3.Magnitude(_nearestBarricade.position - transform.position))
+                    Vector3.Magnitude(_target.position - transform.position))
                 {
-                    _nearestBarricade = _barricades[i];
+                    _target = _barricades[i];
                 }
             }
         }
     }
-
     #endregion
-
-
 }

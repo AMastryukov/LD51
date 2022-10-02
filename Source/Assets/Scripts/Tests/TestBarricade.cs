@@ -43,6 +43,7 @@ public class TestBarricade : MonoBehaviour, IInteractable
 
     public void GetHit()
     {
+        Debug.Log("Barricade got hit!");
         _health -= 25;
         if (_health <= 0)
         {
@@ -68,6 +69,8 @@ public class TestBarricade : MonoBehaviour, IInteractable
         _collider.isTrigger = destroyed;
         _isDestroyed = destroyed;
         _mesh.enabled = !destroyed;
+
+        Debug.Log("Barricade was destroyed");
     }
 
     public string GetName()

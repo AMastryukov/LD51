@@ -14,6 +14,7 @@ public class PlayerInputHandler : MonoBehaviour
     public const string BUTTON_FIRE2 = "Fire2";
     public const string BUTTON_FIRE3 = "Fire3";
     public const string BUTTON_INTERACT = "Interact";
+    public const string BUTTON_SPRINT = "Sprint";
 
     [SerializeField] private bool lockCursor = true;
 
@@ -62,5 +63,10 @@ public class PlayerInputHandler : MonoBehaviour
     public bool GetInteractInput()
     {
         return Input.GetButton(BUTTON_INTERACT);
+    }
+
+    public bool GetSprintInput()
+    {
+        return Input.GetButton(BUTTON_SPRINT);
     }
 }
