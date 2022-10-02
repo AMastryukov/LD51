@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_EnvMain
+  m_Name: Mat_Props
   m_Shader: {fileID: -6465566751694194690, guid: 5dccf6c1726292f4cb9524363aba0ebc, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -32,9 +32,9 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Smoothness: 0.91
-    - _SmoothnessScale: 0.84
-    - _VertexColor_Strength: 0.2
+    - _Smoothness: 0
+    - _SmoothnessScale: 0.943
+    - _VertexColor_Strength: 0
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &4295400557291830717
