@@ -31,7 +31,7 @@ public class EnemyAIv2 : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<EnemyAnimator>();
 
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.FindGameObjectWithTag("Player")?.transform;
         foreach (var barricade in GameObject.FindGameObjectsWithTag("Barricade"))
         {
             _barricades.Add(barricade.transform);
