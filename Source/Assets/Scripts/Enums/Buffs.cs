@@ -1,4 +1,4 @@
-public enum Bonuses
+public enum Buffs
 {
     None,
     FasterMoveSpeed,

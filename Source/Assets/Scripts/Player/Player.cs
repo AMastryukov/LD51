@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerBonuses))]
+[RequireComponent(typeof(PlayerBuffs))]
 public class Player : MonoBehaviour
 {
     public static Action OnDie;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool verboseLogging = false;
     [SerializeField] private bool superVerboseLogging = false;
 
-    private PlayerBonuses playerBonuses = null;
+    private PlayerBuffs playerBuffs = null;
     private IEnumerator regenerateHealth = null;
 
     private Weapon activeWeapon = null;
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
             Debug.Log(nameof(Start), this);
         }
 
-        TryGetComponent(out playerBonuses);
+        TryGetComponent(out playerBuffs);
 
         GameManager.OnTenSecondsPassed += () =>
         {
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
 
         OnPlayerHealthChanged?.Invoke(health);
 
-        if (health < maxHealth && regenerateHealth == null && playerBonuses.IsActive(Bonuses.PassivelyRegenerateHP))
+        if (health < maxHealth && regenerateHealth == null && playerBuffs.IsActive(Buffs.PassivelyRegenerateHP))
         {
             regenerateHealth = RegenerateHealth(regenerateFrequency);
             StartCoroutine(regenerateHealth);
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
                 secondsToIncrement--;
             }
 
-            if (health >= maxHealth || !playerBonuses.IsActive(Bonuses.PassivelyRegenerateHP))
+            if (health >= maxHealth || !playerBuffs.IsActive(Buffs.PassivelyRegenerateHP))
             {
                 StopRegeneratingHealth();
             }
