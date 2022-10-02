@@ -15,19 +15,16 @@ public class Weapon : Item
     [SerializeField]
     private LayerMask hitLayerMask;
 
-    // Start is called before the first frame update
     void Start()
     {
         DebugUtility.HandleEmptyLayerMask(hitLayerMask, this, "Enemy/Floor/Walls");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void TryFire()
+    /// <summary>
+    /// Attempt the fire action. Firing may be hindered by the need to reload 
+    /// or the rate of fire.
+    /// </summary>
+    private void TryFire()
     {
         RaycastHit rayHit;
         Enemy hitEnemy = null;
