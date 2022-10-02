@@ -32,17 +32,19 @@ public class TestBarricade : MonoBehaviour, IInteractable
         _mesh = GetComponent<MeshRenderer>();
         DebugUtility.HandleErrorIfNullGetComponent(_mesh, this);
 
-        if(levelMaterials.Count!=MaxLevel)
+        if (levelMaterials.Count != MaxLevel)
             Debug.LogError("AssignMaterials PLEASE");
         SetLevel(1);
     }
 
     public void GetHit()
     {
-        _health -= 25 ;
+        Debug.Log("Barricade got hit!");
+
+        _health -= 25;
         if (_health <= 0)
         {
-            SetLevel(_level-1);
+            SetLevel(_level - 1);
         }
     }
     public bool IsDestroyed()
@@ -54,8 +56,8 @@ public class TestBarricade : MonoBehaviour, IInteractable
     {
         Debug.Log("Fixed");
         SetDestroyed(false);
-        if(_level<MaxLevel)
-            SetLevel(_level+1);
+        if (_level < MaxLevel)
+            SetLevel(_level + 1);
     }
 
     private void SetDestroyed(bool destroyed)
@@ -70,7 +72,7 @@ public class TestBarricade : MonoBehaviour, IInteractable
     {
         throw new NotImplementedException();
     }
-    
+
 
     private void SetLevel(int level)
     {
@@ -80,8 +82,7 @@ public class TestBarricade : MonoBehaviour, IInteractable
             SetDestroyed(true);
             return;
         }
-        _mesh.material = levelMaterials[_level-1];
-        Debug.Log("Level: "+_level);
+        _mesh.material = levelMaterials[_level - 1];
         _health = _max_health;
     }
 }
