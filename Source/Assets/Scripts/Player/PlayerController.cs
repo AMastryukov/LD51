@@ -10,13 +10,12 @@ public class PlayerController : MonoBehaviour
 
     #region Movement
     [Header("Movement")]
-    [Tooltip("Max movement speed of the character")]
-    [Range(5f, 20f)]
-    [SerializeField] private float maxSpeed = 10f;
     [Tooltip("How snappy the character movement is")]
     [Range(5f, 20f)]
     [SerializeField] private float movementResponse = 8f;
-    private Vector3 characterVelocity;
+    [Tooltip("Max movement speed of the character")]
+    [SerializeField] public float MaxSpeed { get; private set; } = 10f;
+    public Vector3 CharacterVelocity { get; private set; }
     #endregion
 
     #region Look
@@ -34,7 +33,10 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping")]
     [Tooltip("Uncheck to disable jumping")]
     [SerializeField] private bool enableJump = true;
-    [Tooltip("Jump height")]
+    [Tooltip("Radius of Spehere used to check IsGrounded")]
+    [Range(0.1f, 1f)]
+    [SerializeField] private float groundCheckRadius = 0.5f;
+    [Tooltip("Jump force")]
     [Range(5f, 20f)]
     [SerializeField] private float jumpForce = 8f;
     [Tooltip("Max movement speed of the character in the air")]
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
     #region Components
     private PlayerInputHandler inputHandler;
     private PlayerManager playerManager;
-    private CharacterController characterController;
+    public CharacterController characterController { get; private set; }
     private PlayerItemManager itemManager;
     #endregion
 
@@ -132,18 +134,18 @@ public class PlayerController : MonoBehaviour
 
             if (IsGrounded)
             {
-                Vector3 targetVelocity = worldspaceMoveInput * maxSpeed;
+                Vector3 targetVelocity = worldspaceMoveInput * MaxSpeed;
                 // smoothly interpolate between our current velocity and the target velocity based on acceleration speed
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementResponse * Time.deltaTime);
+                CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity, movementResponse * Time.deltaTime);
 
                 if (enableJump && inputHandler.GetJumpInputDown() && Time.time - lastJumpedTime > jumpCooldown)
                 {
 
                     // start by canceling out the vertical component of our velocity
-                    characterVelocity = new Vector3(characterVelocity.x, 0f, characterVelocity.z);
+                    CharacterVelocity = new Vector3(CharacterVelocity.x, 0f, CharacterVelocity.z);
 
                     // then, add the jumpSpeed value upwards
-                    characterVelocity += Vector3.up * jumpForce;
+                    CharacterVelocity += Vector3.up * jumpForce;
 
                     // reset the lastJumpTime
                     lastJumpedTime = Time.time;
@@ -153,18 +155,18 @@ public class PlayerController : MonoBehaviour
             {
 
                 // add air acceleration
-                characterVelocity += worldspaceMoveInput * movementResponse * airMovementResponseMultiplier * Time.deltaTime;
+                CharacterVelocity += worldspaceMoveInput * movementResponse * airMovementResponseMultiplier * Time.deltaTime;
 
                 // limit air speed to a maximum, but only horizontally
-                float verticalVelocity = characterVelocity.y;
-                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed * airMaxSpeedMultiplier);
-                characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+                float verticalVelocity = CharacterVelocity.y;
+                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(CharacterVelocity, Vector3.up);
+                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeed * airMaxSpeedMultiplier);
+                CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
                 // apply the gravity to the velocity
-                characterVelocity += Vector3.down * gravityForce * Time.deltaTime;
+                CharacterVelocity += Vector3.down * gravityForce * Time.deltaTime;
             }
-            characterController.Move(characterVelocity * Time.deltaTime);
+            characterController.Move(CharacterVelocity * Time.deltaTime);
         }
     }
 
@@ -180,12 +182,12 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Dynamically calculate the ground check ray length based on the height of the player
+    /// Return the bottom of the player capsule
     /// </summary>
-    /// <returns>Length of raycast to the ground</returns>
-    private float GetRayLength()
+    /// <returns>Position of ground relative to player</returns>
+    private Vector3 GetCharacterButtcrack()
     {
-        return characterController.height / 2 + 0.1f;
+        return transform.position + Vector3.down * (characterController.height / 2 + 0.1f);
     }
 
     /// <summary>
@@ -194,9 +196,8 @@ public class PlayerController : MonoBehaviour
     private void CheckGrounded()
     {
         Color debugRayColor;
-        float rayLength = GetRayLength();
 
-        if (Physics.Raycast(transform.position, Vector3.down, rayLength, jumpLayerMask))
+        if (Physics.CheckSphere(GetCharacterButtcrack(), groundCheckRadius, jumpLayerMask))
         {
             IsGrounded = true;
             debugRayColor = Color.green;
@@ -207,6 +208,6 @@ public class PlayerController : MonoBehaviour
             debugRayColor = Color.red;
         }
 
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * rayLength, debugRayColor, Time.deltaTime);
+        Debug.DrawLine(transform.position, GetCharacterButtcrack(), debugRayColor, Time.deltaTime);
     }
 }

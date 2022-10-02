@@ -15,6 +15,11 @@ public class PlayerInputHandler : MonoBehaviour
     public const string BUTTON_FIRE3 = "Fire3";
     public const string BUTTON_INTERACT = "Interact";
 
+    public void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     public Vector3 GetMoveInput()
     {
 
