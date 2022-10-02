@@ -74,15 +74,14 @@ public class PlayerController : MonoBehaviour
     private PlayerManager playerManager;
     public CharacterController characterController { get; private set; }
     private PlayerItemManager itemManager;
-    private PlayerBuffs playerBuffs;
     #endregion
 
-    public float MaxSpeed => playerBuffs.IsBuffActive(Buffs.FasterMoveSpeed) ? maxSpeedWithBuff : maxSpeed;
-    private float MovementResponse => playerBuffs.IsBuffActive(Buffs.FasterMoveSpeed) ? movementResponseWithBuff : movementResponse;
+    public float MaxSpeed => PlayerBuffsManager.Instance.IsBuffActive(Buffs.FasterMoveSpeed) ? maxSpeedWithBuff : maxSpeed;
+    private float MovementResponse => PlayerBuffsManager.Instance.IsBuffActive(Buffs.FasterMoveSpeed) ? movementResponseWithBuff : movementResponse;
 
-    private float JumpForce => playerBuffs.IsBuffActive(Buffs.HigherJumpHeight) ? jumpForceWithBuff : jumpForce;
-    private float AirMovementResponseMultiplier => playerBuffs.IsBuffActive(Buffs.HigherJumpHeight) ? airMovementResponseMultiplierWithBuff : airMovementResponseMultiplier;
-    private float GravityForce => playerBuffs.IsBuffActive(Buffs.HigherJumpHeight) ? gravityForceWithBuff : gravityForce;
+    private float JumpForce => PlayerBuffsManager.Instance.IsBuffActive(Buffs.HigherJumpHeight) ? jumpForceWithBuff : jumpForce;
+    private float AirMovementResponseMultiplier => PlayerBuffsManager.Instance.IsBuffActive(Buffs.HigherJumpHeight) ? airMovementResponseMultiplierWithBuff : airMovementResponseMultiplier;
+    private float GravityForce => PlayerBuffsManager.Instance.IsBuffActive(Buffs.HigherJumpHeight) ? gravityForceWithBuff : gravityForce;
 
     // Start is called before the first frame update
     void Start()
@@ -102,8 +101,6 @@ public class PlayerController : MonoBehaviour
 
         // Components that are not attached to this gameobject
         DebugUtility.HandleErrorIfNullGetComponent(PlayerCamera, this);
-
-        playerBuffs = GetComponent<PlayerBuffs>();
     }
 
     // Physics updated

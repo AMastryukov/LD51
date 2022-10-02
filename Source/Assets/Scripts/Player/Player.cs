@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerBuffs))]
 public class Player : MonoBehaviour
 {
     public static Action OnDie;
@@ -20,7 +19,6 @@ public class Player : MonoBehaviour
     [SerializeField] private bool verboseLogging = false;
     [SerializeField] private bool superVerboseLogging = false;
 
-    private PlayerBuffs playerBuffs = null;
     private Buffs lastBuff = Buffs.PassivelyRegenerateHP;
 
     private Weapon activeWeapon = null;
@@ -33,8 +31,6 @@ public class Player : MonoBehaviour
         {
             Debug.Log(nameof(Start), this);
         }
-
-        TryGetComponent(out playerBuffs);
 
         healthRegenerativeValue.SetCurrentValue(health);
         healthRegenerativeValue.SetMaxValue(maxHealth);

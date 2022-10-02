@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1768170347293203828}
   - component: {fileID: 1768170347293203823}
   - component: {fileID: 374801295}
-  - component: {fileID: 2255970998868265014}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -93,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1298ac2394676ec4696723a1e7f19e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockCursor: 1
 --- !u!114 &1768170347293203819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,19 +171,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 2849286540356717167, guid: 6993cbeb4ba8c564c8fd56af3cfa953e, type: 3}
   bobAmount: 0.05
   bobFrequency: 10
---- !u!114 &2255970998868265014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1768170347293203829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee911f283add9564b87f35e3d5ab27d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  verboseLogging: 0
 --- !u!1 &1768170348037127362
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +366,7 @@ MonoBehaviour:
   minValue: 0
   autoRegenerate: 1
   regenerateFrequency: 1
-  regenerateAmount: 1
+  regenerateAmount: 5
   verboseLogging: 0
   superVerboseLogging: 0
 --- !u!1 &7077947633120096994
@@ -428,7 +415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minValue: 0
   autoRegenerate: 0
-  regenerateFrequency: 10
-  regenerateAmount: 1
+  regenerateFrequency: 1
+  regenerateAmount: 2
   verboseLogging: 0
   superVerboseLogging: 0
