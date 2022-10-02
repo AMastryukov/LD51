@@ -9,11 +9,13 @@ public class EnemyAIv2 : MonoBehaviour
     {
         LookingForTarget,
         MovingToTarget,
+        Vaulting,
         AttackingTarget
     }
 
     private Enemy _enemy;
     private NavMeshAgent _agent;
+    private EnemyAnimator _animator;
 
     private Transform _player;
     private List<Transform> _barricades = new List<Transform>();
@@ -22,12 +24,12 @@ public class EnemyAIv2 : MonoBehaviour
     private Transform _currentTarget;
 
     private bool _isIndoors = false;
-    private bool _isAttackOnCooldown = false;
 
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
         _agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<EnemyAnimator>();
 
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         foreach (var barricade in GameObject.FindGameObjectsWithTag("Barricade"))
@@ -44,17 +46,18 @@ public class EnemyAIv2 : MonoBehaviour
         StartCoroutine(UpdateState());
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_currentTarget == null) return;
 
-        if (_enemy.CheckIfObjectIsInRange(_currentTarget))
+        // RIP Vaulting root motion bug, October 2, 2022 4pm - 5:58pm EST
+        if (_enemy.CheckIfObjectIsInRange(_currentTarget) && _currentState != State.Vaulting)
         {
             var lookPos = _currentTarget.position - transform.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5f);
         }
     }
 
@@ -86,6 +89,8 @@ public class EnemyAIv2 : MonoBehaviour
         // Find the nearest target based on whether the enemy is indoors or not
         _currentTarget = _isIndoors ? _player : FindNearestBarricade();
 
+        _animator.Stop();
+
         if (_currentTarget != null)
         {
             _currentState = State.MovingToTarget;
@@ -106,38 +111,17 @@ public class EnemyAIv2 : MonoBehaviour
 
     private void AttackTarget()
     {
-        if (_isAttackOnCooldown) return;
-
         if (!_enemy.CheckIfObjectIsInRange(_currentTarget))
         {
+            _animator.Stop();
+
             _currentState = State.MovingToTarget;
             MoveToTarget();
+
+            return;
         }
 
-        if (_currentTarget == _player)
-        {
-            // TODO: Attack the player, reduce their HP, etc
-        }
-        else
-        {
-            // TODO: Change TestBarricade to Barricade
-            if (_currentTarget.gameObject.GetComponent<TestBarricade>().IsDestroyed())
-            {
-                // TODO: Vault if the barricade is a window
-
-                _isIndoors = true;
-
-                _currentState = State.LookingForTarget;
-                LookForTarget();
-
-                return;
-            }
-
-            _currentTarget.gameObject.GetComponent<TestBarricade>().GetHit();
-            _isAttackOnCooldown = true;
-
-            Invoke(nameof(ResetAttackCooldown), _enemy.attackDelay);
-        }
+        _animator.Attack();
 
         if (_currentTarget == null)
         {
@@ -146,9 +130,56 @@ public class EnemyAIv2 : MonoBehaviour
         }
     }
 
-    private void ResetAttackCooldown()
+    /// <summary>
+    /// This is called from an animation event to make it more accurate
+    /// </summary>
+    public void PerformHit()
     {
-        _isAttackOnCooldown = false;
+        if (_currentTarget == _player)
+        {
+            // TODO: Attack the player, reduce their HP, etc
+        }
+        else
+        {
+            _currentTarget.gameObject.GetComponent<TestBarricade>().GetHit();
+
+            // TODO: Change TestBarricade to Barricade
+            if (_currentTarget.gameObject.GetComponent<TestBarricade>().IsDestroyed())
+            {
+                // TODO: if Barricade is a window
+                bool isWindow = true;
+                if (isWindow)
+                {
+                    // Perform the vault if near an unbarricated window
+                    _currentState = State.Vaulting;
+                    PerformVault();
+
+                    return;
+                }
+                else
+                {
+                    // If at an unbarricated doorway, move in and start looking for targets
+                    _currentState = State.LookingForTarget;
+                    LookForTarget();
+
+                    return;
+                }
+            }
+        }
+    }
+
+    private void PerformVault()
+    {
+        _animator.Vault();
+    }
+
+    public void OnVaultingFinished()
+    {
+        _isIndoors = true;
+        _animator.Stop();
+
+        _currentState = State.LookingForTarget;
+        LookForTarget();
     }
 
     private Transform FindNearestBarricade()

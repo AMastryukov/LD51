@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1768170347293203828}
   - component: {fileID: 1768170347293203823}
   - component: {fileID: 374801295}
-  - component: {fileID: 2255970998868265014}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -93,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1298ac2394676ec4696723a1e7f19e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockCursor: 1
 --- !u!114 &1768170347293203819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +110,9 @@ MonoBehaviour:
   movementResponseWithBuff: 16
   maxSpeed: 10
   maxSpeedWithBuff: 20
+  sprintMultiplier: 1.25
+  sprintStaminaDrainPerSecond: 10
+  sprintStaminaDrainPerSecondWithBuff: 10
   lookSensitivity: 10
   lookSensitivityVMultiplier: 0.5
   enableJump: 1
@@ -171,19 +174,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 2849286540356717167, guid: 6993cbeb4ba8c564c8fd56af3cfa953e, type: 3}
   bobAmount: 0.05
   bobFrequency: 10
---- !u!114 &2255970998868265014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1768170347293203829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee911f283add9564b87f35e3d5ab27d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  verboseLogging: 0
 --- !u!1 &1768170348037127362
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +185,7 @@ GameObject:
   - component: {fileID: 1768170348037127367}
   - component: {fileID: 1768170348037127360}
   - component: {fileID: 1768170348037127361}
+  - component: {fileID: 6020028330636730421}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -269,6 +260,39 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768170348037127362}
   m_Enabled: 1
+--- !u!114 &6020028330636730421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768170348037127362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1988784771815607367
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,9 +401,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minValue: 0
-  autoRegenerate: 1
+  autoRegenerate: 0
   regenerateFrequency: 1
-  regenerateAmount: 1
+  regenerateAmount: 5
   verboseLogging: 0
   superVerboseLogging: 0
 --- !u!1 &7077947633120096994
@@ -428,7 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minValue: 0
   autoRegenerate: 0
-  regenerateFrequency: 10
-  regenerateAmount: 1
+  regenerateFrequency: 1
+  regenerateAmount: 2
   verboseLogging: 0
   superVerboseLogging: 0
