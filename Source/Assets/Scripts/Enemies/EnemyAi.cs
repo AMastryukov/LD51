@@ -28,9 +28,7 @@ public class EnemyAi : MonoBehaviour
     private EnemyAiState _currentState = EnemyAiState.OutsideHouse;
     private bool _isAttackOnCooldown;
     private bool _isTargetTurret = false;
-
-    private float distanceFromTarget;
-    private float timeElapsed = 0;
+    private bool _isInsideRoom = false;
 
 
     #endregion
@@ -63,6 +61,14 @@ public class EnemyAi : MonoBehaviour
                     }
                     break;
                 case EnemyAiState.HuntingTarget:
+                    if (!_isInsideRoom)
+                    {
+                        if (!_nearestBarricade.GetComponent<TestBarricade>().IsDestroyed())
+                        {
+                            _currentState = EnemyAiState.OutsideHouse;
+                            MoveToNearestBarricade();
+                        }
+                    }
                     HuntTarget();
                     yield return new WaitForSeconds(_isTargetTurret ? _enemy.attackDelay : 0.25f);
                     break;
@@ -198,6 +204,11 @@ public class EnemyAi : MonoBehaviour
         }
 
         _isTargetTurret = _target == _nearestTurret;
+    }
+
+    public void SetRoomState(bool state)
+    {
+        _isInsideRoom = state;
     }
 
     private void FindNearestTurret()

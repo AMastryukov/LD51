@@ -7,8 +7,7 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     #region Fields
-
-    [SerializeField] private EnemyPool enemyPool;
+    
     [SerializeField] private List<Transform> enemySpawnPoints;
     [SerializeField] private int enemyIncrementPerWave = 1;
     [SerializeField] private int enemiesToSpawn = 5;
@@ -40,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemyAtRandomSpawnPoint()
     {
         int randomIndex = Random.Range(0, enemySpawnPoints.Count);
-        enemyPool.PoolInstantiate(enemySpawnPoints[randomIndex].position);
+        EnemyPool.Instance.PoolInstantiate(enemySpawnPoints[randomIndex].position);
     }
 
     private void SpawnEnemyAtSpecificSpawnPoint(int spawnPointIndex)
@@ -51,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        enemyPool.PoolInstantiate(enemySpawnPoints[spawnPointIndex].position);
+        EnemyPool.Instance.PoolInstantiate(enemySpawnPoints[spawnPointIndex].position);
     }
 
     private void SpawnEnemyWave()

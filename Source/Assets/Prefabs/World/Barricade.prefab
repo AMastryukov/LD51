@@ -128,7 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b40ec811536d134c813fbb3b9de4964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshObstacle: {fileID: 958237768774547290}
+  levelMaterials:
+  - {fileID: 2100000, guid: a848058d6ef21a740800e7ad014eedb7, type: 2}
+  - {fileID: 2100000, guid: 212fbc05415bea34086f37f9ac0f8534, type: 2}
+  - {fileID: 2100000, guid: 3df68c3df4e4cb84ca31c44b37825200, type: 2}
 --- !u!1 &3841752480010774277
 GameObject:
   m_ObjectHideFlags: 0
