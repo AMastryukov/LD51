@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-public enum EnemyAiState 
+public enum EnemyAiState
 {
     OutsideHouse,
     SearchForTarget,
@@ -58,7 +58,7 @@ public class EnemyAi : MonoBehaviour
                     break;
                 case EnemyAiState.HuntingTarget:
                     HuntTarget();
-                    yield return new WaitForSeconds(_isTargetTurret? _enemy.attacksPerSecond : 0.25f);
+                    yield return new WaitForSeconds(_isTargetTurret ? _enemy.attacksPerSecond : 0.25f);
                     break;
             }
         }
@@ -102,7 +102,7 @@ public class EnemyAi : MonoBehaviour
 
 
     #endregion
-    
+
     #region Attack
 
     private void AttackTarget()
@@ -160,12 +160,13 @@ public class EnemyAi : MonoBehaviour
             AttackTarget();
             return;
         }
-        
+
+        Debug.LogWarning("This can throw an error when the character isn't ont the nav mesh");
         _agent.SetDestination(_target.position);
     }
 
     #endregion
-    
+
     #region Search
 
     private void FindTarget()
@@ -227,6 +228,6 @@ public class EnemyAi : MonoBehaviour
     }
 
     #endregion
-    
-   
+
+
 }
