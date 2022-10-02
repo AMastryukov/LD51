@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1768170347293203828}
   - component: {fileID: 1768170347293203823}
   - component: {fileID: 374801295}
+  - component: {fileID: 635875523}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -138,6 +139,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSocket: {fileID: 6189170092836864517}
   itemPrefab: {fileID: 2849286540356717167, guid: 6993cbeb4ba8c564c8fd56af3cfa953e, type: 3}
+--- !u!208 &635875523
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768170347293203829}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1768170348037127362
 GameObject:
   m_ObjectHideFlags: 0

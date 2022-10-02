@@ -16,19 +16,20 @@ public class EnemyAi : MonoBehaviour
 {
     #region Fields
 
-    private NavMeshAgent _agent;
-    private Transform _player;
-    private List<Transform> _barricades = new List<Transform>();
-    private List<Transform> _turrets = new List<Transform>();
-    private Transform _nearestBarricade;
-    private Transform _nearestTurret;
-    private Transform _target;
+    public NavMeshAgent _agent;
+    public Transform _player;
+    public List<Transform> _barricades = new List<Transform>();
+    public List<Transform> _turrets = new List<Transform>();
+    public Transform _nearestBarricade;
+    public Transform _nearestTurret;
+    public Transform _target;
 
-    private Enemy _enemy;
-    private EnemyAiState _currentState = EnemyAiState.OutsideHouse;
+    public Enemy _enemy;
+    public EnemyAiState _currentState = EnemyAiState.OutsideHouse;
     private bool _isAttackOnCooldown;
     private bool _isTargetTurret = false;
     private bool _isInsideRoom = false;
+    public bool IsInsideRoom => _isInsideRoom;
 
 
     #endregion
@@ -68,8 +69,12 @@ public class EnemyAi : MonoBehaviour
                             _currentState = EnemyAiState.OutsideHouse;
                             MoveToNearestBarricade();
                         }
+                        else
+                        {
+                            HuntTargetOld();
+                        }
                     }
-                    HuntTarget();
+                    //HuntTarget();
                     yield return new WaitForSeconds(_isTargetTurret ? _enemy.attackDelay : 0.25f);
                     break;
             }
@@ -89,7 +94,7 @@ public class EnemyAi : MonoBehaviour
     private void Start()
     {
         //stopping distance is slightly less so that we can ensure that the enemy is able to attack
-        _agent.stoppingDistance = _enemy.attackRange-0.1f; 
+        //_agent.stoppingDistance = _enemy.attackRange-0.1f; 
         FindNearestBarricade();
         if (_nearestBarricade == null)
         {
@@ -171,15 +176,43 @@ public class EnemyAi : MonoBehaviour
         _agent.SetDestination(_nearestBarricade.position);
     }
 
-    private void HuntTarget()
+    public void HuntTarget(float radius, int index, int count)
     {
         if (_enemy.CheckIfObjectIsInRange(_target))
         {
+            _agent.isStopped = true;
             AttackTarget();
             return;
         }
+        _agent.isStopped = false;
+        Debug.LogWarning("This can throw an error when the character isn't ont the nav mesh");
+        CircleToTarget(radius,index,count); 
+        //_agent.SetDestination(_target.position);
+    }
+
+    private void HuntTargetOld()
+    {
+        if (_enemy.CheckIfObjectIsInRange(_target))
+        {
+            _agent.isStopped = true;
+            AttackTarget();
+            return;
+        }
+
+        _agent.isStopped = false;
         Debug.LogWarning("This can throw an error when the character isn't ont the nav mesh");
         _agent.SetDestination(_target.position);
+        
+    }
+    
+
+    public void CircleToTarget(float radius, int index,int count)
+    {
+        _agent.stoppingDistance = 0;
+        _agent.SetDestination(new Vector3(
+            _target.position.x + radius * Mathf.Cos(2 * Mathf.PI * index / 10),
+            _target.position.y,
+            _target.position.z + radius * Mathf.Sin(2 * Mathf.PI * index / 10)));
     }
 
     #endregion

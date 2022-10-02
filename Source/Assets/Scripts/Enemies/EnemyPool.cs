@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(1)]
 public class EnemyPool : NonPersistentSingleton<EnemyPool>
 {
     public static Action<GameObject> OnPoolDestroy;
@@ -28,6 +29,7 @@ public class EnemyPool : NonPersistentSingleton<EnemyPool>
         GameObject obj = objectPool.Dequeue();
         obj.SetActive(true);
         obj.transform.position = position;
+        EnemyManager.OnEnemySpawned?.Invoke(obj);
     }
 
     private void LazyInstantiate()
@@ -42,6 +44,7 @@ public class EnemyPool : NonPersistentSingleton<EnemyPool>
         OnPoolDestroy?.Invoke(obj);
         obj.SetActive(false);
         objectPool.Enqueue(obj);
+        EnemyManager.OnEnemyKilled?.Invoke(obj);
     }
 }
 

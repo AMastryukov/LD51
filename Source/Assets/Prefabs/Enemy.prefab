@@ -168,6 +168,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262570aa3313cb547a0cd8fec840c2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _agent: {fileID: 0}
+  _player: {fileID: 0}
+  _barricades: []
+  _turrets: []
+  _nearestBarricade: {fileID: 0}
+  _nearestTurret: {fileID: 0}
+  _target: {fileID: 0}
+  _enemy: {fileID: 0}
+  _currentState: 0
 --- !u!54 &5866455158528370964
 Rigidbody:
   m_ObjectHideFlags: 0
