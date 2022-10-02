@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrapBlueprint : Item
 {
@@ -36,17 +37,17 @@ public class TrapBlueprint : Item
         //Temporarily managing input here, should be hooked up to input handler
         if (Input.GetKeyDown(KeyCode.X))
         {
-            Use();
+            Toggle();
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            ConfirmBluePrintPlacement();
+            Use();
         }
 
         if (_isEquipped)
         {
             RaycastHit rayHit;
-            Debug.DrawLine(trapObj.transform.position+Vector3.up*placementRange/2, trapObj.transform.position + Vector3.down * placementRange, Color.green, 1f);
+            //Debug.DrawLine(trapObj.transform.position+Vector3.up*placementRange/2, trapObj.transform.position + Vector3.down * placementRange, Color.green, 1f);
             if (Physics.BoxCast(trapObj.transform.position+Vector3.up*placementRange/2,_objMesh.bounds.extents,Vector3.down,out rayHit,transform.rotation,placementRange,placementLayer))
             {
                 if (rayHit.collider.gameObject.layer == 3)
@@ -61,26 +62,10 @@ public class TrapBlueprint : Item
                     _meshRenderer.material = invalidMaterial;
                 }
             }
-            trapObj.SetActive(true);
-        }
-        else
-        {
-            _onValidGround = false;
-            trapObj.SetActive(false);
         }
     }
 
     public override void Use()
-    {
-        _isEquipped = !_isEquipped;
-    }
-
-    private void ExplicitUnEquip()
-    {
-        _isEquipped = false;
-    }
-
-    private void ConfirmBluePrintPlacement()
     {
         if (!_isEquipped) return;
         if (_onValidGround)
@@ -88,5 +73,19 @@ public class TrapBlueprint : Item
             Debug.Log("Placement Confirmed");
             ExplicitUnEquip();
         }
+    }
+
+    private void ExplicitUnEquip()
+    {
+        _isEquipped = false;
+        trapObj.SetActive(false);
+        _onValidGround = false;
+    }
+
+    private void Toggle()
+    {
+        _isEquipped = !_isEquipped;
+        trapObj.SetActive(_isEquipped);
+        _onValidGround = false;
     }
 }
