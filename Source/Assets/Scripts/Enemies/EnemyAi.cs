@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,9 @@ public class EnemyAi : MonoBehaviour
     private bool _isAttackOnCooldown;
     private bool _isTargetTurret = false;
 
+    private float distanceFromTarget;
+    private float timeElapsed = 0;
+
 
     #endregion
 
@@ -41,7 +45,9 @@ public class EnemyAi : MonoBehaviour
             {
                 case EnemyAiState.OutsideHouse:
                     AttackBarricadeIfInRange();
-                    yield return new WaitForSeconds(_enemy.attacksPerSecond);
+                    //Don't stand around waiting if barricade is already destroyed
+                    if(_currentState==EnemyAiState.OutsideHouse)
+                        yield return new WaitForSeconds(_enemy.attackDelay);
                     break;
                 case EnemyAiState.SearchForTarget:
                     FindTarget();
@@ -58,7 +64,7 @@ public class EnemyAi : MonoBehaviour
                     break;
                 case EnemyAiState.HuntingTarget:
                     HuntTarget();
-                    yield return new WaitForSeconds(_isTargetTurret ? _enemy.attacksPerSecond : 0.25f);
+                    yield return new WaitForSeconds(_isTargetTurret ? _enemy.attackDelay : 0.25f);
                     break;
             }
         }
@@ -76,6 +82,8 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
+        //stopping distance is slightly less so that we can ensure that the enemy is able to attack
+        _agent.stoppingDistance = _enemy.attackRange-0.1f; 
         FindNearestBarricade();
         if (_nearestBarricade == null)
         {
@@ -128,7 +136,7 @@ public class EnemyAi : MonoBehaviour
         if (_isAttackOnCooldown) return;
         _nearestBarricade.gameObject.GetComponent<TestBarricade>().GetHit();
         _isAttackOnCooldown = true;
-        Invoke(nameof(ResetAttack), _enemy.attacksPerSecond);
+        Invoke(nameof(ResetAttack), _enemy.attackDelay);
     }
 
     private void ResetAttack()
@@ -146,6 +154,10 @@ public class EnemyAi : MonoBehaviour
         {
             AttackBarricade();
         }
+        else
+        {
+            MoveToNearestBarricade();
+        }
     }
 
     private void MoveToNearestBarricade()
@@ -160,7 +172,6 @@ public class EnemyAi : MonoBehaviour
             AttackTarget();
             return;
         }
-
         Debug.LogWarning("This can throw an error when the character isn't ont the nav mesh");
         _agent.SetDestination(_target.position);
     }

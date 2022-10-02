@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyPool enemyPool;
     [SerializeField] private List<Transform> enemySpawnPoints;
     [SerializeField] private int enemyIncrementPerWave = 1;
-    private int _enemiesToSpawn = 5;
+    [SerializeField] private int enemiesToSpawn = 5;
 
     #endregion
 
@@ -56,13 +56,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemyWave()
     {
-        for (int i = 0; i < _enemiesToSpawn; i++)
+        for (int i = 0; i < enemiesToSpawn; i++)
         {
             SpawnEnemyAtRandomSpawnPoint();
         }
 
         //Increase amount to spawn for the next wave
-        _enemiesToSpawn += enemyIncrementPerWave;
+        enemiesToSpawn += enemyIncrementPerWave;
     }
 
     #endregion
