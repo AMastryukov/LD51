@@ -46,7 +46,5 @@ public class EnemyAnimator : MonoBehaviour
         _animator?.SetBool("isAttacking", false);
         _animator?.SetBool("isVaulting", false);
         _animator?.SetBool("isDancing", false);
-
-        _animator?.SetFloat("movementSpeed", 0f);
     }
 }

@@ -50,7 +50,8 @@ public class EnemyAIv2 : MonoBehaviour
     {
         if (_currentTarget == null) return;
 
-        if (_enemy.CheckIfObjectIsInRange(_currentTarget))
+        // RIP Vaulting root motion bug, October 2, 2022 4pm - 5:58pm EST
+        if (_enemy.CheckIfObjectIsInRange(_currentTarget) && _currentState != State.Vaulting)
         {
             var lookPos = _currentTarget.position - transform.position;
             lookPos.y = 0;
@@ -76,10 +77,6 @@ public class EnemyAIv2 : MonoBehaviour
 
                 case State.AttackingTarget:
                     AttackTarget();
-                    break;
-
-                case State.Vaulting:
-                    Debug.Log("Vaulting atm");
                     break;
             }
 
@@ -173,7 +170,6 @@ public class EnemyAIv2 : MonoBehaviour
 
     private void PerformVault()
     {
-        _animator.Stop();
         _animator.Vault();
     }
 
