@@ -49,11 +49,11 @@ public class PlayerController : MonoBehaviour
     [Range(5f, 20f)]
     [SerializeField] private float jumpForceWithBuff = 16f;
 
-    [Tooltip("Max movement speed of the character in the air")]
+    [Tooltip("How snappy the character movement is in the air")]
     [Range(0.1f, 2f)]
-    [SerializeField] private float airMaxSpeedMultiplier = 0.5f;
+    [SerializeField] private float airMovementResponseMultiplier = 0.5f;
     [Range(0.1f, 2f)]
-    [SerializeField] private float airMaxSpeedMultiplierWithBuff = 1f;
+    [SerializeField] private float airMovementResponseMultiplierWithBuff = 1f;
 
     [SerializeField] private LayerMask jumpLayerMask;
 
@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
     private float MovementResponse => playerBuffs.IsActive(Buffs.FasterMoveSpeed) ? movementResponseWithBuff : movementResponse;
 
     private float JumpForce => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? jumpForceWithBuff : jumpForce;
-    private float AirMaxSpeedMultiplier => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? airMaxSpeedMultiplierWithBuff : airMaxSpeedMultiplier;
     private float AirMovementResponseMultiplier => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? airMovementResponseMultiplierWithBuff : airMovementResponseMultiplier;
     private float GravityForce => playerBuffs.IsActive(Buffs.HigherJumpHeight) ? gravityForceWithBuff : gravityForce;
 
