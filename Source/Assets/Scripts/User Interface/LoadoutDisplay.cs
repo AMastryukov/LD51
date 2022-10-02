@@ -16,14 +16,14 @@ public class LoadoutDisplay : MonoBehaviour
     {
         GameManager.OnNewWeapon += UpdateWeapons;
         GameManager.OnNewTrap += UpdateTraps;
-        GameManager.OnNewBonus += UpdateBonuses;
+        GameManager.OnNewBuff += UpdateBonuses;
     }
 
     private void OnDestroy()
     {
         GameManager.OnNewWeapon -= UpdateWeapons;
         GameManager.OnNewTrap -= UpdateTraps;
-        GameManager.OnNewBonus -= UpdateBonuses;
+        GameManager.OnNewBuff -= UpdateBonuses;
     }
 
     private void UpdateWeapons(ItemData newWeapon, ItemData nextWeapon)
@@ -38,7 +38,7 @@ public class LoadoutDisplay : MonoBehaviour
         nextTrapSlot.SetItem(nextTrap);
     }
 
-    private void UpdateBonuses(Bonuses newBonus, Bonuses nextBonus)
+    private void UpdateBonuses(Buffs newBonus, Buffs nextBonus)
     {
         activeBonusSlot.SetBonus(newBonus);
         nextBonusSlot.SetBonus(nextBonus);
