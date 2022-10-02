@@ -9,12 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1768170347293203816}
+  - component: {fileID: 4993879862887982037}
   - component: {fileID: 1768170347293203817}
   - component: {fileID: 1768170347293203818}
   - component: {fileID: 1768170347293203819}
   - component: {fileID: 1768170347293203828}
   - component: {fileID: 1768170347293203823}
   - component: {fileID: 374801295}
+  - component: {fileID: 2255970998868265014}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -34,10 +36,33 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7956057589306981295}
+  - {fileID: 3016435211181802233}
   - {fileID: 1768170348037127367}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4993879862887982037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768170347293203829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec6ddfce85e6fb4ba7273b869d4cd10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  healthRegenerativeValue: {fileID: 6519806560413405066}
+  stamina: 100
+  maxStamina: 100
+  maxStaminaWithBuff: 200
+  staminaRegenerativeValue: {fileID: 6635254030488164050}
+  verboseLogging: 0
+  superVerboseLogging: 0
 --- !u!143 &1768170347293203817
 CharacterController:
   m_ObjectHideFlags: 0
@@ -82,16 +107,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 1768170348037127360}
   movementResponse: 8
+  movementResponseWithBuff: 16
+  maxSpeed: 10
+  maxSpeedWithBuff: 20
   lookSensitivity: 10
   lookSensitivityVMultiplier: 0.5
   enableJump: 1
   groundCheckRadius: 0.499
   jumpForce: 8
+  jumpForceWithBuff: 16
   airMovementResponseMultiplier: 0.5
+  airMovementResponseMultiplierWithBuff: 1
   jumpLayerMask:
     serializedVersion: 2
     m_Bits: 1033
   gravityForce: 20
+  gravityForceWithBuff: 30
   IsGrounded: 0
 --- !u!114 &1768170347293203828
 MonoBehaviour:
@@ -140,6 +171,19 @@ MonoBehaviour:
   itemPrefab: {fileID: 2849286540356717167, guid: 6993cbeb4ba8c564c8fd56af3cfa953e, type: 3}
   bobAmount: 0.05
   bobFrequency: 10
+--- !u!114 &2255970998868265014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768170347293203829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee911f283add9564b87f35e3d5ab27d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verboseLogging: 0
 --- !u!1 &1768170348037127362
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +216,7 @@ Transform:
   m_Children:
   - {fileID: 6189170092836864517}
   m_Father: {fileID: 1768170347293203816}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1768170348037127360
 Camera:
@@ -288,3 +332,103 @@ Transform:
   m_Father: {fileID: 6189170092836864517}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6285100200745360414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3016435211181802233}
+  - component: {fileID: 6635254030488164050}
+  m_Layer: 6
+  m_Name: Stamina Regenerative Value
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3016435211181802233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285100200745360414}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1768170347293203816}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6635254030488164050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285100200745360414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e8f16136d3b63428982b8650d19b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minValue: 0
+  autoRegenerate: 1
+  regenerateFrequency: 1
+  regenerateAmount: 1
+  verboseLogging: 0
+  superVerboseLogging: 0
+--- !u!1 &7077947633120096994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7956057589306981295}
+  - component: {fileID: 6519806560413405066}
+  m_Layer: 6
+  m_Name: Health Regenerative Value
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7956057589306981295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7077947633120096994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1768170347293203816}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6519806560413405066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7077947633120096994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e8f16136d3b63428982b8650d19b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minValue: 0
+  autoRegenerate: 0
+  regenerateFrequency: 10
+  regenerateAmount: 1
+  verboseLogging: 0
+  superVerboseLogging: 0

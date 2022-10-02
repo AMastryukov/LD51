@@ -27,11 +27,11 @@ public class RoomBonusHandlingLogicTester : MonoBehaviour
 
         if (room.IsControlledByPlayer)
         {
-            OnRoomCaptured(room, room.Bonus);
+            OnRoomCaptured(room, room.Buff);
         }
         else
         {
-            OnRoomLost(room, room.Bonus);
+            OnRoomLost(room, room.Buff);
         }
     }
 
@@ -60,7 +60,7 @@ public class RoomBonusHandlingLogicTester : MonoBehaviour
         countDownText.text = secondsLeft.ToString();
     }
 
-    private void OnRoomLost(Room room, Bonuses bonus)
+    private void OnRoomLost(Room room, Buffs bonus)
     {
         if (verboseLogging)
         {
@@ -70,7 +70,7 @@ public class RoomBonusHandlingLogicTester : MonoBehaviour
         roomControlText.text = "Under Enemy Control!";
     }
 
-    private void OnRoomCaptured(Room room, Bonuses bonus)
+    private void OnRoomCaptured(Room room, Buffs bonus)
     {
         if (verboseLogging)
         {
