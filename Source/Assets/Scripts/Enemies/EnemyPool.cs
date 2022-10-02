@@ -1,9 +1,11 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPool : MonoBehaviour
 {
+    public static Action<GameObject> OnPoolDestroy;
+
     [SerializeField] private GameObject objectPrefab;
     [SerializeField] private int initialPoolSize = 10;
     private Queue<GameObject> objectPool = new Queue<GameObject>();
@@ -37,6 +39,7 @@ public class EnemyPool : MonoBehaviour
 
     public void PoolDestroy(GameObject obj)
     {
+        OnPoolDestroy?.Invoke(obj);
         obj.SetActive(false);
         objectPool.Enqueue(obj);
     }

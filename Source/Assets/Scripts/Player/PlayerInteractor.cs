@@ -22,10 +22,7 @@ public class PlayerInteractor : MonoBehaviour
         inputHandler = GetComponent<PlayerInputHandler>();
         DebugUtility.HandleErrorIfNullGetComponent(inputHandler, this);
 
-        if (interactableLayerMask.value == 0)
-        {
-            Debug.LogWarning("LayerMask missing on " + gameObject.name + ". Set this to the Interactable layer");
-        }
+        DebugUtility.HandleEmptyLayerMask(interactableLayerMask, this, "Interactable");
     }
 
     private void Update()

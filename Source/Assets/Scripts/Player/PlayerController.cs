@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInputHandler inputHandler;
     private PlayerManager playerManager;
     private CharacterController characterController;
+    private PlayerItemManager itemManager;
     #endregion
 
 
@@ -72,6 +73,9 @@ public class PlayerController : MonoBehaviour
 
         characterController = GetComponent<CharacterController>();
         DebugUtility.HandleErrorIfNullGetComponent(characterController, this);
+
+        itemManager = GetComponent<PlayerItemManager>();
+        DebugUtility.HandleErrorIfNullGetComponent(itemManager, this);
 
         // Components that are not attached to this gameobject
         DebugUtility.HandleErrorIfNullGetComponent(PlayerCamera, this);
@@ -90,6 +94,7 @@ public class PlayerController : MonoBehaviour
         if (playerManager.CurrentState == PlayerStates.Move)
         {
             HandleCharacterMovement();
+            UseItems();
         }
     }
 
@@ -160,6 +165,17 @@ public class PlayerController : MonoBehaviour
                 characterVelocity += Vector3.down * gravityForce * Time.deltaTime;
             }
             characterController.Move(characterVelocity * Time.deltaTime);
+        }
+    }
+
+    /// <summary>
+    /// Handle clicks and item usage when the player is moving
+    /// </summary>
+    private void UseItems()
+    {
+        if (inputHandler.GetUseInput())
+        {
+            itemManager.Use();
         }
     }
 

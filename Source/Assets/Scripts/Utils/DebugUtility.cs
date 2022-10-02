@@ -11,4 +11,14 @@ public static class DebugUtility
         }
 #endif
     }
+
+    public static void HandleEmptyLayerMask(LayerMask layerMask, MonoBehaviour mono, string expected = "<INSERT LAYER HERE>")
+    {
+#if UNITY_EDITOR
+        if (layerMask.value == 0)
+        {
+            Debug.LogWarning("LayerMask missing on " + mono.name + ". Set this to the " + expected + " layer.");
+        }
+#endif
+    }
 }
