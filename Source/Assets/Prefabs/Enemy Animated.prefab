@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 3175955444879230966}
   - component: {fileID: 7624523343627319534}
   - component: {fileID: 4106046772387775422}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Right Arm Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 7472663469983476336}
   - component: {fileID: 3280296463628381204}
   - component: {fileID: 6966515164267716376}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 6591947651579444655}
   - component: {fileID: 2130337383759680671}
   - component: {fileID: 7002689877300126404}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 3338520359943013015}
   - component: {fileID: 4271536193807815765}
   - component: {fileID: 5815445683350191217}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 7688793034472299732}
   - component: {fileID: 7579166574563868188}
   - component: {fileID: 4288089965617536902}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1216,7 +1216,7 @@ GameObject:
   - component: {fileID: 7640869510940630351}
   - component: {fileID: 6538163832956289542}
   - component: {fileID: 4267843741181545229}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1364,7 +1364,7 @@ GameObject:
   - component: {fileID: 3224265805695682094}
   - component: {fileID: 6989520013086043143}
   - component: {fileID: 8483960940738133367}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1544,7 +1544,7 @@ GameObject:
   - component: {fileID: 3154714178885841728}
   - component: {fileID: 7423695030381783348}
   - component: {fileID: 455220926644584072}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1660,7 +1660,7 @@ GameObject:
   - component: {fileID: 4340386921262358163}
   - component: {fileID: 6450808338836177599}
   - component: {fileID: 8434379739839427596}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Right Leg Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1836,7 +1836,7 @@ GameObject:
   - component: {fileID: 4620191439036291406}
   - component: {fileID: 7773254098043167728}
   - component: {fileID: 5997951198656967932}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Left Leg Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2213,7 +2213,7 @@ GameObject:
   - component: {fileID: 4382782569827221824}
   - component: {fileID: 3540383090681142500}
   - component: {fileID: 3373754724034249876}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2552,7 +2552,7 @@ GameObject:
   - component: {fileID: 50860026090239062}
   - component: {fileID: 8382588062867172343}
   - component: {fileID: 2189290201245288626}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Right Leg Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2668,7 +2668,7 @@ GameObject:
   - component: {fileID: 8409980444025870717}
   - component: {fileID: 2285304123355705114}
   - component: {fileID: 1826205179862845901}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3155,8 +3155,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.25
-  m_Speed: 4
-  m_Acceleration: 20
+  m_Speed: 5
+  m_Acceleration: 25
   avoidancePriority: 50
   m_AngularSpeed: 180
   m_StoppingDistance: 2
@@ -3199,9 +3199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb692ca53367d54fabb32910bae410f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 10
-  attackRange: 1.75
-  attackDelay: 2
+  enemyHealth: 100
+  enemyDamage: 10
+  attackRange: 2
+  attackDelay: 1
   hitBoxes:
   - {fileID: 3004423968882617092}
   - {fileID: 929160025759184906}
@@ -3427,7 +3428,7 @@ GameObject:
   - component: {fileID: 7305172629378991629}
   - component: {fileID: 8978277559127335637}
   - component: {fileID: 5846298479079225577}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3543,7 +3544,7 @@ GameObject:
   - component: {fileID: 2200083989434169052}
   - component: {fileID: 5703962145021950883}
   - component: {fileID: 5824587827211240967}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3659,7 +3660,7 @@ GameObject:
   - component: {fileID: 2069407177897725804}
   - component: {fileID: 339062010673465759}
   - component: {fileID: 5652484666936472551}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3932,7 +3933,7 @@ GameObject:
   - component: {fileID: 3500339964327141627}
   - component: {fileID: 2629184527339276714}
   - component: {fileID: 5153359283558417343}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4079,7 +4080,7 @@ GameObject:
   - component: {fileID: 1941332140686321612}
   - component: {fileID: 1735559579519360528}
   - component: {fileID: 7233968296813193274}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Left Leg Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4226,7 +4227,7 @@ GameObject:
   - component: {fileID: 4269241665902163387}
   - component: {fileID: 3112728005137560309}
   - component: {fileID: 6461490195014895720}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Left Arm Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}

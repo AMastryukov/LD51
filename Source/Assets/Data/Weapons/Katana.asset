@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Katana
   m_EditorClassIdentifier: 
   Name: Katana
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: d470e33a85dd3754bb870e965b42646e, type: 3}
   Item: {fileID: 656403505901879983, guid: a3de04cd9b334304f8072bfd160a33af, type: 3}

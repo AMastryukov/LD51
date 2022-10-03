@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    [SerializeField] private int health = 10;
-    [SerializeField] private int damageToEnemies = 20;
-    [SerializeField] private int damageWhenHit = 2;
-    [SerializeField] private float fireRate = 10;
-    [SerializeField] private float lookAtDamping = 5f;
+    [Header("References")]
     [SerializeField] private SphereCollider rangeCollider = null;
     [SerializeField] private LayerMask hitLayerMask;
 
@@ -23,21 +19,41 @@ public class Turret : MonoBehaviour
     [SerializeField] private OnTriggerEnterHandler onTriggerEnterHandler = null;
     [SerializeField] private OnTriggerExitHandler onTriggerExitHandler = null;
 
-    [SerializeField] private GameObject setInactiveOnDeath = null;
-    [SerializeField] private GameObject setActiveOnDeath = null;
+    [Header("Gameplay")]
+    [SerializeField] private int damageToEnemies = 20;
+    [SerializeField] private float fireRate = 10;
+    [SerializeField] private float lookAtDamping = 5f;
+    [SerializeField] private float lifespan = 10f;
 
-    [SerializeField] private float timeToDestroyAfterTrigger = 5f;
-
+    [Header("Debugging")]
     [SerializeField] private bool verboseLogging = false;
     [SerializeField] private bool superVerboseLogging = false;
     [SerializeField] private bool superDuperVerboseLogging = false;
 
     private bool targetIsObstructed = false;
-    private List<Transform> trackedEnemies = new List<Transform>();
-    private DateTime nextFire = DateTime.Now;
+    private List<Enemy> trackedEnemies = new List<Enemy>();
+    private float _timeSinceLastShot = 0f;
 
-    private Transform Target => trackedEnemies[0];
+    private Transform CurrentTarget => trackedEnemies[0].transform;
     private Vector3 FireDirection => emissionPoint.forward;
+
+    private void Awake()
+    {
+        Enemy.OnEnemyDied += StopTrackingEnemy;
+
+        onTriggerEnterHandler.OnTrigger += OnColliderEntered;
+        onTriggerExitHandler.OnTrigger += OnColliderExited;
+
+        _timeSinceLastShot = 1f / fireRate;
+    }
+
+    private void OnDestroy()
+    {
+        Enemy.OnEnemyDied -= StopTrackingEnemy;
+
+        onTriggerEnterHandler.OnTrigger -= OnColliderEntered;
+        onTriggerExitHandler.OnTrigger -= OnColliderExited;
+    }
 
     private void Start()
     {
@@ -46,12 +62,7 @@ public class Turret : MonoBehaviour
             Debug.Log(nameof(Start), this);
         }
 
-        onTriggerEnterHandler.OnTrigger += OnColliderEntered;
-        onTriggerExitHandler.OnTrigger += OnColliderExited;
-
-        EnemyPool.OnPoolDestroy += OnEnemyDespawned;
-
-        //enabled = false;
+        Destroy(gameObject, lifespan);
     }
 
     private void Update()
@@ -62,51 +73,37 @@ public class Turret : MonoBehaviour
             {
                 laser.enabled = false;
             }
+
             return;
         }
 
         LookAtTarget();
+        Fire();
 
-        if (DateTime.Now > nextFire && !targetIsObstructed)
-        {
-            Fire();
-            nextFire = DateTime.Now.AddSeconds(fireRate);
-        }
-    }
-
-    public void GetHit()
-    {
-        if (verboseLogging)
-        {
-            Debug.Log(nameof(GetHit), this);
-        }
-
-        health -= damageWhenHit;
-
-        if (health <= 0)
-        {
-            setInactiveOnDeath.SetActive(false);
-            setActiveOnDeath.SetActive(true);
-            Destroy(gameObject, 5);
-        }
+        _timeSinceLastShot += Time.deltaTime;
     }
 
     private void LookAtTarget()
     {
-        Vector3 targetPosition = new Vector3(Target.position.x, pivot.position.y, Target.position.z);
+        if (CurrentTarget == null) return;
+
+        Vector3 targetPosition = new Vector3(CurrentTarget.position.x, pivot.position.y, CurrentTarget.position.z);
         Quaternion pivotRotation = Quaternion.LookRotation(targetPosition - pivot.position);
         pivot.rotation = Quaternion.Slerp(pivot.rotation, pivotRotation, Time.deltaTime * lookAtDamping);
-        
+
         if (!laser.enabled)
         {
             laser.enabled = true;
         }
-        laser.SetPosition(0,emissionPoint.position);
-        laser.SetPosition(1,emissionPoint.position+emissionPoint.transform.forward*rangeCollider.radius);
+
+        laser.SetPosition(0, emissionPoint.position);
+        laser.SetPosition(1, emissionPoint.position + emissionPoint.transform.forward * rangeCollider.radius);
     }
 
     private void Fire()
     {
+        if (_timeSinceLastShot < 1f / fireRate) return;
+
         if (superDuperVerboseLogging)
         {
             Debug.Log(nameof(Fire), this);
@@ -126,15 +123,20 @@ public class Turret : MonoBehaviour
             Debug.DrawLine(emissionPoint.position, emissionPoint.position + FireDirection * rangeCollider.radius, Color.green, 1f);
 
             Instantiate(projectile, emissionPoint.position, emissionPoint.rotation);
+
             emissionParticleSystem.Play();
             emissionAudioSource.Play();
+
+            _timeSinceLastShot = 0f;
         }
     }
 
     private void OnColliderEntered(Collider collider)
     {
         Transform colliderTransform = collider.transform;
-        if (!colliderTransform.CompareTag(GameConstants.TagConstants.EnemyTag))
+        var enemy = colliderTransform.GetComponent<Enemy>();
+
+        if (!enemy)
         {
             return;
         }
@@ -144,8 +146,10 @@ public class Turret : MonoBehaviour
             Debug.Log(nameof(OnColliderEntered) + " ( " + nameof(collider) + ": " + collider.gameObject.name + " )", this);
         }
 
-        trackedEnemies.Add(colliderTransform);
+        trackedEnemies.Add(enemy);
+
         CheckIfTargetIsObstructed();
+
         if (trackedEnemies.Count > 1 && targetIsObstructed)
         {
             SetTargetToUnobstructedEnemy();
@@ -160,8 +164,10 @@ public class Turret : MonoBehaviour
 
     private void OnColliderExited(Collider collider)
     {
-        Transform enemyTransform = collider.transform;
-        if (!enemyTransform.CompareTag(GameConstants.TagConstants.EnemyTag) || !trackedEnemies.Contains(enemyTransform))
+        Transform colliderTransform = collider.transform;
+        var enemy = colliderTransform.GetComponent<Enemy>();
+
+        if (!enemy || !trackedEnemies.Contains(enemy))
         {
             return;
         }
@@ -171,34 +177,12 @@ public class Turret : MonoBehaviour
             Debug.Log(nameof(OnColliderExited) + " ( " + nameof(collider) + ": " + collider.gameObject.name + " )", this);
         }
 
-        StopTrackingEnemy(enemyTransform);
+        StopTrackingEnemy(enemy);
     }
 
-    private void OnEnemyDespawned(GameObject enemyGameObject)
+    private void StopTrackingEnemy(Enemy enemy)
     {
-        Transform enemyTransform = enemyGameObject.transform;
-
-        if (!trackedEnemies.Contains(enemyTransform))
-        {
-            return;
-        }
-
-        if (verboseLogging)
-        {
-            Debug.Log(nameof(OnEnemyDespawned) + " ( " + nameof(enemyGameObject) + ": " + enemyGameObject.name + " )", this);
-        }
-
-        StopTrackingEnemy(enemyTransform);
-    }
-
-    private void StopTrackingEnemy(Transform enemyTransform)
-    {
-        if (verboseLogging)
-        {
-            Debug.Log(nameof(StopTrackingEnemy) + " ( " + nameof(enemyTransform) + ": " + enemyTransform.name + " )", this);
-        }
-
-        trackedEnemies.Remove(enemyTransform);
+        trackedEnemies.Remove(enemy);
 
         if (trackedEnemies.Count == 0)
         {
@@ -227,7 +211,7 @@ public class Turret : MonoBehaviour
 
         targetIsObstructed = false;
         RaycastHit raycastHit;
-        if (Physics.Linecast(emissionPoint.position, Target.position, out raycastHit))
+        if (Physics.Linecast(emissionPoint.position, CurrentTarget.position, out raycastHit))
         {
             targetIsObstructed = !raycastHit.collider.gameObject.CompareTag(GameConstants.TagConstants.EnemyTag);
 
@@ -255,17 +239,19 @@ public class Turret : MonoBehaviour
         RaycastHit raycastHit;
         for (int i = 1; i < trackedEnemies.Count; i++)
         {
-            Transform enemyTransform = trackedEnemies[i];
+            Transform enemyTransform = trackedEnemies[i].transform;
             if (Physics.Linecast(emissionPoint.position, enemyTransform.position, out raycastHit))
             {
-                bool isAnUnobstructedEnemy =
-                    raycastHit.collider.gameObject.CompareTag(GameConstants.TagConstants.EnemyTag);
+                Enemy enemy = raycastHit.collider.GetComponent<Enemy>();
+                bool isAnUnobstructedEnemy = enemy;
 
                 if (isAnUnobstructedEnemy)
                 {
                     Transform newTarget = enemyTransform;
-                    trackedEnemies.Remove(enemyTransform);
-                    trackedEnemies.Insert(0, enemyTransform);
+
+                    trackedEnemies.Remove(enemy);
+                    trackedEnemies.Insert(0, enemy);
+
                     if (superVerboseLogging)
                     {
                         Debug.Log(nameof(SetTargetToUnobstructedEnemy) + $" | found a new target!", this);

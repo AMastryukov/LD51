@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   Name: Shotgun
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: deca7b2bfcf728045b99a6a041eebf16, type: 3}
   Item: {fileID: 2849286540356717167, guid: 2a28a9391cb6693409e577a755b4ab71, type: 3}

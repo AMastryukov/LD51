@@ -71,7 +71,7 @@ public class Weapon : Item
     private Projectile projectile;
     [SerializeField]
     private float projectileLifeSpan = 0.1f;
-    private Queue<Projectile> projectileQueue;
+    static Queue<Projectile> projectileQueue;
 
     [SerializeField]
     protected ParticleSystem muzzlePasticleSystem;
@@ -101,7 +101,11 @@ public class Weapon : Item
         audioSource = GetComponent<AudioSource>();
         DebugUtility.HandleErrorIfNullGetComponent(audioSource, this);
 
-        projectileQueue = new Queue<Projectile>();
+        if (projectileQueue == null)
+        {
+            projectileQueue = new Queue<Projectile>();
+
+        }
         ammoAmount = ammoCapacity;
 
     }
@@ -134,7 +138,6 @@ public class Weapon : Item
                 transform.localRotation = Quaternion.Lerp(restRotation, recoilPosition.localRotation, currentRecoil);
                 break;
             case WeaponState.RELOADING:
-                print("Reloading");
                 ReloadPosition = Mathf.Clamp01(ReloadPosition + (1f / reloadDuration) * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(restPosition, loweredPosition, ReloadPosition);
                 transform.localRotation = Quaternion.Lerp(restRotation, loweredRotation, ReloadPosition);
@@ -144,7 +147,6 @@ public class Weapon : Item
                 }
                 break;
             case WeaponState.RAISING:
-                print("Raising");
                 ReloadPosition = Mathf.Clamp01(ReloadPosition - (1 / reloadDuration) * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(restPosition, loweredPosition, ReloadPosition);
                 transform.localRotation = Quaternion.Lerp(restRotation, loweredRotation, ReloadPosition);
@@ -205,7 +207,7 @@ public class Weapon : Item
         for (int i = 0; i < hits.Length; i++)
         {
             calculatedDamage = Mathf.CeilToInt(decayedDamage);
-            hitBox = hits[i].collider.gameObject.GetComponent<EnemyHitbox>();
+            hitBox = hits[i].collider?.gameObject.GetComponent<EnemyHitbox>();
             if (hitBox != null)
             {
                 int enemyInstanceId = hitBox.Owner.gameObject.GetInstanceID();
@@ -278,10 +280,7 @@ public class Weapon : Item
     protected virtual void Fire()
     {
         ammoAmount--;
-        if (ammoAmount <= 0)
-        {
-            state = WeaponState.RELOADING;
-        }
+
 
         lastFireTime = Time.time;
 
@@ -306,6 +305,11 @@ public class Weapon : Item
         PlayeAudio(shotSound);
         muzzlePasticleSystem.Play();
         AccumulateRecoil(recoilAmount);
+
+        if (ammoAmount <= 0)
+        {
+            state = WeaponState.RELOADING;
+        }
     }
 
     /// <summary>

@@ -24,9 +24,10 @@ public class LoadoutSlot : MonoBehaviour
         image.sprite = _itemData.Sprite;
     }
 
-    public void SetBonus(Buffs bonus)
+    public void SetBonus(BuffData bonus)
     {
-        _bonus = bonus;
+        _bonus = bonus.Buff;
+        image.sprite = bonus.Sprite;
         // TODO: find sprite associated with the bonus
     }
 
@@ -37,6 +38,12 @@ public class LoadoutSlot : MonoBehaviour
 
     public void DeselectSlot()
     {
+        _outline.enabled = false;
+    }
+
+    public void ClearSlot()
+    {
+        image.sprite = null;
         _outline.enabled = false;
     }
 }

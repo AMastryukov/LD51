@@ -1,13 +1,16 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public static Action<Enemy> OnEnemyDied;
+
     public enum BodyPart { Head, Body, LeftArm, RightArm, LeftLeg, RightLeg }
 
     public int enemyHealth = 10;
+    public int enemyDamage = 10;
     public float attackRange = 2f;
     public float attackDelay = 2f;
 
@@ -43,6 +46,8 @@ public class Enemy : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
+            OnEnemyDied?.Invoke(this);
+
             _corpse.ExplodeBodyPart(bodyPart);
 
             foreach (var component in _components)

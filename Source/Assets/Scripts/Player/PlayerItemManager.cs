@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,11 @@ public enum ItemManagerState
 
 public class PlayerItemManager : MonoBehaviour
 {
+
+    public static Action<int, Item> OnItemSelected;
+    public static Action<int> OnItemDepleted;
+
+
 
     [Header("References")]
     [SerializeField]
@@ -113,6 +119,7 @@ public class PlayerItemManager : MonoBehaviour
             {
                 Destroy(activeItem.gameObject);
                 currentItems[selectedItem] = null;
+                OnItemDepleted?.Invoke(selectedItem);
                 Equip((selectedItem + 1) % ASSUMED_NUMBER_OF_ITEM_SLOTS);
 
             }
@@ -159,6 +166,7 @@ public class PlayerItemManager : MonoBehaviour
             LowerItem();
             activeItem = currentItems[slot];
             selectedItem = slot;
+            OnItemSelected?.Invoke(slot, activeItem);
         }
     }
 }

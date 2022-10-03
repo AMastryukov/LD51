@@ -48,15 +48,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponFireType: 1
-  damage: 30
-  fireRate: 2.35
+  damage: 100
+  fireRate: 3
   ammoCapacity: 2
   reloadDuration: 1
   shotCount: 10
   spread: 0.1
   range: 10
   damageFallOff: 1
-  enemyPenetrationFactor: 0.8
+  enemyPenetrationFactor: 0.25
   wallPenetrationFactor: 1
   recoilPosition: {fileID: 1271984800421016389}
   recoilAmount: 0.736
