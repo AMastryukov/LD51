@@ -55,9 +55,14 @@ public class PlayerInputHandler : MonoBehaviour
         return Input.GetAxisRaw(AXIS_MOUSE_Y);
     }
 
-    public bool GetUseInput()
+    public bool GetUseInputDown()
     {
         return Input.GetButtonDown(BUTTON_FIRE1);
+    }
+
+    public bool GetUseInputHeld()
+    {
+        return Input.GetButton(BUTTON_FIRE1);
     }
 
     public bool GetInteractInput()
