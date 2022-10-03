@@ -32,17 +32,9 @@ public class PlayerInteractor : MonoBehaviour
         //Only used for barricades
         if (inputHandler.GetInteractInput())
         {
-            timeInteractButtonHeld += Time.deltaTime;
-            Debug.DrawRay(cameraTransform.position, cameraTransform.forward, Color.blue, 2f);
-            if (timeInteractButtonHeld >= 2f)
-            {
-                lookingAtInteractable?.Interact();
-                timeInteractButtonHeld = 0f;
-            }
-        }
-        else
-        {
-            timeInteractButtonHeld = 0f;
+            //timeInteractButtonHeld += Time.deltaTime;
+            //Debug.DrawRay(cameraTransform.position, cameraTransform.forward, Color.blue, 2f);
+            lookingAtInteractable?.Interact();
         }
     }
 
