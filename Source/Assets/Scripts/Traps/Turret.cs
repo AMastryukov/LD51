@@ -34,7 +34,18 @@ public class Turret : MonoBehaviour
     private List<Enemy> trackedEnemies = new List<Enemy>();
     private float _timeSinceLastShot = 0f;
 
-    private Transform CurrentTarget => trackedEnemies[0].transform;
+    private Transform CurrentTarget
+    {
+        get
+        {
+            foreach (var enemy in trackedEnemies)
+            {
+                if (enemy != null) return enemy.transform;
+            }
+
+            return null;
+        }
+    }
     private Vector3 FireDirection => emissionPoint.forward;
 
     private void Awake()
@@ -213,7 +224,7 @@ public class Turret : MonoBehaviour
         RaycastHit raycastHit;
         if (Physics.Linecast(emissionPoint.position, CurrentTarget.position, out raycastHit))
         {
-            targetIsObstructed = !raycastHit.collider.gameObject.CompareTag(GameConstants.TagConstants.EnemyTag);
+            targetIsObstructed = !raycastHit.collider.GetComponent<EnemyHitbox>();
 
             if (!targetIsObstructed && verboseLogging)
             {

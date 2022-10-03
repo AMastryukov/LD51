@@ -91,12 +91,12 @@ MonoBehaviour:
   onTriggerEnterHandler: {fileID: 2301262493726609229}
   onTriggerExitHandler: {fileID: 9114124486688123235}
   damageToEnemies: 10
-  fireRate: 3
-  lookAtDamping: 10
-  lifespan: 25
+  fireRate: 4
+  lookAtDamping: 25
+  lifespan: 20
   verboseLogging: 0
   superVerboseLogging: 0
-  superDuperVerboseLogging: 1
+  superDuperVerboseLogging: 0
 --- !u!1 &2432135648528932407
 GameObject:
   m_ObjectHideFlags: 0
