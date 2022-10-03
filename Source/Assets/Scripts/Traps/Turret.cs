@@ -59,7 +59,6 @@ public class Turret : MonoBehaviour
         }
     }
 
-
     private void Fire()
     {
         if (verboseLogging)
