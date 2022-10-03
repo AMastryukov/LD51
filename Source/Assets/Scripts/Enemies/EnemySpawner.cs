@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     #region Fields
-    
+
     [SerializeField] private List<Transform> enemySpawnPoints;
     [SerializeField] private int enemyIncrementPerWave = 1;
     [SerializeField] private int enemiesToSpawn = 5;
@@ -16,12 +16,12 @@ public class EnemySpawner : MonoBehaviour
 
     #region SubscriptionHandling
 
-    private void OnEnable()
+    private void Awake()
     {
         GameManager.OnTenSecondsPassed += SpawnEnemyWave;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameManager.OnTenSecondsPassed -= SpawnEnemyWave;
     }

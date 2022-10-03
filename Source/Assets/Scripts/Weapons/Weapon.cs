@@ -110,27 +110,50 @@ public class Weapon : Item
         bool successfullHit = false;
         float decayedDamage = Damage; // damage adjusted for penetration
         int calculatedDamage;
-        Enemy hitEnemy;
+        HashSet<int> enemyInstanceIds; // don't hit the same enemy twice
+        EnemyHitbox hitBox;
+
+        float distance = 0f;
 
         RaycastHit[] hits = Physics.RaycastAll(ray, range, hitLayerMask);
         // For each enemy hit
         for (int i = 0; i < hits.Length; i++)
         {
+            enemyInstanceIds = new HashSet<int>();
             calculatedDamage = Mathf.CeilToInt(decayedDamage);
-            hitEnemy = hits[i].collider.gameObject.GetComponent<Enemy>();
-            if (hitEnemy != null)
+            hitBox = hits[i].collider.gameObject.GetComponent<EnemyHitbox>();
+            if (hitBox != null)
             {
-                successfullHit = true;
-                if (damageFallOff)
+                int enemyInstanceId = hitBox.Owner.gameObject.GetInstanceID();
+                if (enemyInstanceIds.Contains(enemyInstanceId))
                 {
-                    // Damage should fall of linearly with distance
-                    float distanceToEnemy = Vector3.Distance(cameraTransform.position, hitEnemy.transform.position);
-                    calculatedDamage = Mathf.CeilToInt(Mathf.Clamp01((range - distanceToEnemy) / range) * decayedDamage);
+                    // We already hit this enemy
+                }
+                else
+                {
+                    enemyInstanceIds.Add(enemyInstanceId);
+                    successfullHit = true;
+                    if (damageFallOff)
+                    {
+                        // Damage should fall of linearly with distance
+                        float distanceToEnemy = Vector3.Distance(cameraTransform.position, hitBox.transform.position);
+                        calculatedDamage = Mathf.CeilToInt(Mathf.Clamp01((range - distanceToEnemy) / range) * decayedDamage);
+
+                        if (distanceToEnemy < distance)
+                        {
+                            Debug.LogError("Enemies Hit In Wrong Order");
+                        }
+
+                        distance = distanceToEnemy;
+                    }
+
+                    hitBox.TakeDamage(calculatedDamage);
+
+                    decayedDamage *= enemyPenetrationFactor;
+
                 }
 
-                hitEnemy.TakeDamage(calculatedDamage);
 
-                decayedDamage *= enemyPenetrationFactor;
             }
             else
             {
@@ -138,7 +161,7 @@ public class Weapon : Item
             }
 
             // Exit Early if no point in tracing.
-            if (hitEnemy == null || Mathf.FloorToInt(decayedDamage) == 0)
+            if (hitBox == null || Mathf.FloorToInt(decayedDamage) == 0)
             {
                 break;
             }
@@ -186,7 +209,6 @@ public class Weapon : Item
     {
         triggerPulled = true;
 
-        Debug.Log(10 / (Time.time - lastFireTime));
         if (Time.time - lastFireTime > 10 / fireRate)
         {
             if (weaponFireType == FireType.SINGLE && !triggerHeld)
