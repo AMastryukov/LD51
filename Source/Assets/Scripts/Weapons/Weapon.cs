@@ -55,7 +55,8 @@ public class Weapon : Item
     [Header("Recoil")]
     [SerializeField] private Transform recoilPosition;
     [Range(0f, 1f)]
-    [SerializeField] private float recoilAmount;
+    [SerializeField]
+    protected float recoilAmount;
     [Range(0.1f, 1f)]
     [SerializeField] private float recoilRecoveryAmount;
     private float currentRecoil;
@@ -111,7 +112,7 @@ public class Weapon : Item
         triggerPulled = false;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         Vector3 restPosition = Vector3.zero;
         Quaternion restRotation = Quaternion.identity;
@@ -173,7 +174,7 @@ public class Weapon : Item
         audioSource.Play();
     }
 
-    private void AccumulateRecoil(float delta)
+    protected void AccumulateRecoil(float delta)
     {
         currentRecoil = Mathf.Clamp01(currentRecoil + delta);
     }

@@ -51,6 +51,8 @@ MonoBehaviour:
   weaponFireType: 0
   damage: 100
   fireRate: 5
+  ammoCapacity: 10
+  reloadDuration: 1
   shotCount: 1
   spread: 0
   range: 10
@@ -67,6 +69,8 @@ MonoBehaviour:
   projectile: {fileID: 0}
   projectileLifeSpan: 0.1
   muzzlePasticleSystem: {fileID: 8603165752764419597}
+  reloadSound: {fileID: 0}
+  shotSound: {fileID: 0}
 --- !u!82 &3738843894675082118
 AudioSource:
   m_ObjectHideFlags: 0
@@ -174,8 +178,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2.495784, z: 3.297578}
-  m_Center: {x: 0, y: 0.24789226, z: 1.2355927}
+  m_Size: {x: 2, y: 1.6399007, z: 2.6936243}
+  m_Center: {x: 0, y: 0.23230779, z: 0.9336163}
 --- !u!1 &5705318295374497765
 GameObject:
   m_ObjectHideFlags: 0
@@ -5169,11 +5173,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000010363455
+      value: -0.00000003071648
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.09200067
+      value: 0.09200104
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5181,31 +5185,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.18905912
+      value: 0.5033695
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.6961092
+      value: 0.64385813
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.68829817
+      value: 0.50607985
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.07703494
+      value: -0.27558857
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 170.95801
+      value: 112.007
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -21.846985
+      value: -24.367981
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -91.10199
+      value: -92.906006
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_ConstrainProportionsScale

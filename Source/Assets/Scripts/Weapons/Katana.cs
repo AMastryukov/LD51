@@ -7,24 +7,28 @@ using UnityEngine;
 public class Katana : Weapon
 {
     private List<Enemy> _enemiesInRange = new List<Enemy>();
+    
 
     protected override void Fire()
     {
         lastFireTime = Time.time;
         audioSource.Play();
         muzzlePasticleSystem.Play();
-        transform.DOPunchPosition(transform.forward, 0.25f);
+        AccumulateRecoil(recoilAmount);
+        //transform.DOPunchPosition(transform.forward, 0.25f);
         if(_enemiesInRange.Count==0)
             return;
-
+        
         foreach (Enemy enemy in _enemiesInRange)
         {
+            if (enemy == null)
+            {
+                _enemiesInRange.Remove(enemy);
+                return;
+            }
             enemy.TakeDamage(damage);
         }
         
-
-        
-
     }
 
     private void OnTriggerEnter(Collider other)
