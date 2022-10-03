@@ -15,9 +15,11 @@ public class Weapon : Item
     [SerializeField]
     private int damage = 5;
     [SerializeField]
+    [Range(1f, 20f)]
     private float fireRate = 5;
-    private float lastFireTime = 0;
+    private float lastFireTime = -Mathf.Infinity;
     [SerializeField]
+    [Range(1, 10)]
     private int shotCount = 1;
     [Range(0f, 1f)]
     [SerializeField]
@@ -57,6 +59,7 @@ public class Weapon : Item
     private Projectile projectile;
     [SerializeField]
     private ParticleSystem muzzlePasticleSystem;
+    private AudioSource audioSource;
 
 
     private Transform cameraTransform;
@@ -73,6 +76,10 @@ public class Weapon : Item
 
         cameraTransform = Camera.main?.transform;
         DebugUtility.HandleErrorIfNullGetComponent(cameraTransform, this);
+
+        audioSource = GetComponent<AudioSource>();
+        DebugUtility.HandleErrorIfNullGetComponent(audioSource, this);
+
     }
 
     private void LateUpdate()
@@ -86,6 +93,7 @@ public class Weapon : Item
         AccumulateRecoil(-recoilRecoveryAmount * Time.deltaTime * 10);
 
         transform.localPosition = Vector3.Lerp(Vector3.zero, recoilPosition.localPosition, currentRecoil);
+        transform.localRotation = Quaternion.Lerp(Quaternion.identity, recoilPosition.localRotation, currentRecoil);
     }
 
     private void AccumulateRecoil(float delta)
@@ -196,7 +204,7 @@ public class Weapon : Item
 
         }
 
-
+        audioSource.Play();
         muzzlePasticleSystem.Play();
         AccumulateRecoil(recoilAmount);
     }
@@ -209,7 +217,7 @@ public class Weapon : Item
     {
         triggerPulled = true;
 
-        if (Time.time - lastFireTime > 10 / fireRate)
+        if (Time.time - lastFireTime > 1 / fireRate)
         {
             if (weaponFireType == FireType.SINGLE && !triggerHeld)
             {
