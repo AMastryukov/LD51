@@ -54,6 +54,8 @@ public class Barricade : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        Debug.Log("REPAIRING BARRICADE");
+
         CurrentLevel = Mathf.Min(3, CurrentLevel + 1);
         CurrentHealth = healthPerLevel;
 

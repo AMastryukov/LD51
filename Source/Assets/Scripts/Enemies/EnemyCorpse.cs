@@ -122,7 +122,7 @@ public class EnemyCorpse : MonoBehaviour
             gib.isKinematic = false;
             gib.useGravity = true;
 
-            gib.AddExplosionForce(5f, gib.transform.position - Vector3.down, 2f, 2f, ForceMode.Impulse);
+            gib.AddExplosionForce(2f, gib.transform.position - Vector3.down, 2f, 1f, ForceMode.Impulse);
         }
 
         EnableRagdoll();
@@ -158,6 +158,7 @@ public class EnemyCorpse : MonoBehaviour
     private IEnumerator Cleanup()
     {
         yield return new WaitForSeconds(10f);
-        Destroy(gameObject);
+
+        EnemyPool.Instance.PoolDestroy(gameObject);
     }
 }
