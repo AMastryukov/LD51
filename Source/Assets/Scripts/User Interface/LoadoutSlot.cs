@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class LoadoutSlot : MonoBehaviour
 {
     [SerializeField] private Image image;
-    [SerializeField] private Image lockedImage;
 
     private Outline _outline;
 
