@@ -54,7 +54,7 @@ public class EnemyAi : MonoBehaviour
                     }
                     else
                     {
-                        //No turrets or players could be found in the scene so the loop can stop
+                        // No turrets or players could be found in the scene so the loop can stop
                         Debug.Log("No targets");
                         running = false;
                     }
@@ -63,9 +63,9 @@ public class EnemyAi : MonoBehaviour
                 case EnemyAiState.HuntingTarget:
                     if (!_isInsideRoom && _target != null)
                     {
-                        var barricade = _target.GetComponent<TestBarricade>();
+                        var barricade = _target.GetComponent<Barricade>();
 
-                        if (barricade && barricade.IsDestroyed())
+                        if (barricade && barricade.IsDestroyed)
                         {
                             _currentState = EnemyAiState.OutsideHouse;
                             MoveToNearestBarricade();
@@ -103,7 +103,7 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
-        // stopping distance is slightly less so that we can ensure that the enemy is able to attack
+        // Stopping distance is slightly less so that we can ensure that the enemy is able to attack
         _agent.stoppingDistance = _enemy.attackRange * 0.75f;
 
         FindNearestBarricade();
@@ -142,7 +142,7 @@ public class EnemyAi : MonoBehaviour
 
     private void AttackBarricade()
     {
-        if (_target.gameObject.GetComponent<TestBarricade>().IsDestroyed())
+        if (_target.gameObject.GetComponent<Barricade>().IsDestroyed)
         {
             _currentState = EnemyAiState.SearchForTarget;
             FindNearestTurret();
@@ -154,7 +154,7 @@ public class EnemyAi : MonoBehaviour
 
         if (_isAttackOnCooldown) return;
 
-        _target.gameObject.GetComponent<TestBarricade>().GetHit();
+        _target.gameObject.GetComponent<Barricade>().Hit();
         _isAttackOnCooldown = true;
 
         Invoke(nameof(ResetAttack), _enemy.attackDelay);

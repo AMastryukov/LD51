@@ -49,11 +49,11 @@ public class LandMine : MonoBehaviour
                     player.DecrementHealth(damage);
                 }
 
-                TestBarricade barricade = hit.collider.GetComponent<TestBarricade>();
+                Barricade barricade = hit.collider.GetComponent<Barricade>();
 
                 if (barricade)
                 {
-                    barricade.GetHit();
+                    barricade.Hit();
                 }
             }
         }

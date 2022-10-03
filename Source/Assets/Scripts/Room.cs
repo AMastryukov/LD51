@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class Room : MonoBehaviour
 {
     public enum States
@@ -31,6 +32,21 @@ public class Room : MonoBehaviour
     public Buffs Buff => buff;
     public States State => state;
     public bool IsControlledByPlayer => isControlledByPlayer;
+
+    private void OnValidate()
+    {
+        TryGetComponent(out Collider collider);
+
+        if (!collider.isTrigger)
+        {
+            Debug.LogError("isTrigger must be set to true!", this);
+        }
+
+        if (gameObject.layer != 2)
+        {
+            Debug.LogError($"This {nameof(Room)}'s layer should be set to Ignore Raycast so that it doesnt block... Raycasts!", this);
+        }
+    }
 
     private void Start()
     {
