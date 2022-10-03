@@ -57,8 +57,7 @@ public class Turret : MonoBehaviour
 
     private void Update()
     {
-        Quaternion pivotRotation = Quaternion.LookRotation(Target.position - pivot.position);
-        pivot.rotation = Quaternion.Slerp(pivot.rotation, pivotRotation, Time.deltaTime * lookAtDamping);
+        LookAtTarget();
 
         if (DateTime.Now > nextFire && !targetIsObstructed)
         {
@@ -84,6 +83,13 @@ public class Turret : MonoBehaviour
         }
     }
 
+    private void LookAtTarget()
+    {
+        Vector3 targetPosition = new Vector3(Target.position.x, pivot.position.y, Target.position.z);
+        Quaternion pivotRotation = Quaternion.LookRotation(targetPosition - pivot.position);
+        pivot.rotation = Quaternion.Slerp(pivot.rotation, pivotRotation, Time.deltaTime * lookAtDamping);
+    }
+
     private void Fire()
     {
         if (superDuperVerboseLogging)
@@ -103,12 +109,11 @@ public class Turret : MonoBehaviour
         {
             hitEnemy.TakeDamage(damageToEnemies);
             Debug.DrawLine(emissionPoint.position, emissionPoint.position + FireDirection * rangeCollider.radius, Color.green, 1f);
-        }
-        else
 
             Instantiate(projectile, emissionPoint.position, emissionPoint.rotation);
-        emissionParticleSystem.Play();
-        emissionAudioSource.Play();
+            emissionParticleSystem.Play();
+            emissionAudioSource.Play();
+        }
     }
 
     private void OnColliderEntered(Collider collider)
