@@ -8,6 +8,7 @@ public class Turret : MonoBehaviour
 
     [SerializeField] private int damage = 20;
     [SerializeField] private float fireRate = 10;
+    [SerializeField] private float lookAtDamping = 5f;
     [SerializeField] private SphereCollider rangeCollider = null;
     [SerializeField] private LayerMask hitLayerMask;
 
@@ -54,7 +55,8 @@ public class Turret : MonoBehaviour
 
     private void Update()
     {
-        pivot.LookAt(Target);
+        Quaternion pivotRotation = Quaternion.LookRotation(Target.position - pivot.position);
+        pivot.rotation = Quaternion.Slerp(pivot.rotation, pivotRotation, Time.deltaTime * lookAtDamping);
 
         if (DateTime.Now > nextFire && !targetIsObstructed)
         {
