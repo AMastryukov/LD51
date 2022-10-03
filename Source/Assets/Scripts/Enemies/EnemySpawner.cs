@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        var enemy = Instantiate(enemyPrefab, enemySpawnPoints[spawnPointIndex]);
+        Instantiate(enemyPrefab, enemySpawnPoints[spawnPointIndex]);
     }
 
     private void SpawnEnemyWave()

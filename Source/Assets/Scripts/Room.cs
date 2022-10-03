@@ -62,7 +62,7 @@ public class Room : MonoBehaviour
         EnemyPool.OnPoolDestroy += OnEnemyDespawned;
 
         setActiveOnPlayerControl.SetActive(false);
-        setActiveOnEnemyControl.SetActive(true);
+        //setActiveOnEnemyControl.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider collider)

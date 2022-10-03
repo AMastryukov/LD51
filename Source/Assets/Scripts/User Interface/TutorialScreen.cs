@@ -8,15 +8,15 @@ public class TutorialScreen : MonoBehaviour
     [SerializeField] private bool showTutorial = true;
 
     private CanvasGroup _canvasGroup;
+    private PlayerInputHandler _playerInputHandler;
     private AudioSource _mainMenuTheme; // don't ask why it's here, no time
 
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
-    }
+        _mainMenuTheme = GetComponent<AudioSource>();
+        _playerInputHandler = FindObjectOfType<PlayerInputHandler>();
 
-    private void Start()
-    {
         if (showTutorial)
         {
             OpenTutorial();
@@ -28,6 +28,9 @@ public class TutorialScreen : MonoBehaviour
 
     public void OpenTutorial()
     {
+        Cursor.visible = true;
+        _playerInputHandler.enabled = false;
+
         Time.timeScale = 0f;
 
         _canvasGroup.alpha = 1f;
@@ -46,6 +49,10 @@ public class TutorialScreen : MonoBehaviour
         Time.timeScale = 1f;
 
         _mainMenuTheme.Play();
+
+        Cursor.visible = false;
+
+        _playerInputHandler.enabled = true;
     }
 
     public void OpenPage(int page)

@@ -7,19 +7,21 @@ using DG.Tweening;
 public class DeathScreen : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
-    private PauseMenu pauseMenu;
 
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        pauseMenu = FindObjectOfType<PauseMenu>();
+
+        Player.OnDie += ShowDeathScreen;
     }
 
-    public void ShowDeathScreen()
+    private void OnDestroy()
     {
-        // We don't want to show the pause menu if we died ever again
-        Destroy(pauseMenu.gameObject);
+        Player.OnDie -= ShowDeathScreen;
+    }
 
+    private void ShowDeathScreen()
+    {
         canvasGroup.DOFade(1f, 3f);
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
