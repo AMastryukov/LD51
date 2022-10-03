@@ -342,6 +342,6 @@ MonoBehaviour:
   - {fileID: 1811502629}
   - {fileID: 1166634655}
   - {fileID: 1480051076}
-  enemyIncrementPerWave: 0
-  enemiesToSpawn: 2
+  enemyIncrementPerWave: 1
+  enemiesToSpawn: 1
   enemyPrefab: {fileID: 1314449326565495841, guid: 983c20a84f0571d488f31f5ac7211f0c, type: 3}
