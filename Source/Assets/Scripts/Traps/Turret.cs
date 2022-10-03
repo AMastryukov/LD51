@@ -13,6 +13,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private LayerMask hitLayerMask;
 
     [SerializeField] private Projectile projectile = null;
+    [SerializeField] private LineRenderer laser;
 
     [SerializeField] private Transform pivot = null;
     [SerializeField] private Transform emissionPoint = null;
@@ -55,8 +56,15 @@ public class Turret : MonoBehaviour
 
     private void Update()
     {
-        if(trackedEnemies.Count==0)
+        if (trackedEnemies.Count == 0)
+        {
+            if (laser.enabled)
+            {
+                laser.enabled = false;
+            }
             return;
+        }
+
         LookAtTarget();
 
         if (DateTime.Now > nextFire && !targetIsObstructed)
@@ -88,6 +96,13 @@ public class Turret : MonoBehaviour
         Vector3 targetPosition = new Vector3(Target.position.x, pivot.position.y, Target.position.z);
         Quaternion pivotRotation = Quaternion.LookRotation(targetPosition - pivot.position);
         pivot.rotation = Quaternion.Slerp(pivot.rotation, pivotRotation, Time.deltaTime * lookAtDamping);
+        
+        if (!laser.enabled)
+        {
+            laser.enabled = true;
+        }
+        laser.SetPosition(0,emissionPoint.position);
+        laser.SetPosition(1,emissionPoint.position+emissionPoint.transform.forward*rangeCollider.radius);
     }
 
     private void Fire()
@@ -190,6 +205,10 @@ public class Turret : MonoBehaviour
             if (enabled)
             {
                 CancelInvoke(nameof(SetTargetToUnobstructedEnemy));
+                if (laser.enabled)
+                {
+                    laser.enabled = false;
+                }
                 enabled = false;
             }
         }

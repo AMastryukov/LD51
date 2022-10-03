@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture2D:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 997441d7570438d46a54c437c6ee800f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_d6cdb7880f994154bf572554a35dcca7_Out_0:
@@ -42,12 +42,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Emission: 4.04
+    - _Fresnel: 2.31
+    - _Fresnel_1: 1
+    - _Fresnel_2: 0.921
+    - _PlacementCheck: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: 0.2
+    - _Speed: 0.05
+    - _TriplanarScale: 1
     m_Colors:
-    - _Color: {r: 0.7215686, g: 0.9175487, b: 1, a: 0}
-    - _Color_1: {r: 0.32549015, g: 0.35246876, b: 1, a: 0}
+    - _Alpha: {r: 1, g: 1, b: 0, a: 0}
+    - _Color: {r: 0.10145098, g: 0.1677843, b: 0.199, a: 0}
+    - _Color_1: {r: 0, g: 0.0023275996, b: 0.135, a: 0}
+    - _Color_2: {r: 0.168, g: 0.03675, b: 0.0315, a: 0}
+    - _Color_3: {r: 0, g: 0.003921569, b: 0.227451, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2854924595391484952
 MonoBehaviour:

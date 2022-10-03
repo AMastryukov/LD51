@@ -9,7 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 744185442773217262}
-  m_Layer: 0
+  - component: {fileID: 7876752414924371371}
+  - component: {fileID: 5801073654289213583}
+  - component: {fileID: 1054310649349079033}
+  m_Layer: 12
   m_Name: TurretPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +35,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7876752414924371371
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901428916228347806}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.80414486, y: 0.89037335, z: 1.2904127}
+  m_Center: {x: -0.028829098, y: 0.44013017, z: 0.03173101}
+--- !u!114 &5801073654289213583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901428916228347806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902d0c9403efbf948befd5656faf47e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshes: []
+--- !u!114 &1054310649349079033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901428916228347806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902d0c9403efbf948befd5656faf47e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshes:
+  - {fileID: 8605907457184795552}
+  - {fileID: 5340454900250872895}
 --- !u!1001 &6967005529025550116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83,14 +127,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1704e9a49d14aca4586795c3d1ef1ab6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d882085ffa842cc4a8a975e99a66371d, type: 2}
     - target: {fileID: 919132149155446097, guid: 1704e9a49d14aca4586795c3d1ef1ab6, type: 3}
       propertyPath: m_Name
       value: Trap_TurretBottom
       objectReference: {fileID: 0}
+    - target: {fileID: 3076765529008151323, guid: 1704e9a49d14aca4586795c3d1ef1ab6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d882085ffa842cc4a8a975e99a66371d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1704e9a49d14aca4586795c3d1ef1ab6, type: 3}
+--- !u!23 &5340454900250872895 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3076765529008151323, guid: 1704e9a49d14aca4586795c3d1ef1ab6, type: 3}
+  m_PrefabInstance: {fileID: 6967005529025550116}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7432487363709595855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1704e9a49d14aca4586795c3d1ef1ab6, type: 3}
+  m_PrefabInstance: {fileID: 6967005529025550116}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8605907457184795552 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 1704e9a49d14aca4586795c3d1ef1ab6, type: 3}
   m_PrefabInstance: {fileID: 6967005529025550116}
   m_PrefabAsset: {fileID: 0}
