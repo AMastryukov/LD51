@@ -2692,11 +2692,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: traps.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: weapons.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: superVerboseLogging
@@ -2717,7 +2717,7 @@ PrefabInstance:
     - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: weapons.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: dfb434a509fe8c24f88da517fd346477, type: 2}
+      objectReference: {fileID: 11400000, guid: c45c16964f789904181ad68469b0cf1d, type: 2}
     - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: weapons.Array.data[1]
       value: 
@@ -2725,7 +2725,7 @@ PrefabInstance:
     - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: weapons.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: c45c16964f789904181ad68469b0cf1d, type: 2}
+      objectReference: {fileID: 11400000, guid: a283bc0e0ccc49a4fbaeb0aedc3cc3c5, type: 2}
     - target: {fileID: 5651963780359373997, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: m_Name
       value: Game Manager

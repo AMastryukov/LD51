@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Katana : Weapon
@@ -10,7 +11,9 @@ public class Katana : Weapon
     protected override void Fire()
     {
         lastFireTime = Time.time;
-        
+        audioSource.Play();
+        muzzlePasticleSystem.Play();
+        transform.DOPunchPosition(transform.forward, 0.25f);
         if(_enemiesInRange.Count==0)
             return;
 
@@ -19,8 +22,7 @@ public class Katana : Weapon
             enemy.TakeDamage(damage);
         }
         
-        audioSource.Play();
-        muzzlePasticleSystem.Play();
+
         
 
     }
