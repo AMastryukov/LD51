@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponFireType: 1
-  damage: 5
-  fireRate: 6.54
-  shotCount: 5
-  spread: 0.262
+  damage: 30
+  fireRate: 2.35
+  shotCount: 10
+  spread: 0
   range: 10
   damageFallOff: 1
   enemyPenetrationFactor: 0.8

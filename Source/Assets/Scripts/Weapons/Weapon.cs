@@ -125,14 +125,12 @@ public class Weapon : Item
         int calculatedDamage;
         HashSet<int> enemyInstanceIds; // don't hit the same enemy twice
         EnemyHitbox hitBox;
-
-        float distance = 0f;
-
+        enemyInstanceIds = new HashSet<int>();
+        
         RaycastHit[] hits = Physics.RaycastAll(ray, range, hitLayerMask);
         // For each enemy hit
         for (int i = 0; i < hits.Length; i++)
         {
-            enemyInstanceIds = new HashSet<int>();
             calculatedDamage = Mathf.CeilToInt(decayedDamage);
             hitBox = hits[i].collider.gameObject.GetComponent<EnemyHitbox>();
             if (hitBox != null)
@@ -140,6 +138,7 @@ public class Weapon : Item
                 int enemyInstanceId = hitBox.Owner.gameObject.GetInstanceID();
                 if (enemyInstanceIds.Contains(enemyInstanceId))
                 {
+                    Debug.Log("Already hit");
                     // We already hit this enemy
                 }
                 else
@@ -151,13 +150,6 @@ public class Weapon : Item
                         // Damage should fall of linearly with distance
                         float distanceToEnemy = Vector3.Distance(cameraTransform.position, hitBox.transform.position);
                         calculatedDamage = Mathf.CeilToInt(Mathf.Clamp01((range - distanceToEnemy) / range) * decayedDamage);
-
-                        if (distanceToEnemy < distance)
-                        {
-                            Debug.LogError("Enemies Hit In Wrong Order");
-                        }
-
-                        distance = distanceToEnemy;
                     }
 
                     hitBox.TakeDamage(calculatedDamage);
@@ -174,7 +166,7 @@ public class Weapon : Item
             }
 
             // Exit Early if no point in tracing.
-            if (hitBox == null || Mathf.FloorToInt(decayedDamage) == 0)
+            if (Mathf.FloorToInt(decayedDamage) == 0)
             {
                 break;
             }
@@ -229,7 +221,7 @@ public class Weapon : Item
 
             //Calculate the particle trajectories a little differently
             DequeuProjectile(ray);
-            Debug.DrawLine(cameraTransform.position, cameraTransform.position + ray.direction * range, debugRayColor, 1f);
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * range, debugRayColor, 1f);
 
         }
 

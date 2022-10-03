@@ -3090,7 +3090,7 @@ GameObject:
   - component: {fileID: 4539329108855520342}
   - component: {fileID: 1931818599265112996}
   - component: {fileID: 4749728222515237160}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Enemy Animated
   m_TagString: Enemy
   m_Icon: {fileID: 0}

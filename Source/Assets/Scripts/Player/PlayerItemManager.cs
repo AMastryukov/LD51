@@ -19,7 +19,7 @@ public class PlayerItemManager : MonoBehaviour
     private PlayerController playerController;
 
 
-    [SerializeField] private Item itemPrefab;
+    [SerializeField] private ItemData ItemData;
 
     private Item activeItem;
     private GameObject itemHUD;
@@ -55,7 +55,7 @@ public class PlayerItemManager : MonoBehaviour
         |** Notify HUD about active object **|
         \************************************/
 
-        Equip(selectedItem);
+        if (ItemData != null) EquipNextItems(ItemData, ItemData);
     }
 
     private void Update()
@@ -111,8 +111,10 @@ public class PlayerItemManager : MonoBehaviour
         {
             if (activeItem.Use(held))
             {
-                Equip(selectedItem + 1 % ASSUMED_NUMBER_OF_ITEM_SLOTS);
-                Destroy(activeItem);
+                Destroy(activeItem.gameObject);
+                currentItems[selectedItem] = null;
+                Equip((selectedItem + 1) % ASSUMED_NUMBER_OF_ITEM_SLOTS);
+
             }
         }
 
@@ -153,7 +155,7 @@ public class PlayerItemManager : MonoBehaviour
         if ((slot != selectedItem || force) && currentItems[slot] != null)
         {
             currentItems[slot]?.gameObject.SetActive(true);
-            currentItems[slot + 1 % ASSUMED_NUMBER_OF_ITEM_SLOTS]?.gameObject.SetActive(false);
+            currentItems[(slot + 1) % ASSUMED_NUMBER_OF_ITEM_SLOTS]?.gameObject.SetActive(false);
             LowerItem();
             activeItem = currentItems[slot];
             selectedItem = slot;

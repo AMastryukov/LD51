@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 8171268508546227694}
   - component: {fileID: -7482151859973360129}
   m_Layer: 0
-  m_Name: Barbed Wire
+  m_Name: BarbedWire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

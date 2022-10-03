@@ -74,4 +74,14 @@ public class PlayerInputHandler : MonoBehaviour
     {
         return Input.GetButton(BUTTON_SPRINT);
     }
+
+    public bool GetKey1()
+    {
+        return Input.GetKey(KeyCode.Alpha1);
+    }
+
+    public bool GetKey2()
+    {
+        return Input.GetKey(KeyCode.Alpha2);
+    }
 }

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 958237768774547289}
   - component: {fileID: 958237768774547291}
   - component: {fileID: 6634867494014716194}
+  - component: {fileID: 1120927128583219276}
   m_Layer: 7
   m_Name: Barricade
   m_TagString: Barricade
@@ -107,6 +108,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.12, z: 0.09}
   m_TimeToStationary: 0.5
+--- !u!65 &1120927128583219276
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958237768774547293}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0253901, y: 1.0456473, z: 1}
+  m_Center: {x: -0.012694915, y: -0.12985797, z: 0}
 --- !u!1 &1791428722051955059
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +163,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6839053184848677849}
-  - component: {fileID: 9116332349536139937}
   m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
@@ -172,19 +185,6 @@ Transform:
   m_Father: {fileID: 958237768774547289}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &9116332349536139937
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3841752480010774277}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0253901, y: 1.0456473, z: 1}
-  m_Center: {x: -0.012694915, y: -0.12985797, z: 0}
 --- !u!1 &5970763089338733377
 GameObject:
   m_ObjectHideFlags: 0

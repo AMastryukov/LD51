@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BarbedWire : Item
+public class BarbedWire : MonoBehaviour
 {
     [SerializeField] private int health = 20;
     [SerializeField] [Tooltip("In seconds")] private float damageFrequency = 1f;
@@ -79,15 +79,10 @@ public class BarbedWire : Item
         nextOuchTime = DateTime.Now.AddSeconds(damageFrequency);
     }
 
-    public override void Use(bool held)
-    {
-        throw new System.NotImplementedException();
-    }
-
     private void OnColliderEntered(Collider collider)
     {
         Transform colliderTransform = collider.transform;
-        if (colliderTransform.tag != Enemy.TAG)
+        if (!colliderTransform.CompareTag(GameConstants.TagConstants.EnemyTag))
         {
             return;
         }
@@ -109,7 +104,7 @@ public class BarbedWire : Item
     private void OnColliderExited(Collider collider)
     {
         Transform enemyTransform = collider.transform;
-        if (enemyTransform.tag != Enemy.TAG)
+        if (!enemyTransform.CompareTag(GameConstants.TagConstants.EnemyTag))
         {
             return;
         }
