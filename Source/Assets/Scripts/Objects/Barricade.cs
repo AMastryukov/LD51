@@ -6,6 +6,11 @@ using UnityEngine.AI;
 
 public class Barricade : MonoBehaviour, IInteractable
 {
+    [SerializeField] private AudioClip barricadeTakeHit;
+    [SerializeField] private AudioClip barricadeBreak;
+    [SerializeField] private AudioClip barricadeRepair;
+
+    private AudioSource _audioSource;
     public int FixIncrement => PlayerBuffsManager.Instance.IsBuffActive(Buffs.RepairsAreFaster) ? fixIncrementWithBuff : fixIncrement;
     public bool IsDestroyed { get { return CurrentLevel == 0; } }
     public int CurrentLevel { get; private set; } = 0;
@@ -27,6 +32,7 @@ public class Barricade : MonoBehaviour, IInteractable
     private void Awake()
     {
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -39,7 +45,11 @@ public class Barricade : MonoBehaviour, IInteractable
 
     public void Hit()
     {
-        if (IsDestroyed) { return; }
+        if (IsDestroyed)
+        {
+            _audioSource.PlayOneShot(barricadeBreak);
+            return;
+        }
 
         CurrentHealth = Mathf.Max(0, CurrentHealth - 1);
 
@@ -48,7 +58,7 @@ public class Barricade : MonoBehaviour, IInteractable
             CurrentLevel = Mathf.Max(0, CurrentLevel - 1);
             CurrentHealth = CurrentLevel > 0 ? healthPerLevel : 0;
         }
-
+        _audioSource.PlayOneShot(barricadeTakeHit);
         UpdateState();
     }
 
@@ -60,6 +70,7 @@ public class Barricade : MonoBehaviour, IInteractable
         CurrentHealth = healthPerLevel;
 
         UpdateState();
+        _audioSource.PlayOneShot(barricadeRepair);
     }
 
     private void UpdateState()
