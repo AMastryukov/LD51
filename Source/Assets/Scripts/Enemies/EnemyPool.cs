@@ -28,6 +28,8 @@ public class EnemyPool : NonPersistentSingleton<EnemyPool>
         GameObject obj = objectPool.Dequeue();
         obj.SetActive(true);
         obj.transform.position = position;
+
+        Debug.Log($"Spawned enemy at {position}");
     }
 
     private void LazyInstantiate()

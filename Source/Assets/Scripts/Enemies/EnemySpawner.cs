@@ -39,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemyAtRandomSpawnPoint()
     {
         int randomIndex = Random.Range(0, enemySpawnPoints.Count);
+        Debug.Log($"spawning enemy at {enemySpawnPoints[randomIndex].position}");
         EnemyPool.Instance.PoolInstantiate(enemySpawnPoints[randomIndex].position);
     }
 
