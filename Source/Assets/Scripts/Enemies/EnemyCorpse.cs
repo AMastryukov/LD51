@@ -28,6 +28,7 @@ public class EnemyCorpse : MonoBehaviour
     private List<Rigidbody> _allGibs = new List<Rigidbody>();
     private Coroutine _cleanup;
 
+
     private void Awake()
     {
         // Disable ragdoll by default
