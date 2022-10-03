@@ -11,13 +11,14 @@ public class Weapon : Item
 {
     [Header("Weapon")]
     [SerializeField]
-    FireType weaponFireType = FireType.SINGLE;
+    protected FireType weaponFireType = FireType.SINGLE;
     [SerializeField]
-    private int damage = 5;
+    protected int damage = 5;
     [SerializeField]
     [Range(1f, 20f)]
-    private float fireRate = 5;
-    private float lastFireTime = -Mathf.Infinity;
+    protected float fireRate = 5;
+
+    protected float lastFireTime = -Mathf.Infinity;
     [SerializeField]
     [Range(1, 10)]
     private int shotCount = 1;
@@ -38,8 +39,9 @@ public class Weapon : Item
     [Range(0f, 1f)]
     [SerializeField]
     private float wallPenetrationFactor;
-    private bool triggerHeld = false;
-    private bool triggerPulled = false;
+
+    protected bool triggerHeld = false;
+    protected bool triggerPulled = false;
 
     [Header("Recoil")]
     [SerializeField] private Transform recoilPosition;
@@ -60,9 +62,9 @@ public class Weapon : Item
     [SerializeField]
     private float projectileLifeSpan = 0.1f;
     private Queue<Projectile> projectileQueue;
-    [SerializeField]
-    private ParticleSystem muzzlePasticleSystem;
-    private AudioSource audioSource;
+    [SerializeField] protected ParticleSystem muzzlePasticleSystem;
+
+    protected AudioSource audioSource;
 
 
     private Transform cameraTransform;
@@ -74,7 +76,7 @@ public class Weapon : Item
         DebugUtility.HandleEmptyLayerMask(hitLayerMask, this, "Enemy/Floor/Walls");
 
         DebugUtility.HandleErrorIfNullGetComponent(muzzlePasticleSystem, this);
-        DebugUtility.HandleErrorIfNullGetComponent(projectile, this);
+        //DebugUtility.HandleErrorIfNullGetComponent(projectile, this);
         DebugUtility.HandleErrorIfNullGetComponent(muzzleSocket, this);
 
         cameraTransform = Camera.main?.transform;
@@ -203,7 +205,7 @@ public class Weapon : Item
     /// <summary>
     /// Firing logic
     /// </summary>
-    private void Fire()
+    protected virtual void Fire()
     {
         lastFireTime = Time.time;
 
@@ -234,7 +236,7 @@ public class Weapon : Item
     /// Attempt the fire action. Firing may be hindered by the need to reload 
     /// or the rate of fire.
     /// </summary>
-    private void TryFire()
+    protected void TryFire()
     {
         triggerPulled = true;
 
