@@ -6,7 +6,9 @@ public class Turret : MonoBehaviour
 {
     private const string ENEMY_TAG = "Enemy";
 
-    [SerializeField] private int damage = 20;
+    [SerializeField] private int health = 10;
+    [SerializeField] private int damageToEnemies = 20;
+    [SerializeField] private int damageWhenHit = 2;
     [SerializeField] private float fireRate = 10;
     [SerializeField] private float lookAtDamping = 5f;
     [SerializeField] private SphereCollider rangeCollider = null;
@@ -65,6 +67,23 @@ public class Turret : MonoBehaviour
         }
     }
 
+    public void GetHit()
+    {
+        if (verboseLogging)
+        {
+            Debug.Log(nameof(GetHit), this);
+        }
+
+        health -= damageWhenHit;
+
+        if (health <= 0)
+        {
+            setInactiveOnDeath.SetActive(false);
+            setActiveOnDeath.SetActive(true);
+            Destroy(gameObject, 5);
+        }
+    }
+
     private void Fire()
     {
         if (superDuperVerboseLogging)
@@ -82,7 +101,7 @@ public class Turret : MonoBehaviour
 
         if (hitEnemy != null)
         {
-            hitEnemy.TakeDamage(damage);
+            hitEnemy.TakeDamage(damageToEnemies);
             Debug.DrawLine(emissionPoint.position, emissionPoint.position + FireDirection * rangeCollider.radius, Color.green, 1f);
         }
         else
