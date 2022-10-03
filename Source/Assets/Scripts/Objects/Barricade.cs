@@ -10,6 +10,7 @@ public class Barricade : MonoBehaviour, IInteractable
     public bool IsDestroyed { get { return CurrentLevel == 0; } }
     public int CurrentLevel { get; private set; } = 0;
     public int CurrentHealth { get; private set; } = 0;
+    public bool IsWindow { get { return isWindow; } }
 
     [Header("References")]
     [SerializeField] private GameObject[] planks;
