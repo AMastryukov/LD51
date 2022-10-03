@@ -40,4 +40,10 @@ public class LoadoutSlot : MonoBehaviour
     {
         _outline.enabled = false;
     }
+
+    public void ClearSlot()
+    {
+        image.sprite = null;
+        _outline.enabled = false;
+    }
 }
