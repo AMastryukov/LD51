@@ -58,14 +58,14 @@ public class PlayerBuffsManager : MonoBehaviour
         return activeBuff == buff && this[buff];
     }
 
-    private void OnNewBuff(Buffs activeBuff, Buffs nextBuff)
+    private void OnNewBuff(BuffData activeBuff, BuffData nextBuff)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnNewBuff) + " ( " + nameof(activeBuff) + ": " + activeBuff + " , " + nameof(nextBuff) + ": " + nextBuff + " )", this);
+            Debug.Log(nameof(OnNewBuff) + " ( " + nameof(activeBuff.Buff) + ": " + activeBuff.Buff + " , " + nameof(nextBuff.Buff) + ": " + nextBuff.Buff + " )", this);
         }
 
-        this.activeBuff = activeBuff;
+        this.activeBuff = activeBuff.Buff;
     }
 
     private void OnRoomLost(Room room, Buffs buff)

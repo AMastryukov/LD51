@@ -54,7 +54,7 @@ public class LoadoutDisplay : MonoBehaviour
         nextTrapSlot.SetItem(nextTrap);
     }
 
-    private void UpdateBonuses(Buffs newBonus, Buffs nextBonus)
+    private void UpdateBonuses(BuffData newBonus, BuffData nextBonus)
     {
         activeBonusSlot.SetBonus(newBonus);
         nextBonusSlot.SetBonus(nextBonus);

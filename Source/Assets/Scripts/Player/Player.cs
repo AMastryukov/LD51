@@ -125,14 +125,14 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    private void OnNewBuff(Buffs newBuff, Buffs nextBuff)
+    private void OnNewBuff(BuffData newBuff, BuffData nextBuff)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnNewBuff) + " ( " + nameof(newBuff) + ": " + newBuff + " , " + nameof(nextBuff) + ": " + nextBuff + " )", this);
+            Debug.Log(nameof(OnNewBuff) + " ( " + nameof(newBuff.Buff) + ": " + newBuff.Buff + " , " + nameof(nextBuff.Buff) + ": " + nextBuff.Buff + " )", this);
         }
 
-        if (newBuff == Buffs.PassivelyRegenerateHP && healthRegenerativeValue.CanStartRegeneration)
+        if (newBuff.Buff == Buffs.PassivelyRegenerateHP && healthRegenerativeValue.CanStartRegeneration)
         {
             healthRegenerativeValue.StartRegeneration();
         }
@@ -142,6 +142,6 @@ public class Player : MonoBehaviour
             healthRegenerativeValue.StopRegeneration();
         }
 
-        lastBuff = newBuff;
+        lastBuff = newBuff.Buff;
     }
 }
