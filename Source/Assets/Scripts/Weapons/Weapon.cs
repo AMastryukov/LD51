@@ -213,7 +213,7 @@ public class Weapon : Item
         {
             calculatedDamage = Mathf.CeilToInt(decayedDamage);
             hitBox = hits[i].collider?.gameObject.GetComponent<EnemyHitbox>();
-            if (hitBox != null)
+            if (hitBox != null && hitBox.Owner != null)
             {
                 int enemyInstanceId = hitBox.Owner.gameObject.GetInstanceID();
                 if (enemyInstanceIds.Contains(enemyInstanceId))

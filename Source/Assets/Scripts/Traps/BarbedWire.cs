@@ -95,7 +95,7 @@ public class BarbedWire : MonoBehaviour
         colliderTransform.TryGetComponent(out Enemy enemy);
         trackedEnemies.Add(enemy);
 
-        colliderTransform.TryGetComponent(out EnemyAi enemyAi);
+        colliderTransform.TryGetComponent(out EnemyAIv2 enemyAi);
         enemyAi.ToggleSpeed(true);
 
         enabled = true;
@@ -147,7 +147,7 @@ public class BarbedWire : MonoBehaviour
             Debug.Log(nameof(StopTrackingEnemy) + " ( " + nameof(enemy) + ": " + enemy.name + " )", this);
         }
 
-        enemy.TryGetComponent(out EnemyAi enemyAi);
+        enemy.TryGetComponent(out EnemyAIv2 enemyAi);
         enemyAi.ToggleSpeed(false);
 
         trackedEnemies.Remove(enemy);
