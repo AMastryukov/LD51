@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ac91e2e4894954a891fd83fb07515e, type: 3}
   m_Name: Turret
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Turret
   Sprite: {fileID: 0}
   Item: {fileID: 8341822510542214703, guid: eca0fd6f9e2a7f147b665062cbaea86d, type: 3}

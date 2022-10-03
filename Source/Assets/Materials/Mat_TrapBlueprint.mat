@@ -45,11 +45,11 @@ Material:
     - _Emission: 4.04
     - _Fresnel: 2.31
     - _Fresnel_1: 1
-    - _Fresnel_2: 0.921
+    - _Fresnel_2: 1
     - _PlacementCheck: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: 0.05
+    - _Speed: 0.037
     - _TriplanarScale: 1
     m_Colors:
     - _Alpha: {r: 1, g: 1, b: 0, a: 0}
