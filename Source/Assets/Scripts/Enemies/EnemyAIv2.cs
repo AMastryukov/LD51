@@ -27,6 +27,8 @@ public class EnemyAIv2 : MonoBehaviour
 
     private bool _isIndoors = false;
 
+    private float _timeElapsed = 0;
+
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
@@ -229,5 +231,15 @@ public class EnemyAIv2 : MonoBehaviour
         }
 
         return nearestBarricade;
+    }
+
+    private void Update()
+    {
+        _timeElapsed += Time.deltaTime;
+        if (_timeElapsed * _agent.velocity.magnitude >= 2f)
+        {
+            _timeElapsed = 0;
+            _enemy.PlayFootSteps();
+        }
     }
 }
