@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ac91e2e4894954a891fd83fb07515e, type: 3}
-  m_Name: Barbed Wire
+  m_Script: {fileID: 11500000, guid: 0a876694934c8384d80ddc0284f9cd2a, type: 3}
+  m_Name: Regen
   m_EditorClassIdentifier: 
-  Name: Barbed Wire
-  Sprite: {fileID: 0}
-  Item: {fileID: -7482151859973360129, guid: cb759305bbf59f04bab31289771bce5d, type: 3}
+  Name: 
+  Sprite: {fileID: 21300000, guid: 4f4123458ed62804680c7b45c4ed0bd4, type: 3}
+  Buff: 0

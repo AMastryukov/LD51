@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<Transform> enemySpawnPoints;
     [SerializeField] private int enemyIncrementPerWave = 1;
     [SerializeField] private int enemiesToSpawn = 5;
+    [SerializeField] private Enemy enemyPrefab;
 
     #endregion
 
@@ -30,7 +31,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-
         SpawnEnemyWave();
     }
 
@@ -39,18 +39,18 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemyAtRandomSpawnPoint()
     {
         int randomIndex = Random.Range(0, enemySpawnPoints.Count);
-        EnemyPool.Instance.PoolInstantiate(enemySpawnPoints[randomIndex].position);
+        SpawnEnemyAtSpecificSpawnPoint(randomIndex);
     }
 
     private void SpawnEnemyAtSpecificSpawnPoint(int spawnPointIndex)
     {
         if (spawnPointIndex >= enemySpawnPoints.Count)
         {
-            Debug.LogError("Index out of bounds!");
+            Debug.LogError("Spawn index out of bounds!");
             return;
         }
 
-        EnemyPool.Instance.PoolInstantiate(enemySpawnPoints[spawnPointIndex].position);
+        var enemy = Instantiate(enemyPrefab, enemySpawnPoints[spawnPointIndex]);
     }
 
     private void SpawnEnemyWave()

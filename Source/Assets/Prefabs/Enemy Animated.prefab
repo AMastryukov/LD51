@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 3175955444879230966}
   - component: {fileID: 7624523343627319534}
   - component: {fileID: 4106046772387775422}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Right Arm Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 7472663469983476336}
   - component: {fileID: 3280296463628381204}
   - component: {fileID: 6966515164267716376}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 6591947651579444655}
   - component: {fileID: 2130337383759680671}
   - component: {fileID: 7002689877300126404}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 2577665641859057006}
   - component: {fileID: 863948934674139177}
   - component: {fileID: 3004423968882617092}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: mixamorig:Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 3338520359943013015}
   - component: {fileID: 4271536193807815765}
   - component: {fileID: 5815445683350191217}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +721,7 @@ GameObject:
   - component: {fileID: 5279279649054996399}
   - component: {fileID: 6739314591970661874}
   - component: {fileID: 9049319710462296617}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: mixamorig:RightUpLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -913,7 +913,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8959356177023976927}
   - component: {fileID: 7708832042469389980}
-  m_Layer: 8
+  - component: {fileID: 8575162644436326217}
+  m_Layer: 13
   m_Name: mixamorig:RightForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -949,6 +950,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.19790646, z: 0.1}
   m_Center: {x: 0.00000000385987, y: 0.038437713, z: -0.000000015612095}
+--- !u!114 &8575162644436326217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2301664532661032393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba160fe647a008498b8702ac568d84b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyPart: 3
 --- !u!1 &2446054526373428552
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +976,7 @@ GameObject:
   - component: {fileID: 7688793034472299732}
   - component: {fileID: 7579166574563868188}
   - component: {fileID: 4288089965617536902}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1078,7 +1092,7 @@ GameObject:
   - component: {fileID: 1279212675787468653}
   - component: {fileID: 8822830427577352347}
   - component: {fileID: 929160025759184906}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: mixamorig:LeftUpLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1202,7 +1216,7 @@ GameObject:
   - component: {fileID: 7640869510940630351}
   - component: {fileID: 6538163832956289542}
   - component: {fileID: 4267843741181545229}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1350,7 +1364,7 @@ GameObject:
   - component: {fileID: 3224265805695682094}
   - component: {fileID: 6989520013086043143}
   - component: {fileID: 8483960940738133367}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1530,7 +1544,7 @@ GameObject:
   - component: {fileID: 3154714178885841728}
   - component: {fileID: 7423695030381783348}
   - component: {fileID: 455220926644584072}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1646,7 +1660,7 @@ GameObject:
   - component: {fileID: 4340386921262358163}
   - component: {fileID: 6450808338836177599}
   - component: {fileID: 8434379739839427596}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Right Leg Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1759,7 +1773,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8339632655386663146}
   - component: {fileID: 5950402424879987460}
-  m_Layer: 8
+  - component: {fileID: 6247178620735144042}
+  m_Layer: 13
   m_Name: mixamorig:LeftForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1795,6 +1810,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.09552731, y: 0.19253868, z: 0.100999296}
   m_Center: {x: -0.0063289534, y: 0.046269305, z: -0.011351419}
+--- !u!114 &6247178620735144042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882167068341303223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba160fe647a008498b8702ac568d84b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyPart: 2
 --- !u!1 &4004439244738919473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,7 +1836,7 @@ GameObject:
   - component: {fileID: 4620191439036291406}
   - component: {fileID: 7773254098043167728}
   - component: {fileID: 5997951198656967932}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Left Leg Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2087,7 +2115,6 @@ GameObject:
   - component: {fileID: 627684909075199324}
   - component: {fileID: 5177568834105270720}
   - component: {fileID: 3290490332007713249}
-  - component: {fileID: 2511677025832157571}
   m_Layer: 8
   m_Name: mixamorig:RightArm
   m_TagString: Untagged
@@ -2173,19 +2200,6 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!114 &2511677025832157571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5010178538139343125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aba160fe647a008498b8702ac568d84b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bodyPart: 3
 --- !u!1 &5105838983104902230
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,7 +2213,7 @@ GameObject:
   - component: {fileID: 4382782569827221824}
   - component: {fileID: 3540383090681142500}
   - component: {fileID: 3373754724034249876}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2440,7 +2454,6 @@ GameObject:
   - component: {fileID: 1156479309227666534}
   - component: {fileID: 3522352728631322824}
   - component: {fileID: 5639254088854954387}
-  - component: {fileID: 8474252692421459837}
   m_Layer: 8
   m_Name: mixamorig:LeftArm
   m_TagString: Untagged
@@ -2526,19 +2539,6 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!114 &8474252692421459837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5928357746002848619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aba160fe647a008498b8702ac568d84b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bodyPart: 2
 --- !u!1 &6018727958451019837
 GameObject:
   m_ObjectHideFlags: 0
@@ -2552,7 +2552,7 @@ GameObject:
   - component: {fileID: 50860026090239062}
   - component: {fileID: 8382588062867172343}
   - component: {fileID: 2189290201245288626}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Right Leg Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2668,7 +2668,7 @@ GameObject:
   - component: {fileID: 8409980444025870717}
   - component: {fileID: 2285304123355705114}
   - component: {fileID: 1826205179862845901}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3090,7 +3090,7 @@ GameObject:
   - component: {fileID: 4539329108855520342}
   - component: {fileID: 1931818599265112996}
   - component: {fileID: 4749728222515237160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy Animated
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -3154,8 +3154,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.25
-  m_Speed: 4
-  m_Acceleration: 20
+  m_Speed: 5
+  m_Acceleration: 25
   avoidancePriority: 50
   m_AngularSpeed: 180
   m_StoppingDistance: 2
@@ -3198,16 +3198,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb692ca53367d54fabb32910bae410f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 10
-  attackRange: 1.75
-  attackDelay: 2
+  enemyHealth: 100
+  enemyDamage: 10
+  attackRange: 2
+  attackDelay: 1
   hitBoxes:
   - {fileID: 3004423968882617092}
   - {fileID: 929160025759184906}
   - {fileID: 9049319710462296617}
-  - {fileID: 8474252692421459837}
+  - {fileID: 6247178620735144042}
   - {fileID: 885546355838129810}
-  - {fileID: 2511677025832157571}
+  - {fileID: 8575162644436326217}
 --- !u!114 &4539329108855520342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3329,7 +3330,7 @@ GameObject:
   - component: {fileID: 7305172629378991629}
   - component: {fileID: 8978277559127335637}
   - component: {fileID: 5846298479079225577}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Head Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3445,7 +3446,7 @@ GameObject:
   - component: {fileID: 2200083989434169052}
   - component: {fileID: 5703962145021950883}
   - component: {fileID: 5824587827211240967}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3561,7 +3562,7 @@ GameObject:
   - component: {fileID: 2069407177897725804}
   - component: {fileID: 339062010673465759}
   - component: {fileID: 5652484666936472551}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3710,7 +3711,7 @@ GameObject:
   - component: {fileID: 2096935486493890294}
   - component: {fileID: 5083486973015000893}
   - component: {fileID: 885546355838129810}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: mixamorig:Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3834,7 +3835,7 @@ GameObject:
   - component: {fileID: 3500339964327141627}
   - component: {fileID: 2629184527339276714}
   - component: {fileID: 5153359283558417343}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Body Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3981,7 +3982,7 @@ GameObject:
   - component: {fileID: 1941332140686321612}
   - component: {fileID: 1735559579519360528}
   - component: {fileID: 7233968296813193274}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Left Leg Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4128,7 +4129,7 @@ GameObject:
   - component: {fileID: 4269241665902163387}
   - component: {fileID: 3112728005137560309}
   - component: {fileID: 6461490195014895720}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Left Arm Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}

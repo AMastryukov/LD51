@@ -17,14 +17,14 @@ public class PlayerBuffsTester : MonoBehaviour
         GameManager.OnNewBuff += OnNewBuff;
     }
 
-    private void OnNewBuff(Buffs newBuff, Buffs nextBuff)
+    private void OnNewBuff(BuffData newBuff, BuffData nextBuff)
     {
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnNewBuff) + " ( " + nameof(newBuff) + ": " + newBuff + " , " + nameof(nextBuff) + ": " + nextBuff + " )", this);
+            Debug.Log(nameof(OnNewBuff) + " ( " + nameof(newBuff.Buff) + ": " + newBuff.Buff + " , " + nameof(nextBuff.Buff) + ": " + nextBuff.Buff + " )", this);
         }
 
-        activeBuffText.text = "active: " + newBuff;
-        nextBuffText.text = "next: " + nextBuff;
+        activeBuffText.text = "active: " + newBuff.Buff;
+        nextBuffText.text = "next: " + nextBuff.Buff;
     }
 }

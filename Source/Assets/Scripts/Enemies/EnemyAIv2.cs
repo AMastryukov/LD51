@@ -19,6 +19,7 @@ public class EnemyAIv2 : MonoBehaviour
     private EnemyAnimator _animator;
 
     private Transform _player;
+    private Player _playerComponent;
     private List<Transform> _barricades = new List<Transform>();
 
     private State _currentState = State.LookingForTarget;
@@ -33,6 +34,8 @@ public class EnemyAIv2 : MonoBehaviour
         _animator = GetComponent<EnemyAnimator>();
 
         _player = GameObject.FindGameObjectWithTag(GameConstants.TagConstants.PlayerTag)?.transform;
+        _playerComponent = _player.GetComponent<Player>();
+
         foreach (var barricade in GameObject.FindGameObjectsWithTag(GameConstants.TagConstants.BarricadeTag))
         {
             _barricades.Add(barricade.transform);
@@ -158,7 +161,7 @@ public class EnemyAIv2 : MonoBehaviour
     {
         if (_currentTarget == _player)
         {
-            // TODO: Attack the player, reduce their HP, etc
+            _playerComponent.DecrementHealth(_enemy.enemyDamage);
         }
         else
         {
@@ -176,9 +179,9 @@ public class EnemyAIv2 : MonoBehaviour
 
     private void MoveThroughBarricade()
     {
-        // TODO: if Barricade is a window
-        bool isWindow = true;
-        if (isWindow)
+        var barricade = _currentTarget.gameObject.GetComponent<Barricade>();
+
+        if (barricade.IsWindow)
         {
             // Perform the vault if near an unbarricated window
             _currentState = State.Vaulting;
@@ -188,6 +191,8 @@ public class EnemyAIv2 : MonoBehaviour
         }
         else
         {
+            _isIndoors = true;
+
             // If at an unbarricated doorway, move in and start looking for targets
             _currentState = State.LookingForTarget;
             LookForTarget();

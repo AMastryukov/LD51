@@ -66,6 +66,7 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _ColorBlend: 1
+    - _Emission: 0.5
     - _EmissiveMultiplier: 0
     - _NormalStrength: 0.135
     - _Normal_Strength: 0.276
@@ -77,7 +78,7 @@ Material:
     - _VertexColorStrength: 0.193
     - _VertexColor_Strength: 0
     m_Colors:
-    - _NewColor: {r: 0.5530707, g: 0.8301887, b: 0.27020293, a: 0}
+    - _NewColor: {r: 0.35852185, g: 0.5377358, b: 0.2916963, a: 0}
     - _Vector2: {r: -2.02, g: 1.25, b: 0, a: 0}
     - _Vector2_1: {r: 1.99, g: 1.24, b: 0, a: 0}
   m_BuildTextureStacks: []

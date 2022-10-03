@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 3078863313421573620}
   - component: {fileID: 2095733259466347089}
   - component: {fileID: 4247313372479383195}
-  m_Layer: 0
+  - component: {fileID: 6778535417375461845}
+  - component: {fileID: 6287029282992358817}
+  m_Layer: 12
   m_Name: LandMinePreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d882085ffa842cc4a8a975e99a66371d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,3 +85,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6778535417375461845
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2445878400989644622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5829061, y: 0.12624875, z: 0.5829061}
+  m_Center: {x: 0, y: 0.06335184, z: 0}
+--- !u!114 &6287029282992358817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2445878400989644622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902d0c9403efbf948befd5656faf47e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshes:
+  - {fileID: 4247313372479383195}

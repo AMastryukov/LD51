@@ -20,9 +20,9 @@ TagManager:
   - Projectile
   - PlayerBounds
   - Props
-  - 
-  - 
-  - 
+  - ItemPreview
+  - EnemyHitbox
+  - Gib
   - 
   - 
   - 

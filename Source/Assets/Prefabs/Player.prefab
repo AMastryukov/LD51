@@ -106,16 +106,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 1768170348037127360}
-  movementResponse: 8
-  movementResponseWithBuff: 16
-  maxSpeed: 10
-  maxSpeedWithBuff: 20
-  sprintMultiplier: 1.25
-  sprintStaminaDrainPerSecond: 10
+  movementResponse: 10
+  movementResponseWithBuff: 15
+  maxSpeed: 4
+  maxSpeedWithBuff: 6
+  sprintMultiplier: 2
+  sprintStaminaDrainPerSecond: 25
   sprintStaminaDrainPerSecondWithBuff: 10
-  lookSensitivity: 10
+  lookSensitivity: 5
   lookSensitivityVMultiplier: 0.5
-  enableJump: 1
+  enableJump: 0
   groundCheckRadius: 0.499
   jumpForce: 8
   jumpForceWithBuff: 16
@@ -171,9 +171,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSocket: {fileID: 7425352163878204623}
   itemParentSocket: {fileID: 6189170092836864517}
-  itemPrefab: {fileID: 2849286540356717167, guid: 6993cbeb4ba8c564c8fd56af3cfa953e, type: 3}
+  ItemData: {fileID: 0}
   bobAmount: 0.05
   bobFrequency: 10
+  maxLowerAmount: 1
+  lowerSpeed: 5
 --- !u!1 &1768170348037127362
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768170348037127362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.70000005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -403,7 +405,7 @@ MonoBehaviour:
   minValue: 0
   autoRegenerate: 0
   regenerateFrequency: 1
-  regenerateAmount: 5
+  regenerateAmount: 10
   verboseLogging: 0
   superVerboseLogging: 0
 --- !u!1 &7077947633120096994
@@ -453,6 +455,6 @@ MonoBehaviour:
   minValue: 0
   autoRegenerate: 0
   regenerateFrequency: 1
-  regenerateAmount: 2
+  regenerateAmount: 0
   verboseLogging: 0
   superVerboseLogging: 0

@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabPreview: {fileID: 1035456527316833530, guid: cd83e990cf29afd47a783b42ce5d1672, type: 3}
   prefabToSpawn: {fileID: 7827259068998317436, guid: cb759305bbf59f04bab31289771bce5d, type: 3}
+  validMaterial: {fileID: 2100000, guid: d882085ffa842cc4a8a975e99a66371d, type: 2}
+  invalidMaterial: {fileID: 2100000, guid: 25e371d49ead3f744ba214175f3bc398, type: 2}
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4091

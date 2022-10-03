@@ -46,9 +46,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   queueMax: 5
   repopulateQueueAtCount: 2
-  traps:
-  - {fileID: 11400000, guid: 0b0fcf2d5ecd8c343829aa0ede2f5eb5, type: 2}
-  - {fileID: 11400000, guid: 41dfc634a33c2cc4eb4e3efba059788a, type: 2}
-  - {fileID: 11400000, guid: e99cba6865589c840ae34cc23019e198, type: 2}
   verboseLogging: 0
   superVerboseLogging: 0
+  weapons:
+  - {fileID: 11400000, guid: a283bc0e0ccc49a4fbaeb0aedc3cc3c5, type: 2}
+  - {fileID: 11400000, guid: dfb434a509fe8c24f88da517fd346477, type: 2}
+  - {fileID: 11400000, guid: c45c16964f789904181ad68469b0cf1d, type: 2}
+  traps:
+  - {fileID: 11400000, guid: e252ecf72c23c574db8acf56db1f1701, type: 2}
+  - {fileID: 11400000, guid: 46d73dc19277f0e4396cb20d2dd3506a, type: 2}
+  - {fileID: 11400000, guid: 744907732963d89489d78acc412fc15c, type: 2}
+  buffs:
+  - {fileID: 11400000, guid: 85bd0329623e8f14bb23a9ae546d8575, type: 2}
+  - {fileID: 11400000, guid: 700cad3743c4f7240b56f36e1bd42ea8, type: 2}
+  - {fileID: 11400000, guid: 9a57c2b9297d1764581700d000132cc5, type: 2}
+  - {fileID: 11400000, guid: 600cb987bec306045b2da3f82c19a426, type: 2}
+  - {fileID: 11400000, guid: f17f9bc38f826c94b974c81257c71c71, type: 2}

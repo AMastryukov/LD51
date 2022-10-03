@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public static Action<ItemData, ItemData> OnNewWeapon;
     public static Action<ItemData, ItemData> OnNewTrap;
     public static Action<ItemData, ItemData> OnNextItems;
-    public static Action<Buffs, Buffs> OnNewBuff;
+    public static Action<BuffData, BuffData> OnNewBuff;
 
     [Tooltip("The max count of each queue when populating; inclusive.")]
     [SerializeField] private int queueMax = 5;
@@ -42,18 +42,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private ItemData[] weapons;
     [SerializeField] private ItemData[] traps;
+    [SerializeField] private BuffData[] buffs;
 
     private Queue<ItemData> weaponQueue = new Queue<ItemData>();
     private Queue<ItemData> trapQueue = new Queue<ItemData>();
-    private Queue<Buffs> buffQueue = new Queue<Buffs>();
+    private Queue<BuffData> buffQueue = new Queue<BuffData>();
 
     private ItemData lastQueuedWeapon = null;
     private ItemData lastQueuedTrap = null;
-    private Buffs lastQueuedBuff = Buffs.PassivelyRegenerateHP;
+    private BuffData lastQueuedBuff = null;
 
     private GameStates gameState = GameStates.Menu;
     private IEnumerator gameTimer = null;
-    private int buffsLength = 0;
 
     public GameStates GameState => gameState;
 
@@ -69,9 +69,9 @@ public class GameManager : MonoBehaviour
             Debug.LogError($"{nameof(traps)} must have at least 3 entries or its queue generation will never complete due to the 'no two of the same objects should be in the queue beside each other' rule.");
         }
 
-        if (Enum.GetNames(typeof(Buffs)).Length <= 2)
+        if (buffs.Length <= 2)
         {
-            Debug.LogError($"{nameof(Buffs)} must have at least 3 entries or its queue generation will never complete due to the 'no two of the same objects should be in the queue beside each other' rule.");
+            Debug.LogError($"{nameof(buffs)} must have at least 3 entries or its queue generation will never complete due to the 'no two of the same objects should be in the queue beside each other' rule.");
         }
 
         if (SECONDS_TO_COUNT_TO != 10)
@@ -120,7 +120,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(nameof(StartGame), this);
         }
 
-        buffsLength = Enum.GetNames(typeof(Buffs)).Length;
 
         SetGameState(GameStates.Play);
         StartGameTimer();
@@ -218,8 +217,8 @@ public class GameManager : MonoBehaviour
 
         OnNextItems?.Invoke(newWeapon, newTrap);
 
-        Buffs newBuff = buffQueue.Dequeue();
-        Buffs nextBuff = buffQueue.Peek();
+        BuffData newBuff = buffQueue.Dequeue();
+        BuffData nextBuff = buffQueue.Peek();
         OnNewBuff?.Invoke(newBuff, nextBuff);
 
         if (weaponQueue.Count <= repopulateQueueAtCount)
@@ -293,13 +292,13 @@ public class GameManager : MonoBehaviour
 
         while (buffQueue.Count < queueMax)
         {
-            int newBuffIndex = UnityEngine.Random.Range(0, buffsLength);
-            Buffs newBuff = (Buffs)newBuffIndex;
+            int newBuffIndex = UnityEngine.Random.Range(0, buffs.Length);
+            BuffData newBuff = buffs[newBuffIndex];
 
             while (newBuff == lastQueuedBuff)
             {
-                newBuffIndex = UnityEngine.Random.Range(0, buffsLength);
-                newBuff = (Buffs)newBuffIndex;
+                newBuffIndex = UnityEngine.Random.Range(0, buffs.Length);
+                newBuff = buffs[newBuffIndex];
             }
 
             buffQueue.Enqueue(newBuff);

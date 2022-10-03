@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Mine
   m_EditorClassIdentifier: 
   Name: Mine
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 890f55acf84b6244a9a280014cab2664, type: 3}
   Item: {fileID: 5419134122302575748, guid: dfe271ade428d0e4b8a9fa3da0cd3173, type: 3}
