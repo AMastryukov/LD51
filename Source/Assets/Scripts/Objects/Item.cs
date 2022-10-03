@@ -12,5 +12,11 @@ public abstract class Item : MonoBehaviour
         get { return Status; }
         set { OnStatusChanged?.Invoke(value); Status = value; }
     }
-    public abstract void Use(bool held);
+
+    /// <summary>
+    /// Return false if this item has no uses left
+    /// </summary>
+    /// <param name="held"></param>
+    /// <returns></returns>
+    public abstract bool Use(bool held);
 }

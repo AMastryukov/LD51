@@ -65,14 +65,16 @@ public class TrapBlueprint : Item
         }
     }
 
-    public override void Use(bool held)
+    public override bool Use(bool held)
     {
-        if (!_isEquipped || held) return;
+        if (!_isEquipped || held) return false;
         if (_onValidGround)
         {
             Debug.Log("Placement Confirmed");
             ExplicitUnEquip();
         }
+
+        return false;
     }
 
     private void ExplicitUnEquip()

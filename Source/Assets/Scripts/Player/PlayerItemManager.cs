@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemManagerState
+{
+    READY,
+    LOWERED
+}
+
 public class PlayerItemManager : MonoBehaviour
 {
 
@@ -22,6 +28,19 @@ public class PlayerItemManager : MonoBehaviour
     [SerializeField] private float bobAmount = 0.05f;
     [SerializeField] private float bobFrequency = 10f;
     private float currentWeaponBobFactor;
+    [SerializeField]
+    private float maxLowerAmount = 1f;
+    [SerializeField]
+    private float lowerSpeed = 10f;
+    private float lowerAmount = 0f;
+
+    private Item[] currentItems = { null, null };
+
+    private int selectedItem = 0;
+
+    public const int ASSUMED_NUMBER_OF_ITEM_SLOTS = 2;
+
+    public ItemManagerState State { get; private set; } = ItemManagerState.READY;
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +55,67 @@ public class PlayerItemManager : MonoBehaviour
         |** Notify HUD about active object **|
         \************************************/
 
-        Equip(itemPrefab);
+        Equip(selectedItem);
+    }
+
+    private void Update()
+    {
+        switch (State)
+        {
+            case ItemManagerState.READY:
+                // Don't need to do anything
+                break;
+            case ItemManagerState.LOWERED:
+                lowerAmount = Mathf.Max(lowerAmount - lowerSpeed * Time.deltaTime, 0);
+                if (lowerAmount == 0)
+                {
+                    State = ItemManagerState.READY;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void Awake()
+    {
+        GameManager.OnNextItems += EquipNextItems;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnNextItems -= EquipNextItems;
+    }
+
+    void EquipNextItems(ItemData nextWeapon, ItemData nextTrap)
+    {
+        Destroy(currentItems[0]?.gameObject);
+        Destroy(currentItems[1]?.gameObject);
+
+        currentItems[0] = Instantiate(nextWeapon.Item, itemSocket);
+        currentItems[1] = Instantiate(nextTrap.Item, itemSocket);
+
+        Equip(selectedItem, true);
+    }
+
+    void LowerItem()
+    {
+        State = ItemManagerState.LOWERED;
+        lowerAmount = maxLowerAmount;
+
     }
 
     public void Use(bool held)
     {
-        activeItem.Use(held);
+        if (State == ItemManagerState.READY && activeItem != null)
+        {
+            if (activeItem.Use(held))
+            {
+                Equip(selectedItem + 1 % ASSUMED_NUMBER_OF_ITEM_SLOTS);
+                Destroy(activeItem);
+            }
+        }
+
     }
 
     public void LateUpdate()
@@ -70,12 +144,19 @@ public class PlayerItemManager : MonoBehaviour
                               currentWeaponBobFactor;
 
             // Apply weapon bob
-            itemSocket.localPosition = new Vector3(hBobValue, vBobValue);
+            itemSocket.localPosition = new Vector3(hBobValue, vBobValue - lowerAmount);
         }
     }
 
-    public void Equip(Item item, int slot = 1)
+    public void Equip(int slot, bool force = false)
     {
-        activeItem = Instantiate(item, itemSocket);
+        if ((slot != selectedItem || force) && currentItems[slot] != null)
+        {
+            currentItems[slot]?.gameObject.SetActive(true);
+            currentItems[slot + 1 % ASSUMED_NUMBER_OF_ITEM_SLOTS]?.gameObject.SetActive(false);
+            LowerItem();
+            activeItem = currentItems[slot];
+            selectedItem = slot;
+        }
     }
 }

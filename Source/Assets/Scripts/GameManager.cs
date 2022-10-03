@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public static Action<ItemData, ItemData> OnNewWeapon;
     public static Action<ItemData, ItemData> OnNewTrap;
+    public static Action<ItemData, ItemData> OnNextItems;
     public static Action<Buffs, Buffs> OnNewBuff;
 
     [Tooltip("The max count of each queue when populating; inclusive.")]
@@ -36,10 +37,11 @@ public class GameManager : MonoBehaviour
     [Tooltip("When a queue reaches this amount, it will generate up to the count of queueMax")]
     [SerializeField] private int repopulateQueueAtCount = 2;
 
-    [SerializeField] private ItemData[] traps = new ItemData[0];
-
     [SerializeField] private bool verboseLogging = false;
     [SerializeField] private bool superVerboseLogging = false;
+
+    [SerializeField] private ItemData[] weapons;
+    [SerializeField] private ItemData[] traps;
 
     private Queue<ItemData> weaponQueue = new Queue<ItemData>();
     private Queue<ItemData> trapQueue = new Queue<ItemData>();
@@ -55,14 +57,11 @@ public class GameManager : MonoBehaviour
 
     public GameStates GameState => gameState;
 
-    //todo replace these
-    private string[] tempWeapons = new string[3] { "Shotgun", "Revolver", "Katana" };
-
     private void OnValidate()
     {
-        if (tempWeapons.Length <= 2)
+        if (weapons.Length <= 2)
         {
-            Debug.LogError($"{nameof(tempWeapons)} must have at least 3 entries or its queue generation will never complete due to the 'no two of the same objects should be in the queue beside each other' rule.");
+            Debug.LogError($"{nameof(weapons)} must have at least 3 entries or its queue generation will never complete due to the 'no two of the same objects should be in the queue beside each other' rule.");
         }
 
         if (traps.Length <= 2)
@@ -217,6 +216,8 @@ public class GameManager : MonoBehaviour
         var nextTrap = trapQueue.Peek();
         OnNewTrap?.Invoke(newTrap, nextTrap);
 
+        OnNextItems?.Invoke(newWeapon, newTrap);
+
         Buffs newBuff = buffQueue.Dequeue();
         Buffs nextBuff = buffQueue.Peek();
         OnNewBuff?.Invoke(newBuff, nextBuff);
@@ -255,7 +256,7 @@ public class GameManager : MonoBehaviour
                 newTrap = traps[newTrapIndex];
             }
 
-            var newWeapon = new ItemData();
+            var newWeapon = weapons[UnityEngine.Random.Range(0, weapons.Length)];
             weaponQueue.Enqueue(newWeapon);
             lastQueuedWeapon = newWeapon;
         }
@@ -279,6 +280,7 @@ public class GameManager : MonoBehaviour
                 newTrap = traps[newTrapIndex];
             }
 
+            var newTrap = traps[UnityEngine.Random.Range(0, traps.Length)];
             trapQueue.Enqueue(newTrap);
             lastQueuedTrap = newTrap;
         }
