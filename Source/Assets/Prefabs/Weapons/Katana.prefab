@@ -71,6 +71,7 @@ MonoBehaviour:
   muzzlePasticleSystem: {fileID: 8603165752764419597}
   reloadSound: {fileID: 0}
   shotSound: {fileID: 8300000, guid: 385080ec053266a46aaacb95a4578a7b, type: 3}
+  _animator: {fileID: 2395256322204502154}
 --- !u!82 &3738843894675082118
 AudioSource:
   m_ObjectHideFlags: 0
@@ -178,8 +179,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.6399007, z: 2.6936243}
-  m_Center: {x: 0, y: 0.23230779, z: 0.9336163}
+  m_Size: {x: 2, y: 3.2820299, z: 2.6936243}
+  m_Center: {x: 0, y: -0.5887567, z: 0.9336163}
 --- !u!1 &5705318295374497765
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9204221844210194532
 Transform:
   m_ObjectHideFlags: 0
@@ -5061,6 +5062,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5452420638242973254}
+  - component: {fileID: 2395256322204502154}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -5085,6 +5087,26 @@ Transform:
   m_Father: {fileID: 2849286540356717166}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2395256322204502154
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7606191935844380379}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ca84f6e6078fc6c4aa04ec2007285b07, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7815018599186155944
 GameObject:
   m_ObjectHideFlags: 0
