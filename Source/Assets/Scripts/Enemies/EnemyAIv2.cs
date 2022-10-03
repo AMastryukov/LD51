@@ -111,6 +111,7 @@ public class EnemyAIv2 : MonoBehaviour
 
     private void AttackTarget()
     {
+        // If out of range, go back to running
         if (!_enemy.CheckIfObjectIsInRange(_currentTarget))
         {
             _animator.Stop();
@@ -121,13 +122,27 @@ public class EnemyAIv2 : MonoBehaviour
             return;
         }
 
-        _animator.Attack();
-
+        // Lost the target for some reason, go back to looking
         if (_currentTarget == null)
         {
+            _animator.Stop();
+
             _currentState = State.LookingForTarget;
             LookForTarget();
+            return;
         }
+
+        // If the target is a barricade and has been destroyed, move through it
+        var barricade = _currentTarget.GetComponent<Barricade>();
+        if (barricade && barricade.IsDestroyed)
+        {
+            _animator.Stop();
+
+            MoveThroughBarricade();
+            return;
+        }
+
+        _animator.Attack();
     }
 
     /// <summary>
@@ -141,30 +156,37 @@ public class EnemyAIv2 : MonoBehaviour
         }
         else
         {
-            _currentTarget.gameObject.GetComponent<TestBarricade>().GetHit();
+            var barricade = _currentTarget.gameObject.GetComponent<Barricade>();
 
-            // TODO: Change TestBarricade to Barricade
-            if (_currentTarget.gameObject.GetComponent<TestBarricade>().IsDestroyed())
+            if (barricade.IsDestroyed)
             {
-                // TODO: if Barricade is a window
-                bool isWindow = true;
-                if (isWindow)
-                {
-                    // Perform the vault if near an unbarricated window
-                    _currentState = State.Vaulting;
-                    PerformVault();
-
-                    return;
-                }
-                else
-                {
-                    // If at an unbarricated doorway, move in and start looking for targets
-                    _currentState = State.LookingForTarget;
-                    LookForTarget();
-
-                    return;
-                }
+                MoveThroughBarricade();
+                return;
             }
+
+            barricade.Hit();
+        }
+    }
+
+    private void MoveThroughBarricade()
+    {
+        // TODO: if Barricade is a window
+        bool isWindow = true;
+        if (isWindow)
+        {
+            // Perform the vault if near an unbarricated window
+            _currentState = State.Vaulting;
+            PerformVault();
+
+            return;
+        }
+        else
+        {
+            // If at an unbarricated doorway, move in and start looking for targets
+            _currentState = State.LookingForTarget;
+            LookForTarget();
+
+            return;
         }
     }
 
