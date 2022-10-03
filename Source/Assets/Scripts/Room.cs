@@ -21,6 +21,10 @@ public class Room : MonoBehaviour
     [SerializeField] private Buffs buff = Buffs.PassivelyRegenerateHP;
     [SerializeField] private int enemySecondsToCaptureRoom = 10;
     [SerializeField] private int playerSecondsToCaptureRoom = 5;
+
+    [SerializeField] private GameObject setActiveOnPlayerControl = null;
+    [SerializeField] private GameObject setActiveOnEnemyControl = null;
+
     [SerializeField] private bool verboseLogging = false;
 
     private States state = States.Idle;
@@ -56,6 +60,9 @@ public class Room : MonoBehaviour
         }
 
         EnemyPool.OnPoolDestroy += OnEnemyDespawned;
+
+        setActiveOnPlayerControl.SetActive(false);
+        setActiveOnEnemyControl.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -248,6 +255,8 @@ public class Room : MonoBehaviour
 
         isControlledByPlayer = false;
         OnRoomLost?.Invoke(this, buff);
+        setActiveOnPlayerControl.SetActive(false);
+        setActiveOnEnemyControl.SetActive(true);
     }
 
     private void Capture()
@@ -259,6 +268,8 @@ public class Room : MonoBehaviour
 
         isControlledByPlayer = true;
         OnRoomCaptured?.Invoke(this, buff);
+        setActiveOnPlayerControl.SetActive(true);
+        setActiveOnEnemyControl.SetActive(false);
     }
 
     private void CancelCountToRoomCapture()
