@@ -34,11 +34,11 @@ public class AudioManager : MonoBehaviour
 
         foreach (var source in audioSources)
         {
-            if (source.CompareTag("MusicSource"))
+            if (source.CompareTag(GameConstants.TagConstants.MusicTag))
             {
                 musicSources.Add(source);
             }
-            else if (source.CompareTag("SFXSource"))
+            else if (source.CompareTag(GameConstants.TagConstants.SFXTag))
             {
                 sfxSources.Add(source);
             }

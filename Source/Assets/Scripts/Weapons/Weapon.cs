@@ -126,14 +126,11 @@ public class Weapon : Item
         HashSet<int> enemyInstanceIds; // don't hit the same enemy twice
         EnemyHitbox hitBox;
         enemyInstanceIds = new HashSet<int>();
-
-
+        
         RaycastHit[] hits = Physics.RaycastAll(ray, range, hitLayerMask);
         // For each enemy hit
         for (int i = 0; i < hits.Length; i++)
         {
-
-
             calculatedDamage = Mathf.CeilToInt(decayedDamage);
             hitBox = hits[i].collider.gameObject.GetComponent<EnemyHitbox>();
             if (hitBox != null)
@@ -141,6 +138,7 @@ public class Weapon : Item
                 int enemyInstanceId = hitBox.Owner.gameObject.GetInstanceID();
                 if (enemyInstanceIds.Contains(enemyInstanceId))
                 {
+                    Debug.Log("Already hit");
                     // We already hit this enemy
                 }
                 else
@@ -168,7 +166,7 @@ public class Weapon : Item
             }
 
             // Exit Early if no point in tracing.
-            if (hitBox == null || Mathf.FloorToInt(decayedDamage) == 0)
+            if (Mathf.FloorToInt(decayedDamage) == 0)
             {
                 break;
             }

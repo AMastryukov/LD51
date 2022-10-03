@@ -7,7 +7,7 @@ public class TestRoomTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag(GameConstants.TagConstants.EnemyTag))
         {
             other.gameObject.GetComponent<EnemyAi>().SetRoomState(true);
         }
@@ -15,7 +15,7 @@ public class TestRoomTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag(GameConstants.TagConstants.EnemyTag))
         {
             other.gameObject.GetComponent<EnemyAi>().SetRoomState(false);
         }

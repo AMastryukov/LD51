@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponFireType: 0
-  damage: 5
+  damage: 30
   fireRate: 6.54
   shotCount: 1
   spread: 0
@@ -73,7 +73,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2849286540356717152}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5c8145757b452fd4f92a29a35c79d873, type: 3}
