@@ -10,6 +10,18 @@ public class Enemy : MonoBehaviour
     public float attackRange = 2f;
     public float attackDelay = 2f;
 
+
+    [Header("HitBoxes")]
+    [SerializeField] private EnemyHitbox[] hitBoxes;
+
+    private void Awake()
+    {
+        foreach (var hitbox in hitBoxes)
+        {
+            hitbox.AssignOwner(this);
+        }
+    }
+
     public bool CheckIfObjectIsInRange(Transform obj)
     {
         return Vector3.Magnitude(obj.position - transform.position) < attackRange;

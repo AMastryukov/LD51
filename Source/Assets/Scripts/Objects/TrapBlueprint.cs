@@ -31,7 +31,7 @@ public class TrapBlueprint : Item
     {
         GameManager.OnTenSecondsPassed -= ExplicitUnEquip;
     }
-    
+
     void Update()
     {
         //Temporarily managing input here, should be hooked up to input handler
@@ -41,20 +41,20 @@ public class TrapBlueprint : Item
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Use();
+            Use(false);
         }
 
         if (_isEquipped)
         {
             RaycastHit rayHit;
             //Debug.DrawLine(trapObj.transform.position+Vector3.up*placementRange/2, trapObj.transform.position + Vector3.down * placementRange, Color.green, 1f);
-            if (Physics.BoxCast(trapObj.transform.position+Vector3.up*placementRange/2,_objMesh.bounds.extents,Vector3.down,out rayHit,transform.rotation,placementRange,placementLayer))
+            if (Physics.BoxCast(trapObj.transform.position + Vector3.up * placementRange / 2, _objMesh.bounds.extents, Vector3.down, out rayHit, transform.rotation, placementRange, placementLayer))
             {
                 if (rayHit.collider.gameObject.layer == 3)
                 {
                     _onValidGround = true;
                     _meshRenderer.material = validMaterial;
-                    
+
                 }
                 else
                 {
@@ -65,9 +65,9 @@ public class TrapBlueprint : Item
         }
     }
 
-    public override void Use()
+    public override void Use(bool held)
     {
-        if (!_isEquipped) return;
+        if (!_isEquipped || held) return;
         if (_onValidGround)
         {
             Debug.Log("Placement Confirmed");
