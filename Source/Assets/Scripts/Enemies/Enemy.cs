@@ -19,11 +19,15 @@ public class Enemy : MonoBehaviour
 
     private EnemyCorpse _corpse;
     private Component[] _components;
+    private AudioSource _audioSource;
+
+    [SerializeField] private AudioClip footstepSound;
 
     private void Awake()
     {
         _corpse = GetComponent<EnemyCorpse>();
         _components = GetComponents<Component>();
+        _audioSource = GetComponent<AudioSource>();
 
         foreach (var hitbox in hitBoxes)
         {
@@ -58,5 +62,9 @@ public class Enemy : MonoBehaviour
 
             Destroy(this);
         }
+    }
+    public void PlayFootSteps()
+    {
+        _audioSource.PlayOneShot(footstepSound);
     }
 }

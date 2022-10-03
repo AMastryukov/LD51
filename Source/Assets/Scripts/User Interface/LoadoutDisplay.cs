@@ -18,6 +18,7 @@ public class LoadoutDisplay : MonoBehaviour
         GameManager.OnNewTrap += UpdateTraps;
         GameManager.OnNewBuff += UpdateBonuses;
         PlayerItemManager.OnItemSelected += UpdateHUD;
+        PlayerItemManager.OnItemDepleted += ClearSlot;
     }
 
     private void OnDestroy()
@@ -26,6 +27,19 @@ public class LoadoutDisplay : MonoBehaviour
         GameManager.OnNewTrap -= UpdateTraps;
         GameManager.OnNewBuff -= UpdateBonuses;
         PlayerItemManager.OnItemSelected += UpdateHUD;
+    }
+
+    private void ClearSlot(int slot)
+    {
+        if (slot == 0)
+        {
+            activeWeaponSlot.ClearSlot();
+        }
+        else
+        {
+            activeWeaponSlot.DeselectSlot();
+            activeTrapSlot.ClearSlot();
+        }
     }
 
     private void UpdateHUD(int slot, Item item)
