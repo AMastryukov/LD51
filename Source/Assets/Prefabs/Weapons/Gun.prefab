@@ -64,6 +64,7 @@ MonoBehaviour:
     m_Bits: 264
   muzzleSocket: {fileID: 1016136567183107659}
   projectile: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
+  projectileLifeSpan: 0.1
   muzzlePasticleSystem: {fileID: 8603165752764419597}
 --- !u!82 &3738843894675082118
 AudioSource:
@@ -77,7 +78,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5c8145757b452fd4f92a29a35c79d873, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.197
   m_Pitch: 1
   Loop: 0
   Mute: 0

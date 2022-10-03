@@ -58,6 +58,9 @@ public class Weapon : Item
     [SerializeField]
     private Projectile projectile;
     [SerializeField]
+    private float projectileLifeSpan = 0.1f;
+    private Queue<Projectile> projectileQueue;
+    [SerializeField]
     private ParticleSystem muzzlePasticleSystem;
     private AudioSource audioSource;
 
@@ -79,6 +82,8 @@ public class Weapon : Item
 
         audioSource = GetComponent<AudioSource>();
         DebugUtility.HandleErrorIfNullGetComponent(audioSource, this);
+
+        projectileQueue = new Queue<Projectile>();
 
     }
 
@@ -179,6 +184,30 @@ public class Weapon : Item
 
     }
 
+    private void DequeuProjectile(Ray ray)
+    {
+        Vector3 pos = muzzleSocket.position + ray.direction;
+        Quaternion rot = Quaternion.LookRotation(ray.direction);
+        Projectile pj;
+
+        if (projectileQueue.Count == 0 || projectileQueue.Peek().gameObject.activeSelf)
+        {
+
+            pj = Instantiate(projectile);
+
+        }
+        else
+        {
+            pj = projectileQueue.Dequeue();
+        }
+
+        pj.Initialize(projectileLifeSpan, pos, rot);
+        projectileQueue.Enqueue(pj);
+
+
+
+    }
+
     /// <summary>
     /// Firing logic
     /// </summary>
@@ -199,7 +228,7 @@ public class Weapon : Item
             debugRayColor = successfullHit ? Color.green : Color.red;
 
             //Calculate the particle trajectories a little differently
-            Instantiate(projectile, muzzleSocket.position + ray.direction, Quaternion.LookRotation(ray.direction));
+            DequeuProjectile(ray);
             Debug.DrawLine(cameraTransform.position, cameraTransform.position + ray.direction * range, debugRayColor, 1f);
 
         }
