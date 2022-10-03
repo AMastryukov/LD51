@@ -12,5 +12,5 @@ public abstract class Item : MonoBehaviour
         get { return Status; }
         set { OnStatusChanged?.Invoke(value); Status = value; }
     }
-    public abstract void Use();
+    public abstract void Use(bool held);
 }

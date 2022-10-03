@@ -143,10 +143,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6748c7617fe4c0948bea33428269b9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spread: 0
-  damage: 5
-  range: 300
+  weaponFireType: 0
+  damage: 10
+  fireRate: 100
+  shotCount: 10
+  spread: 0.069
+  range: 200
   damageFallOff: 0
+  enemyPenetrationFactor: 1
+  wallPenetrationFactor: 0
   recoilPosition: {fileID: 1271984800421016389}
   recoilAmount: 0.736
   recoilRecoveryAmount: 0.244
@@ -4126,7 +4131,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
+    enabled: 1
     ratio: 0
     light: {fileID: 0}
     randomDistribution: 1
