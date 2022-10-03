@@ -3211,6 +3211,7 @@ MonoBehaviour:
   - {fileID: 885546355838129810}
   - {fileID: 8575162644436326217}
   footstepSound: {fileID: 8300000, guid: 3d605c5afa66238469cb0fe3574f54ab, type: 3}
+  gibs: {fileID: 8300000, guid: bfc8610f0d885cf40b6148b516a7ea23, type: 3}
 --- !u!114 &4539329108855520342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3341,7 +3342,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
