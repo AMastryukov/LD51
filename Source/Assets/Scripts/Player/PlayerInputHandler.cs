@@ -67,7 +67,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool GetInteractInput()
     {
-        return Input.GetButton(BUTTON_INTERACT);
+        return Input.GetButtonDown(BUTTON_INTERACT);
     }
 
     public bool GetSprintInput()
