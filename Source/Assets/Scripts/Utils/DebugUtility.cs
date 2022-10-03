@@ -17,7 +17,7 @@ public static class DebugUtility
 #if UNITY_EDITOR
         if (layerMask.value == 0)
         {
-            Debug.LogWarning("LayerMask missing on " + mono.name + ". Set this to the " + expected + " layer.");
+            Debug.LogError("LayerMask missing on " + mono.name + ". Set this to the " + expected + " layer.");
         }
 #endif
     }

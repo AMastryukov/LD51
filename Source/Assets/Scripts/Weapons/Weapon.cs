@@ -260,9 +260,10 @@ public class Weapon : Item
 
     }
 
-    public override void Use(bool held)
+    public override bool Use(bool held)
     {
         TryFire();
+        return false;
     }
 
     /// <summary>
