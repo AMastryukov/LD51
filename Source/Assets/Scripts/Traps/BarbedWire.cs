@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BarbedWire : Item
 {
@@ -73,7 +74,6 @@ public class BarbedWire : Item
         {
             Enemy enemyToHurt = trackedEnemies[i];
             enemyToHurt.TakeDamage(damageToEnemies);
-            //slow down
         }
 
         nextOuchTime = DateTime.Now.AddSeconds(damageFrequency);
@@ -98,8 +98,10 @@ public class BarbedWire : Item
         }
 
         colliderTransform.TryGetComponent(out Enemy enemy);
-
         trackedEnemies.Add(enemy);
+
+        colliderTransform.TryGetComponent(out EnemyAi enemyAi);
+        enemyAi.ToggleSpeed(true);
 
         enabled = true;
     }
@@ -150,7 +152,8 @@ public class BarbedWire : Item
             Debug.Log(nameof(StopTrackingEnemy) + " ( " + nameof(enemy) + ": " + enemy.name + " )", this);
         }
 
-        // speed up
+        enemy.TryGetComponent(out EnemyAi enemyAi);
+        enemyAi.ToggleSpeed(false);
 
         trackedEnemies.Remove(enemy);
 

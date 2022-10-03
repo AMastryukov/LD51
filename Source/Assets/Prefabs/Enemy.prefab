@@ -118,6 +118,7 @@ MonoBehaviour:
   enemyHealth: 10
   attackRange: 2.5
   attackDelay: 2
+  hitBoxes: []
 --- !u!195 &933820573174825761
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -168,6 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262570aa3313cb547a0cd8fec840c2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentState: 0
+  speedDividendWhileInBarbedWire: 4
 --- !u!54 &5866455158528370964
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -154,14 +154,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   damageFrequency: 1
-  damageToEnemies: 100
+  damageToEnemies: 1
   damageWhenHit: 2
   onTriggerEnterHandler: {fileID: 3841427086328054962}
   onTriggerExitHandler: {fileID: 8308639223123849508}
   setInactiveOnDeath: {fileID: 5112795521405421325}
   setActiveOnDeath: {fileID: 9032455161975793035}
   timeToDestroyAfterTrigger: 5
-  verboseLogging: 1
+  verboseLogging: 0
 --- !u!1 &8917621773367810655
 GameObject:
   m_ObjectHideFlags: 0
