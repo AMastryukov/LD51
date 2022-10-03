@@ -28,6 +28,10 @@ public class EnemyAIv2 : MonoBehaviour
     private bool _isIndoors = false;
 
     private float _timeElapsed = 0;
+    private float _speedCache;
+
+    [SerializeField] private float speedDividendWhileInBarbedWire = 2f;
+
 
     private void Awake()
     {
@@ -42,6 +46,8 @@ public class EnemyAIv2 : MonoBehaviour
         {
             _barricades.Add(barricade.transform);
         }
+
+        _speedCache = _agent.speed;
     }
 
     private void OnEnable()
@@ -241,5 +247,10 @@ public class EnemyAIv2 : MonoBehaviour
             _timeElapsed = 0;
             _enemy.PlayFootSteps();
         }
+    }
+
+    public void ToggleSpeed(bool barbedWireMode)
+    {
+        _agent.speed = barbedWireMode ? _speedCache / speedDividendWhileInBarbedWire : _speedCache;
     }
 }
