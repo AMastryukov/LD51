@@ -61,7 +61,7 @@ MonoBehaviour:
   recoilRecoveryAmount: 0.244
   hitLayerMask:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 8200
   muzzleSocket: {fileID: 1016136567183107659}
   projectile: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
   projectileLifeSpan: 0.1
