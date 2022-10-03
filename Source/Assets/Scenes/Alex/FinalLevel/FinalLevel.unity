@@ -4091,7 +4091,7 @@ GameObject:
   - component: {fileID: 244685556}
   - component: {fileID: 244685555}
   - component: {fileID: 244685554}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Indoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20848,15 +20848,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5651963780359373999, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.0106974
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5651963780359373999, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.4290104
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5651963780359373999, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.0975008
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5651963780359373999, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: m_LocalRotation.w
