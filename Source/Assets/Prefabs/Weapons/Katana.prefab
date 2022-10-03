@@ -69,6 +69,7 @@ MonoBehaviour:
   projectile: {fileID: 0}
   projectileLifeSpan: 0.1
   muzzlePasticleSystem: {fileID: 8603165752764419597}
+  bloodParticleSystem: {fileID: 0}
   reloadSound: {fileID: 0}
   shotSound: {fileID: 8300000, guid: 385080ec053266a46aaacb95a4578a7b, type: 3}
   _animator: {fileID: 2395256322204502154}
@@ -179,8 +180,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.9570494, y: 4.3826313, z: 3.7952104}
-  m_Center: {x: -0.47852516, y: -0.70064783, z: 1.0515597}
+  m_Size: {x: 2.908265, y: 4.2191706, z: 2.8057563}
+  m_Center: {x: -0.45413303, y: -0.61891747, z: 0.55683255}
 --- !u!1 &5705318295374497765
 GameObject:
   m_ObjectHideFlags: 0
