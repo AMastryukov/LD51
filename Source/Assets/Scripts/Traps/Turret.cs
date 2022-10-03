@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : Item
 {
-    private const string ENEMY_TAG = "Enemy";
-
     [SerializeField] private int health = 10;
     [SerializeField] private int damageToEnemies = 20;
     [SerializeField] private int damageWhenHit = 2;
@@ -66,6 +64,11 @@ public class Turret : MonoBehaviour
         }
     }
 
+    public override void Use(bool held)
+    {
+        throw new NotImplementedException();
+    }
+
     public void GetHit()
     {
         if (verboseLogging)
@@ -119,7 +122,7 @@ public class Turret : MonoBehaviour
     private void OnColliderEntered(Collider collider)
     {
         Transform colliderTransform = collider.transform;
-        if (colliderTransform.tag != ENEMY_TAG)
+        if (colliderTransform.tag != Enemy.TAG)
         {
             return;
         }
@@ -146,14 +149,14 @@ public class Turret : MonoBehaviour
     private void OnColliderExited(Collider collider)
     {
         Transform enemyTransform = collider.transform;
-        if (enemyTransform.tag != ENEMY_TAG || !trackedEnemies.Contains(enemyTransform))
+        if (enemyTransform.tag != Enemy.TAG || !trackedEnemies.Contains(enemyTransform))
         {
             return;
         }
 
         if (verboseLogging)
         {
-            Debug.Log(nameof(OnColliderEntered) + " ( " + nameof(collider) + ": " + collider.gameObject.name + " )", this);
+            Debug.Log(nameof(OnColliderExited) + " ( " + nameof(collider) + ": " + collider.gameObject.name + " )", this);
         }
 
         StopTrackingEnemy(enemyTransform);
@@ -210,7 +213,7 @@ public class Turret : MonoBehaviour
         RaycastHit raycastHit;
         if (Physics.Linecast(emissionPoint.position, Target.position, out raycastHit))
         {
-            targetIsObstructed = raycastHit.collider.gameObject.tag != ENEMY_TAG;
+            targetIsObstructed = raycastHit.collider.gameObject.tag != Enemy.TAG;
 
             if (!targetIsObstructed && verboseLogging)
             {
@@ -239,7 +242,7 @@ public class Turret : MonoBehaviour
             Transform enemyTransform = trackedEnemies[i];
             if (Physics.Linecast(emissionPoint.position, enemyTransform.position, out raycastHit))
             {
-                bool isAnUnobstructedEnemy = raycastHit.collider.gameObject.tag == ENEMY_TAG;
+                bool isAnUnobstructedEnemy = raycastHit.collider.gameObject.tag == Enemy.TAG;
 
                 if (isAnUnobstructedEnemy)
                 {

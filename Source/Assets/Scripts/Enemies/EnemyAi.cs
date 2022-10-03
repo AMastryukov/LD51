@@ -14,6 +14,7 @@ public class EnemyAi : MonoBehaviour
 {
     #region Fields
     [SerializeField] private EnemyAiState _currentState = EnemyAiState.OutsideHouse;
+    [SerializeField] private float speedDividendWhileInBarbedWire = 2f;
 
     private NavMeshAgent _agent;
     private Transform _player;
@@ -21,6 +22,7 @@ public class EnemyAi : MonoBehaviour
     private List<Transform> _turrets = new List<Transform>();
     private Transform _nearestTurret;
     private Transform _target;
+    private float _speedCache;
 
     private Enemy _enemy;
     private bool _isAttackOnCooldown;
@@ -98,6 +100,7 @@ public class EnemyAi : MonoBehaviour
         _enemy = GetComponent<Enemy>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _agent = GetComponent<NavMeshAgent>();
+        _speedCache = _agent.speed;
         PopulateTargetLists();
     }
 
@@ -152,7 +155,8 @@ public class EnemyAi : MonoBehaviour
 
         transform.LookAt(_target);
 
-        if (_isAttackOnCooldown) return;
+        if (_isAttackOnCooldown)
+            return;
 
         _target.gameObject.GetComponent<Barricade>().Hit();
         _isAttackOnCooldown = true;
@@ -261,4 +265,9 @@ public class EnemyAi : MonoBehaviour
         }
     }
     #endregion
+
+    public void ToggleSpeed(bool barbedWireMode)
+    {
+        _agent.speed = barbedWireMode ? _speedCache / speedDividendWhileInBarbedWire : _speedCache;
+    }
 }

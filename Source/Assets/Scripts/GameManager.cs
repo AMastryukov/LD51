@@ -247,7 +247,14 @@ public class GameManager : MonoBehaviour
 
         while (weaponQueue.Count < queueMax)
         {
-            // TODO: Fetch a random ItemData that corresponds to a Weapon
+            int newTrapIndex = UnityEngine.Random.Range(0, traps.Length);
+            ItemData newTrap = traps[newTrapIndex];
+
+            while (newTrap == lastQueuedTrap)
+            {
+                newTrapIndex = UnityEngine.Random.Range(0, traps.Length);
+                newTrap = traps[newTrapIndex];
+            }
 
             var newWeapon = weapons[UnityEngine.Random.Range(0, weapons.Length)];
             weaponQueue.Enqueue(newWeapon);
@@ -264,7 +271,14 @@ public class GameManager : MonoBehaviour
 
         while (trapQueue.Count < queueMax)
         {
-            // TODO: Fetch a random ItemData that corresponds to a Trap
+            int newTrapIndex = UnityEngine.Random.Range(0, traps.Length);
+            ItemData newTrap = traps[newTrapIndex];
+
+            while (newTrap == lastQueuedTrap)
+            {
+                newTrapIndex = UnityEngine.Random.Range(0, traps.Length);
+                newTrap = traps[newTrapIndex];
+            }
 
             var newTrap = traps[UnityEngine.Random.Range(0, traps.Length)];
             trapQueue.Enqueue(newTrap);
