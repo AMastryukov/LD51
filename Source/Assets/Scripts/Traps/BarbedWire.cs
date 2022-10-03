@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BarbedWire : Item
+public class BarbedWire : MonoBehaviour
 {
     [SerializeField] private int health = 20;
     [SerializeField] [Tooltip("In seconds")] private float damageFrequency = 1f;
@@ -77,11 +77,6 @@ public class BarbedWire : Item
         }
 
         nextOuchTime = DateTime.Now.AddSeconds(damageFrequency);
-    }
-
-    public override void Use(bool held)
-    {
-        throw new System.NotImplementedException();
     }
 
     private void OnColliderEntered(Collider collider)

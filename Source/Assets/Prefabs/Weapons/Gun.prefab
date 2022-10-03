@@ -55,7 +55,7 @@ MonoBehaviour:
   range: 200
   damageFallOff: 0
   enemyPenetrationFactor: 0.8
-  wallPenetrationFactor: 0
+  wallPenetrationFactor: 1
   recoilPosition: {fileID: 1271984800421016389}
   recoilAmount: 0.736
   recoilRecoveryAmount: 0.244
@@ -73,7 +73,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2849286540356717152}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5c8145757b452fd4f92a29a35c79d873, type: 3}
