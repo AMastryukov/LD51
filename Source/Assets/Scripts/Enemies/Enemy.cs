@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
 
     public bool CheckIfObjectIsInRange(Transform obj)
     {
-        return Vector3.Magnitude(obj.position - transform.position) < attackRange;
+        return Vector3.Magnitude(Vector3.ProjectOnPlane(obj.position - transform.position, Vector3.up)) < attackRange;
     }
 
     public void TakeDamage(int damage, BodyPart bodyPart = BodyPart.Body)
