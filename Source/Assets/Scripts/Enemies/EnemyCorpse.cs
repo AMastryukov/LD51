@@ -26,6 +26,7 @@ public class EnemyCorpse : MonoBehaviour
     [SerializeField] private Rigidbody[] rightLegGibs;
 
     private List<Rigidbody> _allGibs = new List<Rigidbody>();
+    private Coroutine _cleanup;
 
     private void Awake()
     {
@@ -50,6 +51,11 @@ public class EnemyCorpse : MonoBehaviour
             bodyPart.isKinematic = false;
             bodyPart.useGravity = true;
         }
+
+        if (_cleanup == null)
+        {
+            _cleanup = StartCoroutine(Cleanup());
+        }
     }
 
     public void ExplodeExtremities()
@@ -58,6 +64,11 @@ public class EnemyCorpse : MonoBehaviour
         ExplodeBodyPart(Enemy.BodyPart.RightArm);
         ExplodeBodyPart(Enemy.BodyPart.LeftLeg);
         ExplodeBodyPart(Enemy.BodyPart.RightLeg);
+
+        if (_cleanup == null)
+        {
+            _cleanup = StartCoroutine(Cleanup());
+        }
     }
 
     public void ExplodeBodyPart(Enemy.BodyPart bodyPart)
@@ -115,6 +126,11 @@ public class EnemyCorpse : MonoBehaviour
         }
 
         EnableRagdoll();
+
+        if (_cleanup == null)
+        {
+            _cleanup = StartCoroutine(Cleanup());
+        }
     }
 
     public void ExplodeCompletely()
@@ -132,5 +148,16 @@ public class EnemyCorpse : MonoBehaviour
 
             gib.AddExplosionForce(10f, gib.transform.position - Vector3.down, 2f, 3f, ForceMode.Impulse);
         }
+
+        if (_cleanup == null)
+        {
+            _cleanup = StartCoroutine(Cleanup());
+        }
+    }
+
+    private IEnumerator Cleanup()
+    {
+        yield return new WaitForSeconds(10f);
+        Destroy(gameObject);
     }
 }
