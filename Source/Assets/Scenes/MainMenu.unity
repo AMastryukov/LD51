@@ -843,8 +843,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4.413}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 31, y: -56}
-  m_SizeDelta: {x: 665.7449, y: 140.4593}
+  m_AnchoredPosition: {x: 20, y: 17}
+  m_SizeDelta: {x: 636.4076, y: 294.9655}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1050024055
 MonoBehaviour:
@@ -866,7 +866,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Happy Visit
+  m_text: "Bear's \nHome Repairs"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41e93b0c2c96b374982c56dd68194944, type: 2}
   m_sharedMaterial: {fileID: -2235466951860469002, guid: 41e93b0c2c96b374982c56dd68194944, type: 2}
@@ -894,8 +894,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 90
+  m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -32.31
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
