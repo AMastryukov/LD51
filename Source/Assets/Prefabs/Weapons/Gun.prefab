@@ -68,7 +68,7 @@ MonoBehaviour:
   projectile: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
   projectileLifeSpan: 0.1
   muzzlePasticleSystem: {fileID: 8603165752764419597}
-  reloadSound: {fileID: 8300000, guid: ea609ca395ec1ad46b468efd4cc91542, type: 3}
+  reloadSound: {fileID: 8300000, guid: 66f8abd5858db2b45bafdf7daa8b372d, type: 3}
   shotSound: {fileID: 8300000, guid: 5c8145757b452fd4f92a29a35c79d873, type: 3}
 --- !u!82 &3738843894675082118
 AudioSource:

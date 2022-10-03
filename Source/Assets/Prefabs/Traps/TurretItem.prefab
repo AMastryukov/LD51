@@ -50,4 +50,4 @@ MonoBehaviour:
   invalidMaterial: {fileID: 2100000, guid: 25e371d49ead3f744ba214175f3bc398, type: 2}
   groundMask:
     serializedVersion: 2
-    m_Bits: 4091
+    m_Bits: 8
