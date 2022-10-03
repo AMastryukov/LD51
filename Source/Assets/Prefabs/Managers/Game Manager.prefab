@@ -44,11 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ccfe7d55574bc43b1e5f2649d24e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  queueMax: 5
+  queueMax: 3
   repopulateQueueAtCount: 2
+  verboseLogging: 0
+  superVerboseLogging: 0
+  weapons:
+  - {fileID: 11400000, guid: a283bc0e0ccc49a4fbaeb0aedc3cc3c5, type: 2}
+  - {fileID: 11400000, guid: dfb434a509fe8c24f88da517fd346477, type: 2}
   traps:
   - {fileID: 11400000, guid: 0b0fcf2d5ecd8c343829aa0ede2f5eb5, type: 2}
   - {fileID: 11400000, guid: 41dfc634a33c2cc4eb4e3efba059788a, type: 2}
   - {fileID: 11400000, guid: e99cba6865589c840ae34cc23019e198, type: 2}
-  verboseLogging: 0
-  superVerboseLogging: 0
