@@ -138,7 +138,6 @@ public class Weapon : Item
                 transform.localRotation = Quaternion.Lerp(restRotation, recoilPosition.localRotation, currentRecoil);
                 break;
             case WeaponState.RELOADING:
-                print("Reloading");
                 ReloadPosition = Mathf.Clamp01(ReloadPosition + (1f / reloadDuration) * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(restPosition, loweredPosition, ReloadPosition);
                 transform.localRotation = Quaternion.Lerp(restRotation, loweredRotation, ReloadPosition);
@@ -148,7 +147,6 @@ public class Weapon : Item
                 }
                 break;
             case WeaponState.RAISING:
-                print("Raising");
                 ReloadPosition = Mathf.Clamp01(ReloadPosition - (1 / reloadDuration) * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(restPosition, loweredPosition, ReloadPosition);
                 transform.localRotation = Quaternion.Lerp(restRotation, loweredRotation, ReloadPosition);

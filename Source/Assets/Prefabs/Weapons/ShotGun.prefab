@@ -51,7 +51,7 @@ MonoBehaviour:
   damage: 100
   fireRate: 3
   ammoCapacity: 2
-  reloadDuration: 2
+  reloadDuration: 1
   shotCount: 10
   spread: 0.1
   range: 10
