@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a876694934c8384d80ddc0284f9cd2a, type: 3}
   m_Name: Stamina
   m_EditorClassIdentifier: 
-  Name: 
-  Sprite: {fileID: 21300000, guid: 4f4123458ed62804680c7b45c4ed0bd4, type: 3}
+  Name: Stamina
+  Sprite: {fileID: 21300000, guid: 1bf0d760f93e9e142a65e01662bb4296, type: 3}
   Buff: 0
