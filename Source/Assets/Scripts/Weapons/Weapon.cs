@@ -71,7 +71,7 @@ public class Weapon : Item
     private Projectile projectile;
     [SerializeField]
     private float projectileLifeSpan = 0.1f;
-    private Queue<Projectile> projectileQueue;
+    static Queue<Projectile> projectileQueue;
 
     [SerializeField]
     protected ParticleSystem muzzlePasticleSystem;
@@ -101,7 +101,11 @@ public class Weapon : Item
         audioSource = GetComponent<AudioSource>();
         DebugUtility.HandleErrorIfNullGetComponent(audioSource, this);
 
-        projectileQueue = new Queue<Projectile>();
+        if (projectileQueue == null)
+        {
+            projectileQueue = new Queue<Projectile>();
+
+        }
         ammoAmount = ammoCapacity;
 
     }
@@ -278,10 +282,7 @@ public class Weapon : Item
     protected virtual void Fire()
     {
         ammoAmount--;
-        if (ammoAmount <= 0)
-        {
-            state = WeaponState.RELOADING;
-        }
+
 
         lastFireTime = Time.time;
 
@@ -306,6 +307,11 @@ public class Weapon : Item
         PlayeAudio(shotSound);
         muzzlePasticleSystem.Play();
         AccumulateRecoil(recoilAmount);
+
+        if (ammoAmount <= 0)
+        {
+            state = WeaponState.RELOADING;
+        }
     }
 
     /// <summary>
