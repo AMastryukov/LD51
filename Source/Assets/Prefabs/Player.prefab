@@ -171,9 +171,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSocket: {fileID: 7425352163878204623}
   itemParentSocket: {fileID: 6189170092836864517}
-  itemPrefab: {fileID: 2849286540356717167, guid: 6993cbeb4ba8c564c8fd56af3cfa953e, type: 3}
+  ItemData: {fileID: 0}
   bobAmount: 0.05
   bobFrequency: 10
+  maxLowerAmount: 1
+  lowerSpeed: 5
 --- !u!1 &1768170348037127362
 GameObject:
   m_ObjectHideFlags: 0

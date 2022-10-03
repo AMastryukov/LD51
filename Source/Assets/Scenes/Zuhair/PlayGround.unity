@@ -5683,10 +5683,6 @@ PrefabInstance:
       propertyPath: itemPrefab
       value: 
       objectReference: {fileID: 5419134122302575748, guid: dfe271ade428d0e4b8a9fa3da0cd3173, type: 3}
-    - target: {fileID: 374801295, guid: 5f9f8aab4880758419e370d3cf017384, type: 3}
-      propertyPath: lowerSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 1768170347293203816, guid: 5f9f8aab4880758419e370d3cf017384, type: 3}
       propertyPath: m_RootOrder
       value: 7

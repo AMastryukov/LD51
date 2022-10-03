@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +5,13 @@ public enum FireType
 {
     SINGLE,
     AUTO
+}
+
+public enum WeaponState
+{
+    READY,
+    RELOADING,
+    RAISING
 }
 public class Weapon : Item
 {
@@ -17,6 +23,10 @@ public class Weapon : Item
     [SerializeField]
     [Range(1f, 20f)]
     private float fireRate = 5;
+    [Min(1)]
+    [SerializeField] int ammoCapacity = 10;
+    [SerializeField] float reloadDuration = 1f;
+    private int ammoAmount = 10;
     private float lastFireTime = -Mathf.Infinity;
     [SerializeField]
     [Range(1, 10)]
@@ -62,7 +72,12 @@ public class Weapon : Item
     private Queue<Projectile> projectileQueue;
     [SerializeField]
     private ParticleSystem muzzlePasticleSystem;
+    [SerializeField] private AudioClip reloadSound;
+    [SerializeField] private AudioClip shotSound;
     private AudioSource audioSource;
+    private WeaponState state = WeaponState.READY;
+    // Should be between 0 and 1 telling us how much to interpolate the gun
+    private float ReloadPosition = 0;
 
 
     private Transform cameraTransform;
@@ -84,6 +99,7 @@ public class Weapon : Item
         DebugUtility.HandleErrorIfNullGetComponent(audioSource, this);
 
         projectileQueue = new Queue<Projectile>();
+        ammoAmount = ammoCapacity;
 
     }
 
@@ -95,10 +111,64 @@ public class Weapon : Item
 
     private void Update()
     {
+        Vector3 restPosition = Vector3.zero;
+        Quaternion restRotation = Quaternion.identity;
+
+        Vector3 loweredPosition = Vector3.down;
+        Quaternion loweredRotation = Quaternion.LookRotation(Vector3.down, Vector3.forward);
+
+        if (Input.GetKey(KeyCode.R) && ammoAmount < ammoCapacity)
+        {
+            state = WeaponState.RELOADING;
+        }
+
+        switch (state)
+        {
+            case WeaponState.READY:
+                AccumulateRecoil(-recoilRecoveryAmount * Time.deltaTime * 10);
+
+                transform.localPosition = Vector3.Lerp(restPosition, recoilPosition.localPosition, currentRecoil);
+                transform.localRotation = Quaternion.Lerp(restRotation, recoilPosition.localRotation, currentRecoil);
+                break;
+            case WeaponState.RELOADING:
+                print("Reloading");
+                ReloadPosition = Mathf.Clamp01(ReloadPosition + (1f / reloadDuration) * Time.deltaTime);
+                transform.localPosition = Vector3.Lerp(restPosition, loweredPosition, ReloadPosition);
+                transform.localRotation = Quaternion.Lerp(restRotation, loweredRotation, ReloadPosition);
+                if (ReloadPosition == 1)
+                {
+                    Reload();
+                }
+                break;
+            case WeaponState.RAISING:
+                print("Raising");
+                ReloadPosition = Mathf.Clamp01(ReloadPosition - (1 / reloadDuration) * Time.deltaTime);
+                transform.localPosition = Vector3.Lerp(restPosition, loweredPosition, ReloadPosition);
+                transform.localRotation = Quaternion.Lerp(restRotation, loweredRotation, ReloadPosition);
+                if (ReloadPosition == 0)
+                {
+                    state = WeaponState.READY;
+                }
+                break;
+            default:
+                break;
+        }
         AccumulateRecoil(-recoilRecoveryAmount * Time.deltaTime * 10);
 
-        transform.localPosition = Vector3.Lerp(Vector3.zero, recoilPosition.localPosition, currentRecoil);
-        transform.localRotation = Quaternion.Lerp(Quaternion.identity, recoilPosition.localRotation, currentRecoil);
+    }
+
+    private void Reload()
+    {
+        state = WeaponState.RAISING;
+        ammoAmount = ammoCapacity;
+        PlayeAudio(reloadSound);
+
+    }
+
+    void PlayeAudio(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     private void AccumulateRecoil(float delta)
@@ -126,7 +196,7 @@ public class Weapon : Item
         HashSet<int> enemyInstanceIds; // don't hit the same enemy twice
         EnemyHitbox hitBox;
         enemyInstanceIds = new HashSet<int>();
-        
+
         RaycastHit[] hits = Physics.RaycastAll(ray, range, hitLayerMask);
         // For each enemy hit
         for (int i = 0; i < hits.Length; i++)
@@ -138,7 +208,6 @@ public class Weapon : Item
                 int enemyInstanceId = hitBox.Owner.gameObject.GetInstanceID();
                 if (enemyInstanceIds.Contains(enemyInstanceId))
                 {
-                    Debug.Log("Already hit");
                     // We already hit this enemy
                 }
                 else
@@ -205,6 +274,12 @@ public class Weapon : Item
     /// </summary>
     private void Fire()
     {
+        ammoAmount--;
+        if (ammoAmount <= 0)
+        {
+            state = WeaponState.RELOADING;
+        }
+
         lastFireTime = Time.time;
 
         Color debugRayColor;
@@ -225,7 +300,7 @@ public class Weapon : Item
 
         }
 
-        audioSource.Play();
+        PlayeAudio(shotSound);
         muzzlePasticleSystem.Play();
         AccumulateRecoil(recoilAmount);
     }
@@ -238,7 +313,7 @@ public class Weapon : Item
     {
         triggerPulled = true;
 
-        if (Time.time - lastFireTime > 1 / fireRate)
+        if (Time.time - lastFireTime > 1 / fireRate && state == WeaponState.READY)
         {
             if (weaponFireType == FireType.SINGLE && !triggerHeld)
             {
