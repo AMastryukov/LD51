@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : Item
 {
     private const string ENEMY_TAG = "Enemy";
 
@@ -64,6 +64,11 @@ public class Turret : MonoBehaviour
             Fire();
             nextFire = DateTime.Now.AddSeconds(fireRate);
         }
+    }
+
+    public override void Use(bool held)
+    {
+        throw new NotImplementedException();
     }
 
     public void GetHit()

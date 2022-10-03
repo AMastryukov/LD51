@@ -84,7 +84,7 @@ MonoBehaviour:
   setInactiveOnTrigger: {fileID: 5084249624065752314}
   setActiveOnTrigger: {fileID: 4227458438564229244}
   timeToDestroyAfterTrigger: 5
-  verboseLogging: 1
+  verboseLogging: 0
 --- !u!1 &3575260643005819907
 GameObject:
   m_ObjectHideFlags: 0
