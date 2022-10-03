@@ -83,6 +83,7 @@ MonoBehaviour:
   onTriggerEnterHandler: {fileID: 22236371565101364}
   setInactiveOnTrigger: {fileID: 5084249624065752314}
   setActiveOnTrigger: {fileID: 4227458438564229244}
+  timeToDestroyAfterTrigger: 5
   verboseLogging: 0
 --- !u!1 &3575260643005819907
 GameObject:
@@ -5128,7 +5129,7 @@ GameObject:
   - component: {fileID: 3741666108442130581}
   - component: {fileID: 3246467719983796584}
   - component: {fileID: 22236371565101364}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Trigger Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

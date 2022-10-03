@@ -97,6 +97,8 @@ MonoBehaviour:
   setActiveOnDeath: {fileID: 4227458438564229244}
   timeToDestroyAfterTrigger: 5
   verboseLogging: 0
+  superVerboseLogging: 0
+  superDuperVerboseLogging: 0
 --- !u!1 &2432135648528932407
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +144,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 192bea842b63eb84a8d47e4f5920fd05, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -10509,7 +10511,7 @@ GameObject:
   - component: {fileID: 588548727303719681}
   - component: {fileID: 2301262493726609229}
   - component: {fileID: 9114124486688123235}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
