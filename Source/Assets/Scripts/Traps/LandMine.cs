@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LandMine : Item
+public class LandMine : MonoBehaviour
 {
     [SerializeField] private int damage = 20;
     [SerializeField] private float blastRadius = 4f;
@@ -18,11 +18,6 @@ public class LandMine : Item
         }
 
         onTriggerEnterHandler.OnTrigger += OnColliderEntered;
-    }
-
-    public override void Use(bool held)
-    {
-        throw new System.NotImplementedException();
     }
 
     private void OnColliderEntered(Collider collider)

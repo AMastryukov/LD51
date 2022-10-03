@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : Item
+public class Turret : MonoBehaviour
 {
     [SerializeField] private int health = 10;
     [SerializeField] private int damageToEnemies = 20;
@@ -62,11 +62,6 @@ public class Turret : Item
             Fire();
             nextFire = DateTime.Now.AddSeconds(fireRate);
         }
-    }
-
-    public override void Use(bool held)
-    {
-        throw new NotImplementedException();
     }
 
     public void GetHit()

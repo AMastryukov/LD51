@@ -259,6 +259,16 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void UseItems()
     {
+        if (inputHandler.GetKey1())
+        {
+            itemManager.Equip(0);
+        }
+        else if (inputHandler.GetKey2())
+        {
+            itemManager.Equip(1);
+        }
+
+
         if (inputHandler.GetUseInputDown())
         {
             itemManager.Use(false);
