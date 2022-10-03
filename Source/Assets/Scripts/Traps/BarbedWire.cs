@@ -82,7 +82,7 @@ public class BarbedWire : MonoBehaviour
     private void OnColliderEntered(Collider collider)
     {
         Transform colliderTransform = collider.transform;
-        if (colliderTransform.tag != Enemy.TAG)
+        if (!colliderTransform.CompareTag(GameConstants.TagConstants.EnemyTag))
         {
             return;
         }
@@ -104,7 +104,7 @@ public class BarbedWire : MonoBehaviour
     private void OnColliderExited(Collider collider)
     {
         Transform enemyTransform = collider.transform;
-        if (enemyTransform.tag != Enemy.TAG)
+        if (!enemyTransform.CompareTag(GameConstants.TagConstants.EnemyTag))
         {
             return;
         }

@@ -98,7 +98,7 @@ public class EnemyAi : MonoBehaviour
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.FindGameObjectWithTag(GameConstants.TagConstants.PlayerTag).transform;
         _agent = GetComponent<NavMeshAgent>();
         _speedCache = _agent.speed;
         PopulateTargetLists();
@@ -121,13 +121,13 @@ public class EnemyAi : MonoBehaviour
     }
     private void PopulateTargetLists()
     {
-        GameObject[] barricadeObjects = GameObject.FindGameObjectsWithTag("Barricade");
+        GameObject[] barricadeObjects = GameObject.FindGameObjectsWithTag(GameConstants.TagConstants.BarricadeTag);
         foreach (GameObject obj in barricadeObjects)
         {
             _barricades.Add(obj.transform);
         }
 
-        GameObject[] turretObjects = GameObject.FindGameObjectsWithTag("Turret");
+        GameObject[] turretObjects = GameObject.FindGameObjectsWithTag(GameConstants.TagConstants.TurretTag);
         foreach (GameObject obj in turretObjects)
         {
             _turrets.Add(obj.transform);

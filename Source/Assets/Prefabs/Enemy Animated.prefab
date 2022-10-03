@@ -3090,7 +3090,7 @@ GameObject:
   - component: {fileID: 4539329108855520342}
   - component: {fileID: 1931818599265112996}
   - component: {fileID: 4749728222515237160}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Enemy Animated
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -3123,7 +3123,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7157648890414627991}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.35
   m_Height: 1
   m_Direction: 1

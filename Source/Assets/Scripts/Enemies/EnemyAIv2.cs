@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,19 +32,24 @@ public class EnemyAIv2 : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<EnemyAnimator>();
 
-        _player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        foreach (var barricade in GameObject.FindGameObjectsWithTag("Barricade"))
+        _player = GameObject.FindGameObjectWithTag(GameConstants.TagConstants.PlayerTag)?.transform;
+        foreach (var barricade in GameObject.FindGameObjectsWithTag(GameConstants.TagConstants.BarricadeTag))
         {
             _barricades.Add(barricade.transform);
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         // Stopping distance is slightly less so that we can ensure that the enemy is able to attack
         _agent.stoppingDistance = _enemy.attackRange * 0.75f;
-
+        _currentState = State.LookingForTarget;
         StartCoroutine(UpdateState());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(UpdateState());
     }
 
     private void FixedUpdate()
