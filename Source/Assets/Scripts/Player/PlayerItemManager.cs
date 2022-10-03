@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ public enum ItemManagerState
 
 public class PlayerItemManager : MonoBehaviour
 {
+
+    public static Action<int, Item> OnItemSelected;
+
 
     [Header("References")]
     [SerializeField]
@@ -159,6 +163,7 @@ public class PlayerItemManager : MonoBehaviour
             LowerItem();
             activeItem = currentItems[slot];
             selectedItem = slot;
+            OnItemSelected?.Invoke(slot, activeItem);
         }
     }
 }
