@@ -259,9 +259,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void UseItems()
     {
-        if (inputHandler.GetUseInput())
+        if (inputHandler.GetUseInputDown())
         {
-            itemManager.Use();
+            itemManager.Use(false);
+        }
+        else if (inputHandler.GetUseInputHeld())
+        {
+            itemManager.Use(true);
         }
     }
 

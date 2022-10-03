@@ -143,11 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6748c7617fe4c0948bea33428269b9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponFireType: 1
+  weaponFireType: 0
   damage: 10
-  fireRate: 1
+  fireRate: 100
   shotCount: 10
-  spread: 0.116
+  spread: 0.069
   range: 200
   damageFallOff: 0
   enemyPenetrationFactor: 1
