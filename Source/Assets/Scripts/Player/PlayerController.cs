@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
         // The one thing we do everytime
         CheckGrounded();
 
-        if (playerManager.CurrentState == PlayerStates.Move)
+        if (PlayerManager.CurrentState == PlayerStates.Move)
         {
             HandleCharacterMovement();
             UseItems();

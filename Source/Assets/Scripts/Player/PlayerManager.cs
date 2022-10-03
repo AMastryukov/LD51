@@ -13,10 +13,10 @@ public class PlayerManager : MonoBehaviour
 {
     public static Action<PlayerStates> OnPlayerStateChanged;
 
-    public PlayerStates _currentState = PlayerStates.Move;
+    public static PlayerStates _currentState = PlayerStates.Move;
 
 
-    public PlayerStates CurrentState {
+    public static PlayerStates CurrentState {
         get {
             return _currentState;
         }

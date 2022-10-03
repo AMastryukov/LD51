@@ -22,9 +22,13 @@ public class DeathScreen : MonoBehaviour
 
     private void ShowDeathScreen()
     {
+        PlayerManager.CurrentState = PlayerStates.Wait;
         canvasGroup.DOFade(1f, 3f);
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
     }
 
     public void Retry()

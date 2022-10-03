@@ -28,6 +28,8 @@ public class TutorialScreen : MonoBehaviour
 
     public void OpenTutorial()
     {
+        PlayerManager.CurrentState = PlayerStates.Wait;
+
         Cursor.visible = true;
         _playerInputHandler.enabled = false;
 
@@ -42,6 +44,8 @@ public class TutorialScreen : MonoBehaviour
 
     public void CloseTutorial()
     {
+        PlayerManager.CurrentState = PlayerStates.Move;
+
         _canvasGroup.alpha = 0f;
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
