@@ -20611,6 +20611,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 665021745}
     m_Modifications:
+    - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
+      propertyPath: traps.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
+      propertyPath: weapons.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
+      propertyPath: traps.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 46d73dc19277f0e4396cb20d2dd3506a, type: 2}
+    - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
+      propertyPath: traps.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: e252ecf72c23c574db8acf56db1f1701, type: 2}
+    - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
+      propertyPath: weapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: dfb434a509fe8c24f88da517fd346477, type: 2}
+    - target: {fileID: 5651963780359373996, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
+      propertyPath: weapons.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: a283bc0e0ccc49a4fbaeb0aedc3cc3c5, type: 2}
     - target: {fileID: 5651963780359373997, guid: 0d7cbc18eac3edb42a3d141002b4afb0, type: 3}
       propertyPath: m_Name
       value: Game Manager
