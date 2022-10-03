@@ -108,7 +108,7 @@ public class Weapon : Item
     private bool TraceRay(Ray ray)
     {
         bool successfullHit = false;
-        float decayedDamage = damage; // damage adjusted for penetration
+        float decayedDamage = Damage; // damage adjusted for penetration
         int calculatedDamage;
         Enemy hitEnemy;
 
@@ -153,10 +153,9 @@ public class Weapon : Item
     /// </summary>
     private void Fire()
     {
+        lastFireTime = Time.time;
+
         Color debugRayColor;
-        RaycastHit rayHit;
-        Enemy hitEnemy;
-        int calculatedDamage;
         bool successfullHit; //for debugging
 
         Ray[] rays = GetBulletRays();
@@ -168,7 +167,8 @@ public class Weapon : Item
             successfullHit = TraceRay(rays[i]);
             debugRayColor = successfullHit ? Color.green : Color.red;
 
-            Instantiate(projectile, muzzleSocket.position, Quaternion.LookRotation(ray.direction));
+            //Calculate the particle trajectories a little differently
+            Instantiate(projectile, muzzleSocket.position + ray.direction, Quaternion.LookRotation(ray.direction));
             Debug.DrawLine(cameraTransform.position, cameraTransform.position + ray.direction * range, debugRayColor, 1f);
 
         }
@@ -186,7 +186,8 @@ public class Weapon : Item
     {
         triggerPulled = true;
 
-        if (Time.time - lastFireTime < 1000 / fireRate)
+        Debug.Log(10 / (Time.time - lastFireTime));
+        if (Time.time - lastFireTime > 10 / fireRate)
         {
             if (weaponFireType == FireType.SINGLE && !triggerHeld)
             {
@@ -200,7 +201,7 @@ public class Weapon : Item
 
     }
 
-    public override void Use()
+    public override void Use(bool held)
     {
         TryFire();
     }
@@ -215,11 +216,6 @@ public class Weapon : Item
             spreadAngleRatio).normalized;
 
         return spreadWorldDirection;
-    }
-
-    private void ApplyRecoil()
-    {
-
     }
 
 }

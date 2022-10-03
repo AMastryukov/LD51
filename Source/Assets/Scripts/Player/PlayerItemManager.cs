@@ -39,9 +39,9 @@ public class PlayerItemManager : MonoBehaviour
         Equip(itemPrefab);
     }
 
-    public void Use()
+    public void Use(bool held)
     {
-        activeItem.Use();
+        activeItem.Use(held);
     }
 
     public void LateUpdate()
