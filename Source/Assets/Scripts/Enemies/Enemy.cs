@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
         enemyHealth -= damage;
         if (enemyHealth <= 0)
         {
-            Destroy(gameObject);
+            EnemyPool.Instance.PoolDestroy(gameObject);
 
             // TODO: Implement actual death
         }
