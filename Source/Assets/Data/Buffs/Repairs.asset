@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a876694934c8384d80ddc0284f9cd2a, type: 3}
   m_Name: Repairs
   m_EditorClassIdentifier: 
-  Name: 
-  Sprite: {fileID: 21300000, guid: 4f4123458ed62804680c7b45c4ed0bd4, type: 3}
+  Name: Repairs
+  Sprite: {fileID: 21300000, guid: 17ae41ff4c3b9bc479a8064e2b20581b, type: 3}
   Buff: 0
