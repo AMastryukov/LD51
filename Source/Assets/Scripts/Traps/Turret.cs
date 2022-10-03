@@ -62,6 +62,7 @@ public class Turret : MonoBehaviour
             {
                 laser.enabled = false;
             }
+
             return;
         }
 
@@ -96,13 +97,14 @@ public class Turret : MonoBehaviour
         Vector3 targetPosition = new Vector3(Target.position.x, pivot.position.y, Target.position.z);
         Quaternion pivotRotation = Quaternion.LookRotation(targetPosition - pivot.position);
         pivot.rotation = Quaternion.Slerp(pivot.rotation, pivotRotation, Time.deltaTime * lookAtDamping);
-        
+
         if (!laser.enabled)
         {
             laser.enabled = true;
         }
-        laser.SetPosition(0,emissionPoint.position);
-        laser.SetPosition(1,emissionPoint.position+emissionPoint.transform.forward*rangeCollider.radius);
+
+        laser.SetPosition(0, emissionPoint.position);
+        laser.SetPosition(1, emissionPoint.position + emissionPoint.transform.forward * rangeCollider.radius);
     }
 
     private void Fire()

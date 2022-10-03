@@ -19,6 +19,7 @@ public class EnemyAIv2 : MonoBehaviour
     private EnemyAnimator _animator;
 
     private Transform _player;
+    private Player _playerComponent;
     private List<Transform> _barricades = new List<Transform>();
 
     private State _currentState = State.LookingForTarget;
@@ -33,6 +34,8 @@ public class EnemyAIv2 : MonoBehaviour
         _animator = GetComponent<EnemyAnimator>();
 
         _player = GameObject.FindGameObjectWithTag(GameConstants.TagConstants.PlayerTag)?.transform;
+        _playerComponent = _player.GetComponent<Player>();
+
         foreach (var barricade in GameObject.FindGameObjectsWithTag(GameConstants.TagConstants.BarricadeTag))
         {
             _barricades.Add(barricade.transform);
@@ -158,7 +161,7 @@ public class EnemyAIv2 : MonoBehaviour
     {
         if (_currentTarget == _player)
         {
-            // TODO: Attack the player, reduce their HP, etc
+            _playerComponent.DecrementHealth(_enemy.enemyDamage);
         }
         else
         {

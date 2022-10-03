@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public enum BodyPart { Head, Body, LeftArm, RightArm, LeftLeg, RightLeg }
 
     public int enemyHealth = 10;
+    public int enemyDamage = 10;
     public float attackRange = 2f;
     public float attackDelay = 2f;
 
