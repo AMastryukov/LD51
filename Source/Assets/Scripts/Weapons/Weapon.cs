@@ -17,17 +17,17 @@ public class Weapon : Item
 {
     [Header("Weapon")]
     [SerializeField]
-    FireType weaponFireType = FireType.SINGLE;
+    protected FireType weaponFireType = FireType.SINGLE;
     [SerializeField]
-    private int damage = 5;
+    protected int damage = 5;
     [SerializeField]
     [Range(1f, 20f)]
-    private float fireRate = 5;
+    protected float fireRate = 5;
     [Min(1)]
     [SerializeField] int ammoCapacity = 10;
     [SerializeField] float reloadDuration = 1f;
     private int ammoAmount = 10;
-    private float lastFireTime = -Mathf.Infinity;
+    protected float lastFireTime = -Mathf.Infinity;
     [SerializeField]
     [Range(1, 10)]
     private int shotCount = 1;
@@ -48,13 +48,15 @@ public class Weapon : Item
     [Range(0f, 1f)]
     [SerializeField]
     private float wallPenetrationFactor;
-    private bool triggerHeld = false;
-    private bool triggerPulled = false;
+
+    protected bool triggerHeld = false;
+    protected bool triggerPulled = false;
 
     [Header("Recoil")]
     [SerializeField] private Transform recoilPosition;
     [Range(0f, 1f)]
-    [SerializeField] private float recoilAmount;
+    [SerializeField]
+    protected float recoilAmount;
     [Range(0.1f, 1f)]
     [SerializeField] private float recoilRecoveryAmount;
     private float currentRecoil;
@@ -70,11 +72,12 @@ public class Weapon : Item
     [SerializeField]
     private float projectileLifeSpan = 0.1f;
     private Queue<Projectile> projectileQueue;
+
     [SerializeField]
-    private ParticleSystem muzzlePasticleSystem;
+    protected ParticleSystem muzzlePasticleSystem;
     [SerializeField] private AudioClip reloadSound;
     [SerializeField] private AudioClip shotSound;
-    private AudioSource audioSource;
+    protected AudioSource audioSource;
     private WeaponState state = WeaponState.READY;
     // Should be between 0 and 1 telling us how much to interpolate the gun
     private float ReloadPosition = 0;
@@ -89,7 +92,7 @@ public class Weapon : Item
         DebugUtility.HandleEmptyLayerMask(hitLayerMask, this, "Enemy/Floor/Walls");
 
         DebugUtility.HandleErrorIfNullGetComponent(muzzlePasticleSystem, this);
-        DebugUtility.HandleErrorIfNullGetComponent(projectile, this);
+        //DebugUtility.HandleErrorIfNullGetComponent(projectile, this);
         DebugUtility.HandleErrorIfNullGetComponent(muzzleSocket, this);
 
         cameraTransform = Camera.main?.transform;
@@ -109,7 +112,7 @@ public class Weapon : Item
         triggerPulled = false;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         Vector3 restPosition = Vector3.zero;
         Quaternion restRotation = Quaternion.identity;
@@ -171,7 +174,7 @@ public class Weapon : Item
         audioSource.Play();
     }
 
-    private void AccumulateRecoil(float delta)
+    protected void AccumulateRecoil(float delta)
     {
         currentRecoil = Mathf.Clamp01(currentRecoil + delta);
     }
@@ -272,7 +275,7 @@ public class Weapon : Item
     /// <summary>
     /// Firing logic
     /// </summary>
-    private void Fire()
+    protected virtual void Fire()
     {
         ammoAmount--;
         if (ammoAmount <= 0)
@@ -309,7 +312,7 @@ public class Weapon : Item
     /// Attempt the fire action. Firing may be hindered by the need to reload 
     /// or the rate of fire.
     /// </summary>
-    private void TryFire()
+    protected void TryFire()
     {
         triggerPulled = true;
 
