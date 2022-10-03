@@ -176,9 +176,9 @@ public class EnemyAIv2 : MonoBehaviour
 
     private void MoveThroughBarricade()
     {
-        // TODO: if Barricade is a window
-        bool isWindow = true;
-        if (isWindow)
+        var barricade = _currentTarget.gameObject.GetComponent<Barricade>();
+
+        if (barricade.IsWindow)
         {
             // Perform the vault if near an unbarricated window
             _currentState = State.Vaulting;
@@ -188,6 +188,8 @@ public class EnemyAIv2 : MonoBehaviour
         }
         else
         {
+            _isIndoors = true;
+
             // If at an unbarricated doorway, move in and start looking for targets
             _currentState = State.LookingForTarget;
             LookForTarget();
