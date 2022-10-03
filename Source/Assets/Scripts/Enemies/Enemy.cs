@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public const string TAG = "Enemy";
+
     public enum BodyPart { Head, Body, LeftArm, RightArm, LeftLeg, RightLeg }
 
     public int enemyHealth = 10;
