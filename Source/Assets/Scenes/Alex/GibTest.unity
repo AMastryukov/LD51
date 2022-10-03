@@ -854,7 +854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885398573}
   m_LocalRotation: {x: 0.13052596, y: -0, z: -0, w: 0.99144495}
-  m_LocalPosition: {x: 0, y: 2.72, z: -6.45}
+  m_LocalPosition: {x: 0, y: 2.12, z: -3.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2867,7 +2867,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1815991782}
         m_TargetAssemblyTypeName: EnemyCorpse, Assembly-CSharp
-        m_MethodName: ExplodeHead
+        m_MethodName: ExplodeExtremities
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

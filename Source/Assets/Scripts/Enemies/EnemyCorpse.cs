@@ -52,9 +52,12 @@ public class EnemyCorpse : MonoBehaviour
         }
     }
 
-    public void ExplodeHead()
+    public void ExplodeExtremities()
     {
-        ExplodeBodyPart(Enemy.BodyPart.Head);
+        ExplodeBodyPart(Enemy.BodyPart.LeftArm);
+        ExplodeBodyPart(Enemy.BodyPart.RightArm);
+        ExplodeBodyPart(Enemy.BodyPart.LeftLeg);
+        ExplodeBodyPart(Enemy.BodyPart.RightLeg);
     }
 
     public void ExplodeBodyPart(Enemy.BodyPart bodyPart)
@@ -108,7 +111,7 @@ public class EnemyCorpse : MonoBehaviour
             gib.isKinematic = false;
             gib.useGravity = true;
 
-            gib.AddExplosionForce(10f, gib.transform.position, 2f);
+            gib.AddExplosionForce(5f, gib.transform.position - Vector3.down, 2f, 2f, ForceMode.Impulse);
         }
 
         EnableRagdoll();
@@ -127,7 +130,7 @@ public class EnemyCorpse : MonoBehaviour
             gib.isKinematic = false;
             gib.useGravity = true;
 
-            gib.AddExplosionForce(10f, gib.transform.position, 2f);
+            gib.AddExplosionForce(10f, gib.transform.position - Vector3.down, 2f, 3f, ForceMode.Impulse);
         }
     }
 }
