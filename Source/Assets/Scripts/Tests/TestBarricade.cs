@@ -87,7 +87,7 @@ public class TestBarricade : MonoBehaviour, IInteractable
             SetDestroyed(true);
             return;
         }
-        _mesh.material = levelMaterials[_level - 1];
+        //_mesh.material = levelMaterials[_level - 1];
         Debug.Log("Level: " + _level);
         _health = _max_health;
     }
