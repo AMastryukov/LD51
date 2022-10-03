@@ -7,18 +7,23 @@ using UnityEngine;
 public class Katana : Weapon
 {
     private List<Enemy> _enemiesInRange = new List<Enemy>();
+    [SerializeField] private Animator _animator;
     
 
     protected override void Fire()
     {
         lastFireTime = Time.time;
         audioSource.Play();
-        muzzlePasticleSystem.Play();
-        AccumulateRecoil(recoilAmount);
-        //transform.DOPunchPosition(transform.forward, 0.25f);
+        _animator.SetTrigger("Attack");
+        
         if(_enemiesInRange.Count==0)
             return;
         
+       Invoke(nameof(AttackAllEnemiesInRange),0.12f);
+    }
+
+    private void AttackAllEnemiesInRange()
+    {
         foreach (Enemy enemy in _enemiesInRange)
         {
             if (enemy == null)
@@ -28,7 +33,6 @@ public class Katana : Weapon
             }
             enemy.TakeDamage(damage);
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)

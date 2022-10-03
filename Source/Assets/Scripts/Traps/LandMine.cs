@@ -22,6 +22,9 @@ public class LandMine : MonoBehaviour
 
     private void OnColliderEntered(Collider collider)
     {
+        // Ignore player
+        if (collider.CompareTag(GameConstants.TagConstants.PlayerTag)) return;
+
         if (verboseLogging)
         {
             Debug.Log(nameof(OnColliderEntered) + " ( " + nameof(collider) + ": " + collider.gameObject.name + " )", this);
@@ -31,30 +34,11 @@ public class LandMine : MonoBehaviour
 
         for (int i = 0; i < collidersInBlashRadius.Length; i++)
         {
-            Ray ray = new Ray(transform.position, collidersInBlashRadius[i].transform.position - transform.position);
+            Enemy enemy = collidersInBlashRadius[i].GetComponent<Enemy>();
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (enemy)
             {
-                Enemy enemy = hit.collider.GetComponent<Enemy>();
-
-                if (enemy)
-                {
-                    enemy.TakeDamage(damage);
-                }
-
-                Player player = hit.collider.GetComponent<Player>();
-
-                if (player)
-                {
-                    player.DecrementHealth(damage);
-                }
-
-                Barricade barricade = hit.collider.GetComponent<Barricade>();
-
-                if (barricade)
-                {
-                    barricade.Hit();
-                }
+                enemy.TakeDamage(damage);
             }
         }
 

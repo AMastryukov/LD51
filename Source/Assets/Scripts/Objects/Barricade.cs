@@ -58,7 +58,7 @@ public class Barricade : MonoBehaviour, IInteractable
             CurrentLevel = Mathf.Max(0, CurrentLevel - 1);
             CurrentHealth = CurrentLevel > 0 ? healthPerLevel : 0;
         }
-        _audioSource.PlayOneShot(barricadeTakeHit);
+        _audioSource.PlayOneShot(barricadeBreak);
         UpdateState();
     }
 

@@ -28,7 +28,6 @@ public class LoadoutSlot : MonoBehaviour
     {
         _bonus = bonus.Buff;
         image.sprite = bonus.Sprite;
-        // TODO: find sprite associated with the bonus
     }
 
     public void SelectSlot()
