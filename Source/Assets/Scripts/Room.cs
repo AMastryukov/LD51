@@ -61,8 +61,15 @@ public class Room : MonoBehaviour
 
         EnemyPool.OnPoolDestroy += OnEnemyDespawned;
 
-        setActiveOnPlayerControl.SetActive(false);
-        //setActiveOnEnemyControl.SetActive(true);
+        if (setActiveOnPlayerControl)
+        {
+            setActiveOnPlayerControl.SetActive(true);
+        }
+
+        if (setActiveOnEnemyControl)
+        {
+            setActiveOnEnemyControl.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -255,8 +262,16 @@ public class Room : MonoBehaviour
 
         isControlledByPlayer = false;
         OnRoomLost?.Invoke(this, buff);
-        setActiveOnPlayerControl.SetActive(false);
-        setActiveOnEnemyControl.SetActive(true);
+
+        if (setActiveOnPlayerControl)
+        {
+            setActiveOnPlayerControl.SetActive(false);
+        }
+
+        if (setActiveOnEnemyControl)
+        {
+            setActiveOnEnemyControl.SetActive(true);
+        }
     }
 
     private void Capture()
@@ -268,8 +283,16 @@ public class Room : MonoBehaviour
 
         isControlledByPlayer = true;
         OnRoomCaptured?.Invoke(this, buff);
-        setActiveOnPlayerControl.SetActive(true);
-        setActiveOnEnemyControl.SetActive(false);
+
+        if (setActiveOnPlayerControl)
+        {
+            setActiveOnPlayerControl.SetActive(true);
+        }
+
+        if (setActiveOnEnemyControl)
+        {
+            setActiveOnEnemyControl.SetActive(false);
+        }
     }
 
     private void CancelCountToRoomCapture()
