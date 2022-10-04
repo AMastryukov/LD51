@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [Tooltip("Reference to the main camera used for the player")]
     public Camera PlayerCamera;
+
+    [SerializeField] private float minFOV = 60f;
+    [SerializeField] private float maxFOV = 80f;
     #endregion
 
     #region Movement
@@ -94,8 +97,10 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    public float MaxSpeed {
-        get {
+    public float MaxSpeed
+    {
+        get
+        {
             float valueToReturn = PlayerBuffsManager.Instance.IsBuffActive(Buffs.FasterMoveSpeed) ? maxSpeedWithBuff : maxSpeed;
 
             if (isSprinting)
@@ -107,8 +112,10 @@ public class PlayerController : MonoBehaviour
             return valueToReturn;
         }
     }
-    private float MovementResponse {
-        get {
+    private float MovementResponse
+    {
+        get
+        {
             float valueToReturn = PlayerBuffsManager.Instance.IsBuffActive(Buffs.FasterMoveSpeed) ? movementResponseWithBuff : movementResponse;
 
             if (isSprinting)
@@ -151,13 +158,6 @@ public class PlayerController : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent(player, this);
     }
 
-    // Physics updated
-    private void FixedUpdate()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         ProcessSprintingInput();
@@ -169,7 +169,10 @@ public class PlayerController : MonoBehaviour
         {
             HandleCharacterMovement();
             UseItems();
+
+            UpdateFOV();
         }
+
         _timeElapsed += Time.deltaTime;
         if (_timeElapsed * CharacterVelocity.magnitude >= 2f)
         {
@@ -179,6 +182,12 @@ public class PlayerController : MonoBehaviour
             if (iterator > 1)
                 iterator = 0;
         }
+    }
+
+    private void UpdateFOV()
+    {
+        float forwardVelocity = Vector3.Dot(CharacterVelocity, transform.forward);
+        PlayerCamera.fieldOfView = (forwardVelocity / maxSpeedWithBuff * (maxFOV - minFOV)) + minFOV;
     }
 
     private void ProcessSprintingInput()

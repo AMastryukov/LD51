@@ -9,14 +9,13 @@ public class RepairPrompt : MonoBehaviour
         PlayerInteractor.OnInteract += Display;
     }
 
+    private void OnDestroy()
+    {
+        PlayerInteractor.OnInteract -= Display;
+    }
+
     private void Display(bool display)
     {
         gameObject.SetActive(display);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

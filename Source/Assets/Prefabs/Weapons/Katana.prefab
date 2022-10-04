@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c6eca6178c56349ba80b4c28db4698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponFireType: 0
+  weaponFireType: 1
   damage: 125
-  fireRate: 3
+  fireRate: 1
   ammoCapacity: 10
   reloadDuration: 1
   shotCount: 1
@@ -66,7 +66,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264
   muzzleSocket: {fileID: 1016136567183107659}
-  projectile: {fileID: 0}
+  projectilePrefab: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
   projectileLifeSpan: 0.1
   muzzlePasticleSystem: {fileID: 8603165752764419597}
   bloodParticleSystem: {fileID: 0}

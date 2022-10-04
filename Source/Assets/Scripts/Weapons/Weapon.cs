@@ -68,10 +68,9 @@ public class Weapon : Item
     [SerializeField]
     private Transform muzzleSocket;
     [SerializeField]
-    private Projectile projectile;
+    private Projectile projectilePrefab;
     [SerializeField]
     private float projectileLifeSpan = 0.1f;
-    static Queue<Projectile> projectileQueue;
 
     [SerializeField]
     protected ParticleSystem muzzlePasticleSystem;
@@ -85,34 +84,24 @@ public class Weapon : Item
     private float ReloadPosition = 0;
 
 
-    private Transform cameraTransform;
+    private Transform _playerCamera;
     private int Damage => PlayerBuffsManager.Instance.IsBuffActive(Buffs.ExtraDamage10Percent) ? Mathf.RoundToInt((damage + (damage * (10f / 100f)))) : damage;
 
+    private void Awake()
+    {
+        _playerCamera = Camera.main?.transform;
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
         DebugUtility.HandleEmptyLayerMask(hitLayerMask, this, "Enemy/Floor/Walls");
-
         DebugUtility.HandleErrorIfNullGetComponent(muzzlePasticleSystem, this);
-        //DebugUtility.HandleErrorIfNullGetComponent(projectile, this);
         DebugUtility.HandleErrorIfNullGetComponent(muzzleSocket, this);
-
-        //DebugUtility.HandleErrorIfNullGetComponent(bloodParticleSystem, this);
-
-
-        cameraTransform = Camera.main?.transform;
-        DebugUtility.HandleErrorIfNullGetComponent(cameraTransform, this);
-
-        audioSource = GetComponent<AudioSource>();
+        DebugUtility.HandleErrorIfNullGetComponent(_playerCamera, this);
         DebugUtility.HandleErrorIfNullGetComponent(audioSource, this);
 
-        if (projectileQueue == null)
-        {
-            projectileQueue = new Queue<Projectile>();
-
-        }
         ammoAmount = ammoCapacity;
-
     }
 
     private void LateUpdate()
@@ -142,6 +131,7 @@ public class Weapon : Item
                 transform.localPosition = Vector3.Lerp(restPosition, recoilPosition.localPosition, currentRecoil);
                 transform.localRotation = Quaternion.Lerp(restRotation, recoilPosition.localRotation, currentRecoil);
                 break;
+
             case WeaponState.RELOADING:
                 ReloadPosition = Mathf.Clamp01(ReloadPosition + (1f / reloadDuration) * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(restPosition, loweredPosition, ReloadPosition);
@@ -151,6 +141,7 @@ public class Weapon : Item
                     Reload();
                 }
                 break;
+
             case WeaponState.RAISING:
                 ReloadPosition = Mathf.Clamp01(ReloadPosition - (1 / reloadDuration) * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(restPosition, loweredPosition, ReloadPosition);
@@ -160,22 +151,23 @@ public class Weapon : Item
                     state = WeaponState.READY;
                 }
                 break;
+
             default:
                 break;
         }
-        AccumulateRecoil(-recoilRecoveryAmount * Time.deltaTime * 10);
 
+        AccumulateRecoil(-recoilRecoveryAmount * Time.deltaTime * 10);
     }
 
     private void Reload()
     {
         state = WeaponState.RAISING;
         ammoAmount = ammoCapacity;
-        PlayeAudio(reloadSound);
 
+        PlayAudio(reloadSound);
     }
 
-    void PlayeAudio(AudioClip clip)
+    void PlayAudio(AudioClip clip)
     {
         audioSource.clip = clip;
         audioSource.Play();
@@ -188,13 +180,13 @@ public class Weapon : Item
 
     private Ray[] GetBulletRays()
     {
-        Transform cameraTransform = Camera.main.transform;
         Ray[] rays = new Ray[shotCount];
 
         for (int i = 0; i < shotCount; i++)
         {
-            rays[i] = new Ray(cameraTransform.position, GetShotDirection());
+            rays[i] = new Ray(_playerCamera.position, GetShotDirection());
         }
+
         return rays;
     }
 
@@ -227,7 +219,7 @@ public class Weapon : Item
                     if (damageFallOff)
                     {
                         // Damage should fall of linearly with distance
-                        float distanceToEnemy = Vector3.Distance(cameraTransform.position, hits[i].point);
+                        float distanceToEnemy = Vector3.Distance(_playerCamera.position, hits[i].point);
                         calculatedDamage = Mathf.CeilToInt(Mathf.Clamp01((range - distanceToEnemy) / range) * decayedDamage);
                     }
 
@@ -239,10 +231,7 @@ public class Weapon : Item
                     }
 
                     decayedDamage *= enemyPenetrationFactor;
-
                 }
-
-
             }
             else
             {
@@ -260,28 +249,13 @@ public class Weapon : Item
 
     }
 
-    private void DequeuProjectile(Ray ray)
+    private void CreateProjectile(Ray ray)
     {
         Vector3 pos = muzzleSocket.position + ray.direction / 2;
         Quaternion rot = Quaternion.LookRotation(ray.direction);
-        Projectile pj;
 
-        if (projectileQueue.Count == 0 || projectileQueue.Peek().gameObject.activeSelf)
-        {
-
-            pj = Instantiate(projectile);
-
-        }
-        else
-        {
-            pj = projectileQueue.Dequeue();
-        }
-
-        pj.Initialize(projectileLifeSpan, pos, rot);
-        projectileQueue.Enqueue(pj);
-
-
-
+        var projectile = Instantiate(projectilePrefab);
+        projectile.Initialize(projectileLifeSpan, pos, rot);
     }
 
     /// <summary>
@@ -290,7 +264,6 @@ public class Weapon : Item
     protected virtual void Fire()
     {
         ammoAmount--;
-
 
         lastFireTime = Time.time;
 
@@ -306,13 +279,13 @@ public class Weapon : Item
             successfullHit = TraceRay(rays[i]);
             debugRayColor = successfullHit ? Color.green : Color.red;
 
-            //Calculate the particle trajectories a little differently
-            DequeuProjectile(ray);
+            // Calculate the particle trajectories a little differently
+            CreateProjectile(ray);
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * range, debugRayColor, 1f);
 
         }
 
-        PlayeAudio(shotSound);
+        PlayAudio(shotSound);
         muzzlePasticleSystem.Play();
         AccumulateRecoil(recoilAmount);
 
@@ -356,8 +329,7 @@ public class Weapon : Item
     private Vector3 GetShotDirection()
     {
         float spreadAngleRatio = spread;
-        Vector3 spreadWorldDirection = Vector3.Slerp(cameraTransform.forward, UnityEngine.Random.insideUnitSphere,
-            spreadAngleRatio).normalized;
+        Vector3 spreadWorldDirection = Vector3.Slerp(_playerCamera.forward, Random.insideUnitSphere, spreadAngleRatio).normalized;
 
         return spreadWorldDirection;
     }

@@ -17,7 +17,6 @@ public class Projectile : MonoBehaviour
     private float startTime;
 
 
-
     void OnEnable()
     {
         startTime = Time.time;
@@ -26,7 +25,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         if (Time.time - startTime > MaxLifeTime)
-            Deactivate();
+            Destroy(gameObject);
         else
             transform.position += transform.forward * Speed * Time.deltaTime;
 
@@ -46,14 +45,8 @@ public class Projectile : MonoBehaviour
     }
 
 
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
-        Deactivate();
+        Destroy(gameObject);
     }
 }

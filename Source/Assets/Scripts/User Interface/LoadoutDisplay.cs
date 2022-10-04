@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class LoadoutDisplay : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class LoadoutDisplay : MonoBehaviour
     [SerializeField] private LoadoutSlot nextWeaponSlot;
     [SerializeField] private LoadoutSlot nextTrapSlot;
     [SerializeField] private LoadoutSlot nextBonusSlot;
+
+    [SerializeField] private Transform swapIcon;
 
     private void Awake()
     {
@@ -27,18 +30,19 @@ public class LoadoutDisplay : MonoBehaviour
         GameManager.OnNewTrap -= UpdateTraps;
         GameManager.OnNewBuff -= UpdateBonuses;
         PlayerItemManager.OnItemSelected += UpdateHUD;
+        PlayerItemManager.OnItemDepleted -= ClearSlot;
     }
 
     private void ClearSlot(int slot)
     {
         if (slot == 0)
         {
-            activeWeaponSlot.ClearSlot();
+            activeWeaponSlot.DisableSlot();
         }
         else
         {
             activeWeaponSlot.DeselectSlot();
-            activeTrapSlot.ClearSlot();
+            activeTrapSlot.DisableSlot();
         }
     }
 
@@ -60,6 +64,10 @@ public class LoadoutDisplay : MonoBehaviour
     {
         activeWeaponSlot.SetItem(newWeapon);
         nextWeaponSlot.SetItem(nextWeapon);
+
+        // Spin the swap icon
+        swapIcon.DOKill(true);
+        swapIcon.DORotate(swapIcon.rotation.eulerAngles + Vector3.back * 180f, 0.5f);
     }
 
     private void UpdateTraps(ItemData newTrap, ItemData nextTrap)

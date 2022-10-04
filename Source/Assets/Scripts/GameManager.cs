@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
 {
     private const int SECONDS_TO_COUNT_TO = 10;// change this if 10 seconds is too long for your attention span
 
-    public static GameManager Instance { get; private set; }
-
     public static Action<GameStates> OnGameStateChanged;
 
     /// <summary>
@@ -88,17 +86,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(nameof(Awake), this);
         }
-
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
     }
 
     private IEnumerator Start()

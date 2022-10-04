@@ -22,12 +22,16 @@ public class LoadoutSlot : MonoBehaviour
     {
         _itemData = data;
         image.sprite = _itemData.Sprite;
+
+        EnableSlot();
     }
 
     public void SetBonus(BuffData bonus)
     {
         _bonus = bonus.Buff;
         image.sprite = bonus.Sprite;
+
+        EnableSlot();
     }
 
     public void SelectSlot()
@@ -42,10 +46,16 @@ public class LoadoutSlot : MonoBehaviour
             _outline.enabled = false;
     }
 
-    public void ClearSlot()
+    public void DisableSlot()
     {
-        image.sprite = null;
+        image.color = Color.black;
+
         if (_outline != null)
             _outline.enabled = false;
+    }
+
+    private void EnableSlot()
+    {
+        image.color = Color.white;
     }
 }

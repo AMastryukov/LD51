@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2849286540356717167}
   - component: {fileID: 3738843894675082118}
   m_Layer: 12
-  m_Name: Gun
+  m_Name: Revolver
   m_TagString: SFXSource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,8 +57,8 @@ MonoBehaviour:
   spread: 0
   range: 200
   damageFallOff: 0
-  enemyPenetrationFactor: 0.5
-  wallPenetrationFactor: 0.5
+  enemyPenetrationFactor: 0.25
+  wallPenetrationFactor: 0.25
   recoilPosition: {fileID: 1271984800421016389}
   recoilAmount: 0.75
   recoilRecoveryAmount: 0.244
@@ -66,7 +66,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8200
   muzzleSocket: {fileID: 1016136567183107659}
-  projectile: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
+  projectilePrefab: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
   projectileLifeSpan: 0.1
   muzzlePasticleSystem: {fileID: 8603165752764419597}
   bloodParticleSystem: {fileID: 142450695190970301}

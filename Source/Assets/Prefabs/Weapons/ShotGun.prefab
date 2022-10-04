@@ -49,24 +49,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponFireType: 1
-  damage: 200
-  fireRate: 6
+  damage: 100
+  fireRate: 4
   ammoCapacity: 2
-  reloadDuration: 0.5
+  reloadDuration: 1
   shotCount: 10
-  spread: 0.1
-  range: 10
-  damageFallOff: 1
-  enemyPenetrationFactor: 0.25
-  wallPenetrationFactor: 0
+  spread: 0.035
+  range: 25
+  damageFallOff: 0
+  enemyPenetrationFactor: 0.1
+  wallPenetrationFactor: 0.1
   recoilPosition: {fileID: 1271984800421016389}
   recoilAmount: 0.5
-  recoilRecoveryAmount: 0.244
+  recoilRecoveryAmount: 0.25
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 8200
   muzzleSocket: {fileID: 1016136567183107659}
-  projectile: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
+  projectilePrefab: {fileID: 3573176022468536116, guid: d39de68ee3d852c45a4abecc24985a0a, type: 3}
   projectileLifeSpan: 0.1
   muzzlePasticleSystem: {fileID: 8603165752764419597}
   bloodParticleSystem: {fileID: 7035681419324777096}
@@ -5186,6 +5186,22 @@ PrefabInstance:
     - target: {fileID: 6199532362435450263, guid: 6cbbe10316c291c439619adced862740, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833732487842006014, guid: 6cbbe10316c291c439619adced862740, type: 3}
+      propertyPath: lengthInSec
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833732487842006014, guid: 6cbbe10316c291c439619adced862740, type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833732487842006014, guid: 6cbbe10316c291c439619adced862740, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833732487842006014, guid: 6cbbe10316c291c439619adced862740, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7394772139483548182, guid: 6cbbe10316c291c439619adced862740, type: 3}
       propertyPath: m_Name

@@ -107,6 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 1768170348037127360}
+  minFOV: 60
+  maxFOV: 65
   movementResponse: 10
   movementResponseWithBuff: 15
   maxSpeed: 5

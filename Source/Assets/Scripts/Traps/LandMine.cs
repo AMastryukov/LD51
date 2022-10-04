@@ -10,14 +10,15 @@ public class LandMine : MonoBehaviour
     [SerializeField] private float timeToDestroyAfterTrigger = 5f;
     [SerializeField] private bool verboseLogging = false;
 
-    private void Start()
-    {
-        if (verboseLogging)
-        {
-            Debug.Log(nameof(Start), this);
-        }
 
+    private void Awake()
+    {
         onTriggerEnterHandler.OnTrigger += OnColliderEntered;
+    }
+
+    private void OnDestroy()
+    {
+        onTriggerEnterHandler.OnTrigger -= OnColliderEntered;
     }
 
     private void OnColliderEntered(Collider collider)

@@ -27,6 +27,16 @@ public class Player : MonoBehaviour
 
     public RegenerativeValue StaminaRegenerativeValue => staminaRegenerativeValue;
 
+    private void Awake()
+    {
+        GameManager.OnNewBuff += OnNewBuff;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnNewBuff -= OnNewBuff;
+    }
+
     public void Start()
     {
         if (verboseLogging)
@@ -44,8 +54,6 @@ public class Player : MonoBehaviour
 
         OnPlayerHealthChanged?.Invoke(health);
         OnPlayerStaminaChanged?.Invoke(stamina, maxStamina);
-
-        GameManager.OnNewBuff += OnNewBuff;
     }
 
     #region Health
