@@ -5238,6 +5238,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 89ab305178e3a5542af6de06296744aa, type: 2}
     - target: {fileID: 919132149155446097, guid: d1e07a962b503134aa6646dc747042bc, type: 3}
       propertyPath: m_Name
       value: Katana
