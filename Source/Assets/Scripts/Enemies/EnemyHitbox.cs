@@ -12,17 +12,9 @@ public class EnemyHitbox : MonoBehaviour
         Owner = owner;
     }
 
-    // TODO: Call this in Weapon.cs by raycasting for EnemyHitbox instead of just Enemy
     public void TakeDamage(int damage)
     {
-        if (Owner == null)
-        {
-            Debug.LogError($"Hitbox owner is not set on {gameObject.name}. \nEnsure that all hitboxes are tracked by the Enemy script");
-            return;
-        }
-
-        // Apply any damage modifiers here
-
+        if (Owner == null) return;
         Owner.TakeDamage(damage, bodyPart);
     }
 }

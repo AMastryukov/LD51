@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 817190347882997758}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Set Inactive On Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4141251074906485947}
   - component: {fileID: 3841427086328054962}
   - component: {fileID: 8308639223123849508}
-  m_Layer: 2
+  m_Layer: 15
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8171268508546227694}
   - component: {fileID: -7482151859973360129}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: BarbedWire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6347404477529832713}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 247591821424970648}
   - component: {fileID: 2218391977460855594}
   - component: {fileID: 165225788679846688}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5075,7 +5075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5754069948997859110}
   - component: {fileID: 7709519562075020888}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Set Active On Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5248,6 +5248,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f7acd72c8e2394e41aa18398e3397883, type: 3}
       propertyPath: m_Name
       value: Trap_BarbWire
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f7acd72c8e2394e41aa18398e3397883, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7acd72c8e2394e41aa18398e3397883, type: 3}

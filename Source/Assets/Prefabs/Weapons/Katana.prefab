@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponFireType: 0
-  damage: 120
+  damage: 125
   fireRate: 3
   ammoCapacity: 10
   reloadDuration: 1

@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponFireType: 1
-  damage: 100
-  fireRate: 3
+  damage: 200
+  fireRate: 6
   ammoCapacity: 2
   reloadDuration: 0.5
   shotCount: 10
@@ -60,7 +60,7 @@ MonoBehaviour:
   enemyPenetrationFactor: 0.25
   wallPenetrationFactor: 0
   recoilPosition: {fileID: 1271984800421016389}
-  recoilAmount: 0.736
+  recoilAmount: 0.5
   recoilRecoveryAmount: 0.244
   hitLayerMask:
     serializedVersion: 2

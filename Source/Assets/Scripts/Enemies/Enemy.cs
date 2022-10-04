@@ -56,13 +56,13 @@ public class Enemy : MonoBehaviour
             {
                 if (component != this &&
                     component != _corpse &&
-                    component != transform && component!=_audioSource)
+                    component != transform && component != _audioSource)
                 {
                     Destroy(component);
                 }
             }
             Destroy(this);
-            
+
         }
     }
     public void PlayFootSteps()

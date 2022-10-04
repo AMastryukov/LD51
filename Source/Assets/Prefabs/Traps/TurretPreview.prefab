@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 744185442773217262}
   - component: {fileID: 7876752414924371371}
-  - component: {fileID: 5801073654289213583}
   - component: {fileID: 1054310649349079033}
   m_Layer: 12
   m_Name: TurretPreview
@@ -48,19 +47,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.80414486, y: 0.89037335, z: 1.2904127}
   m_Center: {x: -0.028829098, y: 0.44013017, z: 0.03173101}
---- !u!114 &5801073654289213583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2901428916228347806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902d0c9403efbf948befd5656faf47e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshes: []
 --- !u!114 &1054310649349079033
 MonoBehaviour:
   m_ObjectHideFlags: 0
