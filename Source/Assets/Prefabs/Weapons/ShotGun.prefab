@@ -54,7 +54,7 @@ MonoBehaviour:
   ammoCapacity: 2
   reloadDuration: 1
   shotCount: 10
-  spread: 0.035
+  spread: 0.05
   range: 25
   damageFallOff: 0
   enemyPenetrationFactor: 0.1
