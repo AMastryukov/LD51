@@ -64,6 +64,7 @@ public class Barricade : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (!CanInteract()) return;
         Debug.Log("REPAIRING BARRICADE");
 
         CurrentLevel = Mathf.Min(3, CurrentLevel + 1);
@@ -87,5 +88,10 @@ public class Barricade : MonoBehaviour, IInteractable
     public string GetName()
     {
         return "Barricade";
+    }
+
+    public bool CanInteract()
+    {
+        return CurrentLevel < 3;
     }
 }

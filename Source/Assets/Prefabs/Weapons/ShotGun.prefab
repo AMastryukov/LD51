@@ -58,7 +58,7 @@ MonoBehaviour:
   range: 10
   damageFallOff: 1
   enemyPenetrationFactor: 0.25
-  wallPenetrationFactor: 1
+  wallPenetrationFactor: 0
   recoilPosition: {fileID: 1271984800421016389}
   recoilAmount: 0.736
   recoilRecoveryAmount: 0.244

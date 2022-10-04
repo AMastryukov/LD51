@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
+    public static Action<bool> OnInteract;
     public bool IsLookingAtInteractable { get { return lookingAtInteractable != null; } }
 
     [Header("Interaction")]
@@ -41,6 +42,8 @@ public class PlayerInteractor : MonoBehaviour
     private void FixedUpdate()
     {
         CastInteractionRay();
+        OnInteract?.Invoke(lookingAtInteractable != null && lookingAtInteractable.CanInteract());
+
     }
 
     private void CastInteractionRay()

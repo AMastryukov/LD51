@@ -262,7 +262,7 @@ public class Weapon : Item
 
     private void DequeuProjectile(Ray ray)
     {
-        Vector3 pos = muzzleSocket.position + ray.direction;
+        Vector3 pos = muzzleSocket.position + ray.direction / 2;
         Quaternion rot = Quaternion.LookRotation(ray.direction);
         Projectile pj;
 

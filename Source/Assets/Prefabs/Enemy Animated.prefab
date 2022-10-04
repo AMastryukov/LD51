@@ -3142,10 +3142,10 @@ MonoBehaviour:
   - {fileID: 5177568834105270720}
   bodyRenderer: {fileID: 586161367643644082}
   skins:
-  - {fileID: 2100000, guid: f6c97d466ae8dd04d9cc154c5cfbdae9, type: 2}
-  - {fileID: 2100000, guid: e94f5cdc25471ad43ab7e774550282b1, type: 2}
-  - {fileID: 2100000, guid: 317baced5c08ef54ca0b8330e735e93b, type: 2}
-  - {fileID: 2100000, guid: 4e1e5f60f21f7f14881560ccf707a007, type: 2}
+  - {fileID: 2100000, guid: a5e430f30c954994e8f3f21b9bd93400, type: 2}
+  - {fileID: 2100000, guid: 45cd5efdf6d7ed24f92ddaed90488032, type: 2}
+  - {fileID: 2100000, guid: 7dd9a1572a3386a4993af1fcc0e389bd, type: 2}
+  - {fileID: 2100000, guid: 3793a8556c190024983ea8997c3670f0, type: 2}
   headBone: {fileID: 7088629378187756024}
   leftArmBone: {fileID: 1156479309227666534}
   rightArmBone: {fileID: 627684909075199324}

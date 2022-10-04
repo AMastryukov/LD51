@@ -91,4 +91,9 @@ public class TestBarricade : MonoBehaviour, IInteractable
         Debug.Log("Level: " + _level);
         _health = _max_health;
     }
+
+    public bool CanInteract()
+    {
+        throw new NotImplementedException();
+    }
 }
