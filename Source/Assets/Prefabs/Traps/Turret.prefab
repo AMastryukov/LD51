@@ -90,10 +90,10 @@ MonoBehaviour:
   emissionAudioSource: {fileID: 7383506486419260669}
   onTriggerEnterHandler: {fileID: 2301262493726609229}
   onTriggerExitHandler: {fileID: 9114124486688123235}
-  damageToEnemies: 10
+  damageToEnemies: 20
   fireRate: 4
   lookAtDamping: 25
-  lifespan: 20
+  lifespan: 30
   verboseLogging: 0
   superVerboseLogging: 0
   superDuperVerboseLogging: 0
@@ -141,7 +141,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 192bea842b63eb84a8d47e4f5920fd05, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e82ff360e68463c4390d9edf2ccfb21c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.05
   m_Pitch: 1

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3738843894675082118}
   m_Layer: 12
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: SFXSource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,15 +50,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponFireType: 0
   damage: 50
-  fireRate: 4.04
+  fireRate: 5
   ammoCapacity: 6
-  reloadDuration: 1
+  reloadDuration: 0.5
   shotCount: 1
   spread: 0
   range: 200
   damageFallOff: 0
   enemyPenetrationFactor: 0.5
-  wallPenetrationFactor: 1
+  wallPenetrationFactor: 0.5
   recoilPosition: {fileID: 1271984800421016389}
   recoilAmount: 0.75
   recoilRecoveryAmount: 0.244

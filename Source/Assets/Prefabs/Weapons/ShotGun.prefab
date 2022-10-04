@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3738843894675082118}
   m_Layer: 12
   m_Name: ShotGun
-  m_TagString: Untagged
+  m_TagString: SFXSource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   damage: 100
   fireRate: 3
   ammoCapacity: 2
-  reloadDuration: 1
+  reloadDuration: 0.5
   shotCount: 10
   spread: 0.1
   range: 10

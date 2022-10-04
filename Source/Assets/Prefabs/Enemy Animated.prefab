@@ -3119,7 +3119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e38aed55b204c545a7c2a753e87eb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedDividendWhileInBarbedWire: 2
+  speedDividendWhileInBarbedWire: 3
 --- !u!114 &4749728222515237160
 MonoBehaviour:
   m_ObjectHideFlags: 0
