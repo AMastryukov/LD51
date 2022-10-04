@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class LoadoutSlot : MonoBehaviour
 {
     [SerializeField] private Image image;
-    [SerializeField] private Image lockedImage;
 
     private Outline _outline;
 
@@ -33,17 +32,20 @@ public class LoadoutSlot : MonoBehaviour
 
     public void SelectSlot()
     {
-        _outline.enabled = true;
+        if (_outline != null)
+            _outline.enabled = true;
     }
 
     public void DeselectSlot()
     {
-        _outline.enabled = false;
+        if (_outline != null)
+            _outline.enabled = false;
     }
 
     public void ClearSlot()
     {
         image.sprite = null;
-        _outline.enabled = false;
+        if (_outline != null)
+            _outline.enabled = false;
     }
 }

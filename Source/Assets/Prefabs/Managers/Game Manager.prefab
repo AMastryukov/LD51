@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a283bc0e0ccc49a4fbaeb0aedc3cc3c5, type: 2}
   - {fileID: 11400000, guid: dfb434a509fe8c24f88da517fd346477, type: 2}
   - {fileID: 11400000, guid: c45c16964f789904181ad68469b0cf1d, type: 2}
+  - {fileID: 11400000, guid: 918d017d051354a42b08cb60e5589a84, type: 2}
   traps:
   - {fileID: 11400000, guid: e252ecf72c23c574db8acf56db1f1701, type: 2}
   - {fileID: 11400000, guid: 46d73dc19277f0e4396cb20d2dd3506a, type: 2}

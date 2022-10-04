@@ -9,6 +9,8 @@ public class EnemyCorpse : MonoBehaviour
 {
     [SerializeField] private GameObject ragdoll;
     [SerializeField] private Rigidbody[] ragdollRigibodies;
+    [SerializeField] private SkinnedMeshRenderer bodyRenderer;
+    [SerializeField] private Material[] skins;
 
     [Header("Bones")]
     [SerializeField] private Transform headBone;
@@ -26,6 +28,7 @@ public class EnemyCorpse : MonoBehaviour
     [SerializeField] private Rigidbody[] rightLegGibs;
 
     private List<Rigidbody> _allGibs = new List<Rigidbody>();
+    private List<MeshRenderer> _gibMeshRenderers = new List<MeshRenderer>();
     private Coroutine _cleanup;
 
     private void Awake()
@@ -42,6 +45,29 @@ public class EnemyCorpse : MonoBehaviour
         _allGibs.AddRange(rightArmGibs);
         _allGibs.AddRange(leftLegGibs);
         _allGibs.AddRange(rightLegGibs);
+
+        foreach (var gib in _allGibs)
+        {
+            _gibMeshRenderers.Add(gib.GetComponent<MeshRenderer>());
+        }
+    }
+
+    private void Start()
+    {
+        SetRandomSkin();
+    }
+
+    private void SetRandomSkin()
+    {
+        var randomSkin = skins[Random.Range(0, skins.Length)];
+
+        bodyRenderer.material = randomSkin;
+
+        // Set gib skins too!
+        foreach (var mesh in _gibMeshRenderers)
+        {
+            mesh.material = randomSkin;
+        }
     }
 
     public void EnableRagdoll()

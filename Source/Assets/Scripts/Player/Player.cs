@@ -132,7 +132,9 @@ public class Player : MonoBehaviour
             Debug.Log(nameof(OnNewBuff) + " ( " + nameof(newBuff.Buff) + ": " + newBuff.Buff + " , " + nameof(nextBuff.Buff) + ": " + nextBuff.Buff + " )", this);
         }
 
-        if (newBuff.Buff == Buffs.PassivelyRegenerateHP && healthRegenerativeValue.CanStartRegeneration)
+        if (newBuff.Buff == Buffs.PassivelyRegenerateHP &&
+            healthRegenerativeValue.CanStartRegeneration &&
+            PlayerBuffsManager.Instance.RoomOwned(Buffs.PassivelyRegenerateHP))
         {
             healthRegenerativeValue.StartRegeneration();
         }

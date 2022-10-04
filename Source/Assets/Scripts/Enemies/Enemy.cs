@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     private AudioSource _audioSource;
 
     [SerializeField] private AudioClip footstepSound;
+    [SerializeField] private AudioClip gibs;
 
     private void Awake()
     {
@@ -46,6 +47,7 @@ public class Enemy : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
+            _audioSource.PlayOneShot(gibs);
             OnEnemyDied?.Invoke(this);
 
             _corpse.ExplodeBodyPart(bodyPart);
@@ -54,13 +56,13 @@ public class Enemy : MonoBehaviour
             {
                 if (component != this &&
                     component != _corpse &&
-                    component != transform)
+                    component != transform && component!=_audioSource)
                 {
                     Destroy(component);
                 }
             }
-
             Destroy(this);
+            
         }
     }
     public void PlayFootSteps()

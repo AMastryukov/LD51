@@ -58,12 +58,13 @@ public class Barricade : MonoBehaviour, IInteractable
             CurrentLevel = Mathf.Max(0, CurrentLevel - 1);
             CurrentHealth = CurrentLevel > 0 ? healthPerLevel : 0;
         }
-        _audioSource.PlayOneShot(barricadeTakeHit);
+        _audioSource.PlayOneShot(barricadeBreak);
         UpdateState();
     }
 
     public void Interact()
     {
+        if (!CanInteract()) return;
         Debug.Log("REPAIRING BARRICADE");
 
         CurrentLevel = Mathf.Min(3, CurrentLevel + 1);
@@ -87,5 +88,10 @@ public class Barricade : MonoBehaviour, IInteractable
     public string GetName()
     {
         return "Barricade";
+    }
+
+    public bool CanInteract()
+    {
+        return CurrentLevel < 3;
     }
 }

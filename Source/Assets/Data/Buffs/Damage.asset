@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Damage
   m_EditorClassIdentifier: 
   Name: Damage
-  Sprite: {fileID: 21300000, guid: 18b10463a6a647141b6f707f397be44d, type: 3}
-  Buff: 0
+  Sprite: {fileID: 21300000, guid: f55da492d8b74de478c1557509e30084, type: 3}
+  Buff: 5

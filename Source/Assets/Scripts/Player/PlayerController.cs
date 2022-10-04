@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = System.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -86,6 +87,11 @@ public class PlayerController : MonoBehaviour
     public CharacterController characterController { get; private set; }
     private PlayerItemManager itemManager;
     private Player player;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip[] footstep;
+    private int iterator = 0;
+    private float _timeElapsed;
+
     #endregion
 
     public float MaxSpeed {
@@ -125,6 +131,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // Component that are on this gameobject
+        _audioSource = GetComponent<AudioSource>();
         inputHandler = GetComponent<PlayerInputHandler>();
         DebugUtility.HandleErrorIfNullGetComponent(inputHandler, this);
 
@@ -158,10 +165,19 @@ public class PlayerController : MonoBehaviour
         // The one thing we do everytime
         CheckGrounded();
 
-        if (playerManager.CurrentState == PlayerStates.Move)
+        if (PlayerManager.CurrentState == PlayerStates.Move)
         {
             HandleCharacterMovement();
             UseItems();
+        }
+        _timeElapsed += Time.deltaTime;
+        if (_timeElapsed * CharacterVelocity.magnitude >= 2f)
+        {
+            _timeElapsed = 0;
+            _audioSource.PlayOneShot(footstep[iterator]);
+            iterator++;
+            if (iterator > 1)
+                iterator = 0;
         }
     }
 

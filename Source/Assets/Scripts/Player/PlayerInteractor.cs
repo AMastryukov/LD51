@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
+    public static Action<bool> OnInteract;
     public bool IsLookingAtInteractable { get { return lookingAtInteractable != null; } }
 
     [Header("Interaction")]
@@ -32,23 +33,17 @@ public class PlayerInteractor : MonoBehaviour
         //Only used for barricades
         if (inputHandler.GetInteractInput())
         {
-            timeInteractButtonHeld += Time.deltaTime;
-            Debug.DrawRay(cameraTransform.position, cameraTransform.forward, Color.blue, 2f);
-            if (timeInteractButtonHeld >= 2f)
-            {
-                lookingAtInteractable?.Interact();
-                timeInteractButtonHeld = 0f;
-            }
-        }
-        else
-        {
-            timeInteractButtonHeld = 0f;
+            //timeInteractButtonHeld += Time.deltaTime;
+            //Debug.DrawRay(cameraTransform.position, cameraTransform.forward, Color.blue, 2f);
+            lookingAtInteractable?.Interact();
         }
     }
 
     private void FixedUpdate()
     {
         CastInteractionRay();
+        OnInteract?.Invoke(lookingAtInteractable != null && lookingAtInteractable.CanInteract());
+
     }
 
     private void CastInteractionRay()

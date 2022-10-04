@@ -75,6 +75,8 @@ public class Weapon : Item
 
     [SerializeField]
     protected ParticleSystem muzzlePasticleSystem;
+    [SerializeField]
+    protected ParticleSystem bloodParticleSystem;
     [SerializeField] private AudioClip reloadSound;
     [SerializeField] private AudioClip shotSound;
     protected AudioSource audioSource;
@@ -94,6 +96,9 @@ public class Weapon : Item
         DebugUtility.HandleErrorIfNullGetComponent(muzzlePasticleSystem, this);
         //DebugUtility.HandleErrorIfNullGetComponent(projectile, this);
         DebugUtility.HandleErrorIfNullGetComponent(muzzleSocket, this);
+
+        //DebugUtility.HandleErrorIfNullGetComponent(bloodParticleSystem, this);
+
 
         cameraTransform = Camera.main?.transform;
         DebugUtility.HandleErrorIfNullGetComponent(cameraTransform, this);
@@ -208,7 +213,7 @@ public class Weapon : Item
         {
             calculatedDamage = Mathf.CeilToInt(decayedDamage);
             hitBox = hits[i].collider?.gameObject.GetComponent<EnemyHitbox>();
-            if (hitBox != null)
+            if (hitBox != null && hitBox.Owner != null)
             {
                 int enemyInstanceId = hitBox.Owner.gameObject.GetInstanceID();
                 if (enemyInstanceIds.Contains(enemyInstanceId))
@@ -222,11 +227,16 @@ public class Weapon : Item
                     if (damageFallOff)
                     {
                         // Damage should fall of linearly with distance
-                        float distanceToEnemy = Vector3.Distance(cameraTransform.position, hitBox.transform.position);
+                        float distanceToEnemy = Vector3.Distance(cameraTransform.position, hits[i].point);
                         calculatedDamage = Mathf.CeilToInt(Mathf.Clamp01((range - distanceToEnemy) / range) * decayedDamage);
                     }
 
                     hitBox.TakeDamage(calculatedDamage);
+                    if (bloodParticleSystem != null)
+                    {
+                        bloodParticleSystem.transform.position = hits[i].point;
+                        bloodParticleSystem.Play();
+                    }
 
                     decayedDamage *= enemyPenetrationFactor;
 
@@ -252,7 +262,7 @@ public class Weapon : Item
 
     private void DequeuProjectile(Ray ray)
     {
-        Vector3 pos = muzzleSocket.position + ray.direction;
+        Vector3 pos = muzzleSocket.position + ray.direction / 2;
         Quaternion rot = Quaternion.LookRotation(ray.direction);
         Projectile pj;
 
