@@ -4653,6 +4653,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 958237768774547291, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
+      propertyPath: defaultLevel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_Name
       value: Window Barricade
@@ -9114,7 +9118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547291, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: defaultLevel
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_Name
@@ -10897,7 +10901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547289, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18.93
+      value: 18.9025
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547289, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10926,6 +10930,10 @@ PrefabInstance:
     - target: {fileID: 958237768774547289, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 958237768774547291, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
+      propertyPath: defaultLevel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_Name
@@ -11664,7 +11672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547291, guid: b1fd6425ea083524aa0cd203a4adfae9, type: 3}
       propertyPath: defaultLevel
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: b1fd6425ea083524aa0cd203a4adfae9, type: 3}
       propertyPath: m_Name
@@ -15467,6 +15475,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 665021745}
     m_Modifications:
+    - target: {fileID: 6638958921470054214, guid: 9fd73fa66ef36b7408f700c4d04f7ab2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9fd55fd1b46076148ae4da54be93c376, type: 3}
     - target: {fileID: 7811461267821362276, guid: 9fd73fa66ef36b7408f700c4d04f7ab2, type: 3}
       propertyPath: m_Name
       value: Tutorial Screen
@@ -15709,6 +15721,10 @@ PrefabInstance:
     - target: {fileID: 958237768774547289, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 958237768774547291, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
+      propertyPath: defaultLevel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_Name
@@ -16924,6 +16940,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 958237768774547291, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
+      propertyPath: defaultLevel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_Name
       value: Window Barricade
@@ -17102,7 +17122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547291, guid: b1fd6425ea083524aa0cd203a4adfae9, type: 3}
       propertyPath: defaultLevel
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: b1fd6425ea083524aa0cd203a4adfae9, type: 3}
       propertyPath: m_Name
@@ -19104,6 +19124,10 @@ PrefabInstance:
     - target: {fileID: 958237768774547289, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 958237768774547291, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
+      propertyPath: defaultLevel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_Name
@@ -21177,6 +21201,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 958237768774547291, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
+      propertyPath: defaultLevel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_Name
       value: Window Barricade
@@ -21335,6 +21363,10 @@ PrefabInstance:
     - target: {fileID: 958237768774547289, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 958237768774547291, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
+      propertyPath: defaultLevel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 958237768774547293, guid: 2bed4083b3dd54a44885a7b3af6c5d19, type: 3}
       propertyPath: m_Name
