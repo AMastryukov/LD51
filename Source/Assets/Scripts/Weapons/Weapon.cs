@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum FireType
@@ -84,7 +85,7 @@ public class Weapon : Item
     private float ReloadPosition = 0;
 
 
-    private Transform _playerCamera;
+    protected Transform _playerCamera;
     private int Damage => PlayerBuffsManager.Instance.IsBuffActive(Buffs.ExtraDamage10Percent) ? Mathf.RoundToInt((damage + (damage * (10f / 100f)))) : damage;
 
     private void Awake()
@@ -199,7 +200,8 @@ public class Weapon : Item
         EnemyHitbox hitBox;
         enemyInstanceIds = new HashSet<int>();
 
-        RaycastHit[] hits = Physics.RaycastAll(ray, range, hitLayerMask);
+        // Order because order not guaranteed.
+        RaycastHit[] hits = Physics.RaycastAll(ray, range, hitLayerMask).OrderBy(hit => hit.distance).ToArray();
         // For each enemy hit
         for (int i = 0; i < hits.Length; i++)
         {
@@ -226,8 +228,8 @@ public class Weapon : Item
                     hitBox.TakeDamage(calculatedDamage);
                     if (bloodParticleSystem != null)
                     {
-                        bloodParticleSystem.transform.position = hits[i].point;
-                        bloodParticleSystem.Play();
+                        Destroy(Instantiate(bloodParticleSystem, hits[i].point, Quaternion.identity).gameObject, 2);
+
                     }
 
                     decayedDamage *= enemyPenetrationFactor;

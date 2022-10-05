@@ -126,7 +126,7 @@ MonoBehaviour:
   airMovementResponseMultiplierWithBuff: 1
   jumpLayerMask:
     serializedVersion: 2
-    m_Bits: 1033
+    m_Bits: 8
   gravityForce: 20
   gravityForceWithBuff: 30
   IsGrounded: 0

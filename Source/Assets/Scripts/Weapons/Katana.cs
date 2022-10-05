@@ -8,58 +8,63 @@ public class Katana : Weapon
 {
     private List<Enemy> _enemiesInRange = new List<Enemy>();
     [SerializeField] private Animator _animator;
-    
+
 
     protected override void Fire()
     {
         lastFireTime = Time.time;
         audioSource.Play();
         _animator.SetTrigger("Attack");
-        
-        if(_enemiesInRange.Count==0)
-            return;
-        
-       Invoke(nameof(AttackAllEnemiesInRange),0.12f);
+
+        Invoke(nameof(AttackAllEnemiesInRange), 0.12f);
+
+
     }
 
     private void AttackAllEnemiesInRange()
     {
-        foreach (Enemy enemy in _enemiesInRange)
+        RaycastHit[] hits = Physics.SphereCastAll(_playerCamera.position, 2, _playerCamera.forward, 1);
+        foreach (RaycastHit hit in hits)
         {
-            if (enemy == null)
+            Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
             {
-                _enemiesInRange.Remove(enemy);
-                return;
+                enemy.TakeDamage(damage);
+                if (bloodParticleSystem != null)
+                {
+                    Destroy(Instantiate(bloodParticleSystem, hit.point, Quaternion.identity).gameObject, 2);
+
+                }
             }
-            enemy.TakeDamage(damage);
+
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag(GameConstants.TagConstants.EnemyTag))
-        {
-            return;
-        }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //if (!other.CompareTag(GameConstants.TagConstants.EnemyTag))
+    //    //{
+    //    //    return;
+    //    //}
 
-        Enemy enemyRef = other.GetComponent<Enemy>();
-        if (enemyRef != null)
-        {
-            _enemiesInRange.Add(enemyRef);
-        }
-    }
+    //    Enemy enemyRef = other.GetComponent<Enemy>();
+    //    if (enemyRef != null)
+    //    {
+    //        _enemiesInRange.Add(enemyRef);
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag(GameConstants.TagConstants.EnemyTag))
-        {
-            return;
-        }
-        Enemy enemyRef = other.GetComponent<Enemy>();
-        if (enemyRef != null && _enemiesInRange.Contains(enemyRef))
-        {
-            _enemiesInRange.Remove(enemyRef);
-        }
-        
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    //if (!other.CompareTag(GameConstants.TagConstants.EnemyTag))
+    //    //{
+    //    //    return;
+    //    //}
+    //    Enemy enemyRef = other.GetComponent<Enemy>();
+    //    if (enemyRef != null && _enemiesInRange.Contains(enemyRef))
+    //    {
+    //        _enemiesInRange.Remove(enemyRef);
+    //    }
+
+    //}
 }
